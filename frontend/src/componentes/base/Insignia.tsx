@@ -1,5 +1,6 @@
 import '../../estilos/componentes/Insignia.css'
 
+/** Tonos de color de una insignia. Solo decide el aspecto: el significado siempre lo da el texto (R-7); no se usa como único medio de informar. */
 export type TonoInsignia = 'verde' | 'azul' | 'ambar' | 'rojo' | 'gris'
 
 interface PropiedadesInsignia {

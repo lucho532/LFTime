@@ -1,6 +1,7 @@
 import '../../estilos/componentes/EstadosDelPersonal.css'
 import { PRESENTACION_ESTADO } from '../base/presentacionEstado'
 import { porcentaje, type GrupoEstadoPersonal } from '../../reglas/indicadoresPanel'
+import { calcularSegmentosAnillo } from '../../utilidades/segmentosAnillo'
 
 const RADIO = 15.9155
 
@@ -15,30 +16,26 @@ interface PropiedadesEstadosDelPersonal {
  */
 export function EstadosDelPersonal({ grupos }: PropiedadesEstadosDelPersonal) {
   const total = grupos.reduce((suma, grupo) => suma + grupo.cantidad, 0)
-  let acumulado = 0
+  const segmentos = calcularSegmentosAnillo(grupos)
   return (
     <div className="estados-del-personal">
       <svg viewBox="0 0 36 36" role="img" aria-label={`Estados de ${total} personas`}>
         <circle className="estados-del-personal__fondo" cx="18" cy="18" r={RADIO} />
-        {total > 0 &&
-          grupos.map((grupo) => {
-            const largo = (grupo.cantidad / total) * 100
-            const tono = grupo.clave === 'SIN_TURNO' ? 'gris' : PRESENTACION_ESTADO[grupo.clave].tono
-            const segmento = (
-              <circle
-                key={grupo.clave}
-                className={`estados-del-personal__segmento estados-del-personal__segmento--${tono}`}
-                cx="18"
-                cy="18"
-                r={RADIO}
-                pathLength={100}
-                strokeDasharray={`${largo} ${100 - largo}`}
-                strokeDashoffset={-acumulado}
-              />
-            )
-            acumulado += largo
-            return segmento
-          })}
+        {segmentos.map((segmento) => {
+          const tono = segmento.clave === 'SIN_TURNO' ? 'gris' : PRESENTACION_ESTADO[segmento.clave].tono
+          return (
+            <circle
+              key={segmento.clave}
+              className={`estados-del-personal__segmento estados-del-personal__segmento--${tono}`}
+              cx="18"
+              cy="18"
+              r={RADIO}
+              pathLength={100}
+              strokeDasharray={`${segmento.largo} ${100 - segmento.largo}`}
+              strokeDashoffset={-segmento.inicio}
+            />
+          )
+        })}
         <text x="18" y="18" textAnchor="middle" className="estados-del-personal__total">
           {total}
         </text>

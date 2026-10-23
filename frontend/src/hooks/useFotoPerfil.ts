@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import type { PropietarioFoto } from '../reglas/permisoFoto'
-import { ErrorAlmacenFotos } from '../repositorios/demo/ErrorAlmacenFotos'
+import { ErrorAlmacenFotos } from '../contratos/errorAlmacenFotos'
 import { servicios } from '../servicios/fabrica'
 import { notificarCambioDeFotos } from '../utilidades/avisoFotos'
 import { prepararFoto } from '../utilidades/comprimirFoto'

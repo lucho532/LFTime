@@ -6,6 +6,7 @@ export interface ArchivoDeFoto {
   type: string
 }
 
+/** Mensaje cuando el archivo elegido no es JPG, JPEG, PNG ni WebP (CA-8). */
 export const MENSAJE_FORMATO_NO_ADMITIDO = 'Formato no admitido. Usa una foto JPG, JPEG, PNG o WebP.'
 
 function extensionDe(nombre: string): string {

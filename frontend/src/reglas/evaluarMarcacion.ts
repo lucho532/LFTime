@@ -14,6 +14,7 @@ export interface LimitesUbicacion {
 /** Lo que el dispositivo entregó al intentar marcar: una ubicación, o el motivo técnico por el que no hay. */
 export type IntentoDeUbicacion = { ubicacion: UbicacionDto } | { falloTecnico: MotivoFalloSinUbicacion }
 
+/** Resultado de comparar una ubicación con el hospital (provisional, D19): válida, rechazada con su motivo, o sin coordenadas confirmadas. No guarda nada ni abre incidencias. */
 export type ResultadoEvaluacion =
   | { resultado: 'VALIDA'; distanciaMetros: number }
   | { resultado: 'RECHAZADA'; motivo: MotivoRechazo; esFalloTecnico: boolean; distanciaMetros?: number }

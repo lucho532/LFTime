@@ -6,6 +6,7 @@ export const SECUENCIA_MARCACIONES: TipoMarcacion[] = ['ENTRADA', 'SALIDA_ALMUER
 /** Motivo por el que una marcación no puede registrarse en este momento. */
 export type MotivoSecuenciaInvalida = 'DUPLICADA' | 'SIN_JORNADA_ABIERTA' | 'FUERA_DE_SECUENCIA'
 
+/** Resultado de validar el siguiente evento de la jornada: permitido, o no permitido con su motivo. No registra el evento. */
 export type ResultadoSecuencia = { permitida: true } | { permitida: false; motivo: MotivoSecuenciaInvalida }
 
 /** Cuántos eventos seguidos, desde la entrada, ya están registrados. */

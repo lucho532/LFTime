@@ -61,7 +61,7 @@ Cada una vive en `reglas/` como función pura con sus valores en `configuracion`
 
 - **`npm audit`**: 2 avisos moderados en `uuid` por `exceljs` 4.4.0. La única corrección propuesta rebaja ExcelJS a una versión incompatible y no se aplicó (`plan.md` §15). Reevaluar antes de la Fase 2.
 - ExcelJS pesa ~930 kB (256 kB comprimido) y se descarga solo al exportar a Excel.
-- Pequeñas fugas de capa conocidas (sin efecto funcional): `hooks/useFotoPerfil` y `utilidades/mensajesFoto` importan un tipo de error de `repositorios/demo`, y `ProveedorSesion` usa `servicios/fabrica` directamente. Al pasar a HTTP conviene mover ese tipo de error a `contratos/` o `modelos/`.
+- Las fugas de capa que había (el tipo de error de fotos y la sesión) se corrigieron en el seguimiento del hito 12; una prueba automática vigila que los repositorios solo los conozcan `servicios/demo`, `repositorios/` y `mapeadores/`.
 - Una auditoría de cambios de configuración (`guardarReglas`) no se registra: no recibe el usuario.
 - Sin pantalla de auditoría, sin historial de jornadas por trabajador en informes y sin notificaciones externas.
 

@@ -1,5 +1,5 @@
 import { MAXIMO_FOTOS_DEMO } from '../../configuracion/limitesFotos'
-import { ErrorAlmacenFotos } from './ErrorAlmacenFotos'
+import { ErrorAlmacenFotos } from '../../contratos/errorAlmacenFotos'
 import type { IAlmacenFotos } from './IAlmacenFotos'
 
 const NOMBRE_BASE = 'lftime-demo-fotos'

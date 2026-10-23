@@ -6,6 +6,7 @@ export type MotivoFalloUbicacion = Extract<
   'PERMISO_DENEGADO' | 'PERMISO_BLOQUEADO' | 'UBICACION_NO_DISPONIBLE' | 'TIEMPO_AGOTADO' | 'CONTEXTO_NO_SEGURO'
 >
 
+/** Resultado de pedir la ubicación al dispositivo: una ubicación real o el motivo técnico del fallo. Nunca una ubicación simulada (R-11). */
 export type ResultadoUbicacion = { exito: true; ubicacion: UbicacionDto } | { exito: false; motivo: MotivoFalloUbicacion }
 
 /** Lo que se necesita del navegador, para poder sustituirlo en las pruebas. */

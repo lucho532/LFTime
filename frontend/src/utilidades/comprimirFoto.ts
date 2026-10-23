@@ -7,8 +7,10 @@ export interface MotorImagen {
   redimensionar(archivo: Blob, ladoMaximo: number, calidad: number): Promise<Blob>
 }
 
+/** Motivos por los que una foto no se pudo preparar (formato, compresión o lectura); cada uno lleva su mensaje comprensible. */
 export type MotivoFalloFoto = 'FORMATO_NO_ADMITIDO' | 'NO_SE_PUDO_COMPRIMIR' | 'ARCHIVO_NO_LEGIBLE'
 
+/** Resultado de preparar una foto para guardarla: la foto lista (con si se comprimió) o el motivo del fallo y su mensaje. No la guarda. */
 export type ResultadoPreparacionFoto =
   | { exito: true; foto: Blob; fueComprimida: boolean }
   | { exito: false; motivo: MotivoFalloFoto; mensaje: string }

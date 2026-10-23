@@ -3,7 +3,7 @@ import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { MAXIMO_FOTOS_DEMO } from '../../configuracion/limitesFotos'
 import { AlmacenFotosIndexedDb } from '../../repositorios/demo/AlmacenFotosIndexedDb'
-import { ErrorAlmacenFotos } from '../../repositorios/demo/ErrorAlmacenFotos'
+import { ErrorAlmacenFotos } from '../../contratos/errorAlmacenFotos'
 
 const foto = (bytes = 10) => new Blob([new Uint8Array(bytes)], { type: 'image/webp' })
 

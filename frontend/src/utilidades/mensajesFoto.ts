@@ -1,4 +1,4 @@
-import type { MotivoErrorFotos } from '../repositorios/demo/ErrorAlmacenFotos'
+import type { MotivoErrorFotos } from '../contratos/errorAlmacenFotos'
 
 /**
  * Mensajes comprensibles para los fallos al guardar una foto (D35). Todos aclaran que la aplicación

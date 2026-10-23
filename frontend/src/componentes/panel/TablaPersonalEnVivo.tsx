@@ -6,7 +6,7 @@ import { useTablaPaginada } from '../../hooks/useTablaPaginada'
 import { TEXTO_ESTADO_VISIBLE, type EstadoVisible } from '../../modelos/estadoVisible'
 import { NOMBRE_MARCACION } from '../../modelos/etiquetasMarcacion'
 import type { FilaPersonalEnVivo } from '../../modelos/panel'
-import { perteneceAIndicador, TEXTO_INDICADOR, type ClaveIndicador } from '../../reglas/indicadoresPanel'
+import { coincideConEstado, FILTRO_SIN_TURNO, perteneceAIndicador, TEXTO_INDICADOR, type ClaveIndicador } from '../../reglas/indicadoresPanel'
 import { formatearHora12 } from '../../utilidades/horaColombia'
 import { Campo } from '../base/Campo'
 import { InsigniaEstado } from '../base/InsigniaEstado'
@@ -37,7 +37,7 @@ export function TablaPersonalEnVivo({ filas, municipios, indicador }: Propiedade
     textoBuscable: (f) => `${f.trabajador.nombreCompleto} ${f.trabajador.numeroDocumento} ${f.hospitalNombre}`,
     filtros: {
       municipio: (f, valor) => f.municipioNombre === valor,
-      estado: (f, valor) => (valor === 'SIN_TURNO' ? f.estado === null : f.estado === valor),
+      estado: coincideConEstado,
     },
   })
 
@@ -119,7 +119,7 @@ export function TablaPersonalEnVivo({ filas, municipios, indicador }: Propiedade
           etiqueta="Estado"
           textoVacio="Todos los estados"
           value={tabla.valoresFiltro.estado ?? ''}
-          opciones={[...ESTADOS_FILTRABLES.map((e) => ({ valor: e, etiqueta: TEXTO_ESTADO_VISIBLE[e] })), { valor: 'SIN_TURNO', etiqueta: 'Sin turno por ahora' }]}
+          opciones={[...ESTADOS_FILTRABLES.map((e) => ({ valor: e, etiqueta: TEXTO_ESTADO_VISIBLE[e] })), { valor: FILTRO_SIN_TURNO, etiqueta: 'Sin turno por ahora' }]}
           onChange={(e) => tabla.setFiltro('estado', e.target.value)}
         />
       </div>

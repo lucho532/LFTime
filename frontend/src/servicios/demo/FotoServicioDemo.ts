@@ -1,7 +1,7 @@
 import { LIMITE_BYTES_FOTO } from '../../configuracion/limitesFotos'
 import type { PropietarioFoto } from '../../reglas/permisoFoto'
 import { almacenFotos } from '../../repositorios/demo/almacenFotos'
-import { ErrorAlmacenFotos } from '../../repositorios/demo/ErrorAlmacenFotos'
+import { ErrorAlmacenFotos } from '../../contratos/errorAlmacenFotos'
 import { repositorios } from '../../repositorios/demo/repositorios'
 import type { IFotoServicio } from '../IFotoServicio'
 

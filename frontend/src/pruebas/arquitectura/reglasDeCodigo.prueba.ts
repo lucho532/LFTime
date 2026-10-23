@@ -35,6 +35,14 @@ describe('reglas de código verificadas sobre el código fuente', () => {
     expect(sueltos.map(nombre)).toEqual(['utilidades/identificadores.ts'])
   })
 
+  it('R-4: solo servicios/demo, repositorios y la fábrica conocen los repositorios; solo hooks, páginas y la fábrica usan los servicios concretos', () => {
+    const dentroDeRepositorios = (ruta: string) => ruta.includes('/repositorios/') || ruta.includes('/servicios/demo/') || ruta.includes('/mapeadores/')
+    const usanRepositorios = rutas.filter((ruta) => !dentroDeRepositorios(ruta) && /from\s+['"][^'"]*repositorios\//.test(FUENTES[ruta]))
+    expect(usanRepositorios.map(nombre)).toEqual([])
+    const componentesConFabrica = rutas.filter((ruta) => ruta.includes('/componentes/') && /servicios\/fabrica/.test(FUENTES[ruta]))
+    expect(componentesConFabrica.map(nombre)).toEqual([])
+  })
+
   it('R-6: cada archivo CSS lo importa un solo archivo y ninguno queda sin importar', () => {
     const cuentas = new Map<string, number>()
     for (const ruta of rutas) {

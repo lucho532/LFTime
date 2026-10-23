@@ -1,6 +1,7 @@
 import type { MunicipioDto } from '../contratos/hospital'
 import { TEXTO_ESTADO_VISIBLE, type EstadoVisible } from '../modelos/estadoVisible'
 import type { Hospital } from '../modelos/hospital'
+import type { AlertaVisible } from '../modelos/alerta'
 import type { FilaPersonalEnVivo } from '../modelos/panel'
 
 /** Indicadores de las tarjetas del panel que llevan a una lista filtrada del personal en tiempo real. */
@@ -162,4 +163,22 @@ export function calcularPromedioAlmuerzo(filas: FilaPersonalEnVivo[], tolerancia
     autorizadoMinutos,
     dentroDeLoAutorizado: promedioMinutos <= autorizadoMinutos + toleranciaMinutos,
   }
+}
+
+/** Alertas aún sin revisar (HU-07, P-19). */
+export function contarAlertasSinRevisar(alertas: AlertaVisible[]): number {
+  return alertas.filter((alerta) => !alerta.revisada).length
+}
+
+/** Ordena las alertas para el panel: primero las sin revisar y, dentro de cada grupo, las más recientes. No modifica la lista recibida. */
+export function ordenarAlertasParaPanel(alertas: AlertaVisible[]): AlertaVisible[] {
+  return [...alertas].sort((a, b) => Number(a.revisada) - Number(b.revisada) || b.creadaEn.localeCompare(a.creadaEn))
+}
+
+/** Valor del filtro de estado que agrupa a quien hoy no tiene nada esperado (estado `null`). */
+export const FILTRO_SIN_TURNO = 'SIN_TURNO'
+
+/** Indica si una fila entra en el filtro de estado de la tabla: un estado del catálogo o «sin turno por ahora». */
+export function coincideConEstado(fila: FilaPersonalEnVivo, valor: string): boolean {
+  return valor === FILTRO_SIN_TURNO ? fila.estado === null : fila.estado === valor
 }

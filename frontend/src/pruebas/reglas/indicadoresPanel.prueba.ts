@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import type { AlertaVisible } from '../../modelos/alerta'
 import type { Hospital } from '../../modelos/hospital'
 import type { FilaPersonalEnVivo } from '../../modelos/panel'
 import type { Trabajador } from '../../modelos/trabajador'
@@ -8,6 +9,10 @@ import {
   calcularHorasDelDia,
   calcularIndicadores,
   calcularPromedioAlmuerzo,
+  coincideConEstado,
+  contarAlertasSinRevisar,
+  FILTRO_SIN_TURNO,
+  ordenarAlertasParaPanel,
   esClaveIndicador,
   perteneceAIndicador,
   porcentaje,
@@ -120,5 +125,30 @@ describe('calcularEfectivoHastaAhora (avance parcial del día)', () => {
     const regreso = [marca('ENTRADA', '07:00'), marca('SALIDA_ALMUERZO', '12:00'), marca('REGRESO_ALMUERZO', '13:00')]
     expect(calcularEfectivoHastaAhora(regreso, en('14:00'))).toBe(360)
     expect(calcularEfectivoHastaAhora(jornadaCompleta(), en('18:00'))).toBe(480)
+  })
+})
+
+describe('alertas y filtro de estado del panel', () => {
+  const alerta = (id: string, revisada: boolean, creadaEn: string): AlertaVisible => ({
+    id, incidenciaId: `inc-${id}`, creadaEn, revisada, tipo: 'ENTRADA_TARDIA', trabajadorId: 'a', hospitalId: 'hosp-a',
+  })
+  const alertas = [alerta('1', true, '2026-10-23T15:00:00Z'), alerta('2', false, '2026-10-23T13:00:00Z'), alerta('3', false, '2026-10-23T14:00:00Z')]
+
+  it('cuenta las alertas sin revisar', () => {
+    expect(contarAlertasSinRevisar(alertas)).toBe(2)
+    expect(contarAlertasSinRevisar([])).toBe(0)
+  })
+
+  it('ordena primero las sin revisar y, dentro de cada grupo, las más recientes, sin modificar la lista original', () => {
+    expect(ordenarAlertasParaPanel(alertas).map((a) => a.id)).toEqual(['3', '2', '1'])
+    expect(alertas.map((a) => a.id)).toEqual(['1', '2', '3'])
+  })
+
+  it('el filtro de estado distingue un estado del catálogo de «sin turno por ahora»', () => {
+    const sinTurno = fila('x', { estado: null })
+    expect(coincideConEstado(sinTurno, FILTRO_SIN_TURNO)).toBe(true)
+    expect(coincideConEstado(fila('y'), FILTRO_SIN_TURNO)).toBe(false)
+    expect(coincideConEstado(fila('y'), 'EN_JORNADA')).toBe(true)
+    expect(coincideConEstado(sinTurno, 'EN_JORNADA')).toBe(false)
   })
 })

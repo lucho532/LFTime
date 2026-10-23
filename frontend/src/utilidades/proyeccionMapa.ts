@@ -11,6 +11,7 @@ export interface PuntoGeografico {
   longitud: number
 }
 
+/** Posición en píxeles de un punto dentro del lienzo del mapa esquemático. Es ilustrativa, no cartográfica. */
 export interface PuntoEnLienzo {
   x: number
   y: number

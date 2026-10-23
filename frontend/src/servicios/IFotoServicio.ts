@@ -5,7 +5,7 @@ import type { PropietarioFoto } from '../reglas/permisoFoto'
  *
  * Guarda, entrega y retira la foto de una persona. Retirar la foto elimina solo la imagen: el historial
  * de asistencia no se toca. Si el almacenamiento falla, los métodos de lectura devuelven `null` (la
- * aplicación funciona con el avatar por defecto) y los de escritura lanzan un error con el motivo.
+ * aplicación funciona con el avatar por defecto) y los de escritura lanzan `ErrorAlmacenFotos` (de `contratos/`) con el motivo.
  * No valida formatos ni permisos: eso lo hacen `prepararFoto` y `reglas/`.
  */
 export interface IFotoServicio {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { LIMITE_BYTES_FOTO } from '../../configuracion/limitesFotos'
-import { ErrorAlmacenFotos } from '../../repositorios/demo/ErrorAlmacenFotos'
+import { ErrorAlmacenFotos } from '../../contratos/errorAlmacenFotos'
 import { reiniciarAlmacenamientoParaPruebas } from '../../repositorios/demo/almacenamientoLocal'
 import { olvidarEstadoDemoParaPruebas } from '../../repositorios/demo/inicializacionDemo'
 import { repositorios } from '../../repositorios/demo/repositorios'

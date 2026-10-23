@@ -14,6 +14,7 @@ export const PREFIJO_CLAVE = 'lftime.demo.'
 /** Motivo por el que una escritura no se pudo completar. */
 export type MotivoFalloAlmacenamiento = 'CUOTA_EXCEDIDA' | 'ERROR'
 
+/** Resultado de escribir en el almacenamiento local: éxito, o fallo con su motivo. Quien escribe decide qué hacer; el almacenamiento no reintenta. */
 export type ResultadoEscritura = { exito: true } | { exito: false; motivo: MotivoFalloAlmacenamiento }
 
 const memoria = new Map<string, string>()

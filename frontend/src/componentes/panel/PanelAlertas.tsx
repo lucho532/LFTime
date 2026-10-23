@@ -3,6 +3,7 @@ import '../../estilos/componentes/PanelAlertas.css'
 import type { AlertaVisible } from '../../modelos/alerta'
 import { TEXTO_TIPO_INCIDENCIA } from '../../modelos/etiquetasIncidencia'
 import type { FilaPersonalEnVivo } from '../../modelos/panel'
+import { contarAlertasSinRevisar, ordenarAlertasParaPanel } from '../../reglas/indicadoresPanel'
 import { formatearHora12 } from '../../utilidades/horaColombia'
 import { EstadoVacio } from '../estados/EstadoVacio'
 
@@ -22,8 +23,8 @@ export function PanelAlertas({ alertas, filas }: PropiedadesPanelAlertas) {
   if (alertas.length === 0) {
     return <EstadoVacio titulo="Sin alertas" descripcion="Todavía no se ha detectado ninguna incidencia." />
   }
-  const sinRevisar = alertas.filter((alerta) => !alerta.revisada).length
-  const ordenadas = [...alertas].sort((a, b) => Number(a.revisada) - Number(b.revisada) || b.creadaEn.localeCompare(a.creadaEn))
+  const sinRevisar = contarAlertasSinRevisar(alertas)
+  const ordenadas = ordenarAlertasParaPanel(alertas)
   const filaDe = (trabajadorId: string) => filas.find((f) => f.trabajador.id === trabajadorId)
   return (
     <div className="panel-alertas">

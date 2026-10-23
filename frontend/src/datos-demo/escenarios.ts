@@ -45,6 +45,7 @@ export const PLANES_BASE: Record<EscenarioDia, PlanDia> = {
 
 /** Trabajadores cuyo escenario de hoy incluye intentos de marcación rechazados (ver `intentos.ts`). */
 export const TRABAJADOR_INTENTO_FUERA_DE_RADIO = 'trab-012'
+/** Trabajador de demostración con un intento rechazado por fallo técnico (nunca una ubicación indebida, CA-14). Solo lo usa la semilla de `intentos.ts`. */
 export const TRABAJADOR_INTENTO_FALLO_TECNICO = 'trab-013'
 
 /** Escenario de un trabajador para hoy. */
