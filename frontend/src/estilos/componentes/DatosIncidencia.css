@@ -1,0 +1,20 @@
+.datos-incidencia dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--espacio-1) var(--espacio-3);
+  margin: 0;
+}
+
+.datos-incidencia dt {
+  color: var(--color-texto-suave);
+}
+
+.datos-incidencia dd {
+  margin: 0;
+}
+
+.datos-incidencia__nota {
+  margin: var(--espacio-3) 0 0;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}

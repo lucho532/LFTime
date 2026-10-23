@@ -1,0 +1,20 @@
+.formulario-accion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  align-items: flex-start;
+}
+
+.formulario-accion > * {
+  width: 100%;
+}
+
+.formulario-accion > button {
+  width: auto;
+}
+
+.formulario-accion__titulo {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-marca-oscuro);
+}

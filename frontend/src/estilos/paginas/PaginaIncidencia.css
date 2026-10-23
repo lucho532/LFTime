@@ -1,0 +1,11 @@
+.pagina-incidencia {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  max-width: 960px;
+}
+
+.pagina-incidencia h1 {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-marca-oscuro);
+}

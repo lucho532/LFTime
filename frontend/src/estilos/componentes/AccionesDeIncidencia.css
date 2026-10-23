@@ -1,0 +1,17 @@
+.acciones-incidencia {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+  align-items: flex-start;
+}
+
+.acciones-incidencia > form {
+  width: 100%;
+  padding-top: var(--espacio-3);
+  border-top: 1px solid var(--color-borde);
+}
+
+.acciones-incidencia__vacio {
+  margin: 0;
+  color: var(--color-texto-suave);
+}

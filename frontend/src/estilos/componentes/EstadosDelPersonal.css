@@ -1,0 +1,74 @@
+.estados-del-personal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.estados-del-personal svg {
+  width: 140px;
+  height: 140px;
+  transform: rotate(-90deg);
+}
+
+.estados-del-personal__fondo,
+.estados-del-personal__segmento {
+  fill: none;
+  stroke-width: 4;
+}
+
+.estados-del-personal__fondo {
+  stroke: var(--color-gris-fondo);
+}
+
+.estados-del-personal__segmento--verde {
+  stroke: var(--color-estado-jornada);
+}
+
+.estados-del-personal__segmento--azul {
+  stroke: var(--color-estado-almuerzo);
+}
+
+.estados-del-personal__segmento--ambar {
+  stroke: var(--color-estado-aviso);
+}
+
+.estados-del-personal__segmento--rojo {
+  stroke: var(--color-estado-critico);
+}
+
+.estados-del-personal__segmento--gris {
+  stroke: var(--color-gris-texto);
+}
+
+.estados-del-personal__total,
+.estados-del-personal__rotulo {
+  fill: var(--color-marca-oscuro);
+  transform: rotate(90deg);
+  transform-origin: 18px 18px;
+}
+
+.estados-del-personal__total {
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.estados-del-personal__rotulo {
+  font-size: 3px;
+}
+
+.estados-del-personal ul {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.estados-del-personal li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio-2);
+}

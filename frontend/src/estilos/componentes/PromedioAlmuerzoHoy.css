@@ -1,0 +1,18 @@
+.promedio-almuerzo-hoy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-2);
+}
+
+.promedio-almuerzo-hoy p,
+.promedio-almuerzo-hoy small,
+.promedio-almuerzo-hoy__vacio {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.promedio-almuerzo-hoy__valor {
+  font-size: 1.8rem;
+  color: var(--color-marca-oscuro);
+}

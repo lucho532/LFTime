@@ -42,14 +42,14 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('un coordinador llega al panel y ve su menú, sin Registro ni Configuración', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    expect(await screen.findByRole('heading', { name: 'Inicio' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /^Hola, / })).toBeInTheDocument()
     expect(enlacesDelMenu()).toEqual(['Inicio', 'Personal', 'Hospitales / Municipios', 'Jornadas', 'Incidencias', 'Reportes'])
   })
 
   it('un administrador ve además la Configuración', async () => {
     renderizar('/')
     await ingresarComo('Carolina Mejía')
-    expect(await screen.findByRole('heading', { name: 'Inicio' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /^Hola, / })).toBeInTheDocument()
     expect(enlacesDelMenu()).toContain('Configuración')
     expect(enlacesDelMenu()).not.toContain('Registro')
   })
@@ -64,7 +64,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('el menú marca la página actual con aria-current', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     expect(screen.getByRole('link', { name: 'Inicio' })).toHaveAttribute('aria-current', 'page')
     await userEvent.click(screen.getByRole('link', { name: 'Reportes' }))
     expect(screen.getByRole('link', { name: 'Reportes' })).toHaveAttribute('aria-current', 'page')
@@ -98,17 +98,17 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('la sesión se recuerda al volver a abrir la aplicación', async () => {
     const primera = renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     primera.unmount()
     renderizar('/')
-    expect(await screen.findByRole('heading', { name: 'Inicio' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /^Hola, / })).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: 'Ingreso a la demostración' })).not.toBeInTheDocument()
   })
 
   it('cerrar sesión desde el menú del perfil vuelve al ingreso y borra la sesión', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     const botonPerfil = screen.getByRole('button', { name: /Laura Gómez/ })
     expect(botonPerfil).toHaveAttribute('aria-expanded', 'false')
     expect(botonPerfil).toHaveTextContent('Coordinador')
@@ -122,7 +122,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('el menú del perfil se cierra con Escape', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     await userEvent.click(screen.getByRole('button', { name: /Laura Gómez/ }))
     expect(screen.getByRole('button', { name: 'Cerrar sesión' })).toBeInTheDocument()
     await userEvent.keyboard('{Escape}')
@@ -132,7 +132,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('el botón de menú abre y cierra la navegación y se cierra al cambiar de página', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     const boton = screen.getByRole('button', { name: 'Menú de navegación' })
     expect(boton).toHaveAttribute('aria-expanded', 'false')
     await userEvent.click(boton)
@@ -145,7 +145,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('muestra la marca y el aviso permanente de modo demostración con la acción de restablecer', async () => {
     renderizar('/')
     await ingresarComo('Laura Gómez')
-    await screen.findByRole('heading', { name: 'Inicio' })
+    await screen.findByRole('heading', { name: /^Hola, / })
     expect(screen.getByText('Cada minuto cuenta')).toBeInTheDocument()
     expect(screen.getByText(/Modo demostración/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Restablecer datos de demostración/i })).toBeInTheDocument()

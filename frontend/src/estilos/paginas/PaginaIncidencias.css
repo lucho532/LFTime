@@ -1,0 +1,15 @@
+.pagina-incidencias {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.pagina-incidencias h1 {
+  margin: 0;
+  color: var(--color-marca-oscuro);
+}
+
+.pagina-incidencias header p {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-texto-suave);
+}

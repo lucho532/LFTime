@@ -87,47 +87,47 @@ Leyenda de estado: `[ ]` pendiente · `[~]` en curso · `[X]` terminada y verifi
 
 | ID | Tarea | Depende de | Criterio de terminado | Traza |
 |----|-------|-----------|-----------------------|-------|
-| [ ] T-7.1 | `reglas/duraciones`: efectivo, almuerzo, total; cómputo **incompleto** sin duración estimada | T-1.4, T-2.1 | Pruebas con el ejemplo de la spec §6 y con marcaciones faltantes; total = efectivo + almuerzo | D16 |
-| [ ] T-7.2 | `reglas/secuencia`: impide secuencias inválidas, duplicados y salida sin jornada abierta | T-2.1 | Pruebas de todas las transiciones | HU-05 |
-| [ ] T-7.3 | `reglas/fechaOperativa` (provisional P-04) | T-1.4 | Pruebas de turno que cruza medianoche | D5, P-04 |
-| [ ] T-7.4 | `reglas/distanciaGeografica` (Haversine) | T-2.1 | Pruebas con distancias conocidas | D19 |
-| [ ] T-7.5 | `reglas/evaluarMarcacion`: válida, fuera de radio, fallo técnico | T-7.4, T-2.6 | Pruebas de 100 m y 25 m exactos, por encima y por debajo | D19, D23 |
-| [ ] T-7.6 | `reglas/estadoActual` del trabajador con el catálogo de estados | T-7.1, T-2.6 | Pruebas por estado; respeta estado inactivo (P-20) | D31 |
-| [ ] T-7.7 | `reglas/detectarIncidencias` (tolerancias y umbrales de `configuracion`) | T-7.6 | Una prueba por tipo de incidencia; no genera ninguna acción sancionatoria | HU-06, P-18 |
-| [ ] T-7.8 | `reglas/agruparIntentos` por trabajador + fecha operativa + hospital | T-7.3, T-7.5 | CA-12, CA-14 | D26 |
+| [X] T-7.1 | `reglas/duraciones`: efectivo, almuerzo, total; cómputo **incompleto** sin duración estimada | T-1.4, T-2.1 | Pruebas con el ejemplo de la spec §6 y con marcaciones faltantes; total = efectivo + almuerzo | D16 |
+| [X] T-7.2 | `reglas/secuencia`: impide secuencias inválidas, duplicados y salida sin jornada abierta | T-2.1 | Pruebas de todas las transiciones | HU-05 |
+| [X] T-7.3 | `reglas/fechaOperativa` (provisional P-04) | T-1.4 | Pruebas de turno que cruza medianoche | D5, P-04 |
+| [X] T-7.4 | `reglas/distanciaGeografica` (Haversine) | T-2.1 | Pruebas con distancias conocidas | D19 |
+| [X] T-7.5 | `reglas/evaluarMarcacion`: válida, fuera de radio, fallo técnico | T-7.4, T-2.6 | Pruebas de 100 m y 25 m exactos, por encima y por debajo | D19, D23 |
+| [X] T-7.6 | `reglas/estadoActual` del trabajador con el catálogo de estados | T-7.1, T-2.6 | Pruebas por estado; respeta estado inactivo (P-20) | D31 |
+| [X] T-7.7 | `reglas/detectarIncidencias` (tolerancias y umbrales de `configuracion`) | T-7.6 | Una prueba por tipo de incidencia; no genera ninguna acción sancionatoria | HU-06, P-18 |
+| [X] T-7.8 | `reglas/agruparIntentos` por trabajador + fecha operativa + hospital | T-7.3, T-7.5 | CA-12, CA-14 | D26 |
 
 ## Hito 8: Registro del trabajador y geolocalización
 
 | ID | Tarea | Depende de | Criterio de terminado | Traza |
 |----|-------|-----------|-----------------------|-------|
-| [ ] T-8.1 | Pantalla `/registro` (móvil): jornada del día, **solo la acción siguiente permitida**, contador mientras la jornada está abierta (los tiempos oficiales salen de las marcas) | T-7.1, T-7.2, T-4.2 | Verificación manual en móvil; CA-3 | HU-05 |
-| [ ] T-8.2 | Flujo de marcación con geolocalización real y servicio de marcaciones | T-5.3, T-7.5, T-2.5 | CA-1, CA-2; nunca se simula ni se marca sin coordenadas | D13 |
-| [ ] T-8.3 | Intentos rechazados guardados aparte, con motivo; fallos técnicos sin incidencia de ubicación indebida | T-8.2, T-7.8 | CA-3, CA-4, CA-5, CA-14 | D23 |
-| [ ] T-8.4 | Instrucciones cuando el permiso está bloqueado; reintento que vuelve a comprobar permisos | T-8.2 | Verificación manual en navegador | D13 |
-| [ ] T-8.5 | Hospital sin coordenadas confirmadas: explicación y sin botón de marcar | T-5.5, T-8.1 | CA-11 | D25 |
-| [ ] T-8.6 | Historial propio del trabajador; aviso «ubicación capturada, no validada por el servidor» | T-8.1 | CA-10 | D13 |
+| [~] T-8.1 | Pantalla `/registro` (móvil): jornada del día, **solo la acción siguiente permitida**, contador mientras la jornada está abierta (los tiempos oficiales salen de las marcas) | T-7.1, T-7.2, T-4.2 | Verificación manual en móvil; CA-3 | HU-05 |
+| [~] T-8.2 | Flujo de marcación con geolocalización real y servicio de marcaciones | T-5.3, T-7.5, T-2.5 | CA-1, CA-2; nunca se simula ni se marca sin coordenadas | D13 |
+| [X] T-8.3 | Intentos rechazados guardados aparte, con motivo; fallos técnicos sin incidencia de ubicación indebida | T-8.2, T-7.8 | CA-3, CA-4, CA-5, CA-14 | D23 |
+| [~] T-8.4 | Instrucciones cuando el permiso está bloqueado; reintento que vuelve a comprobar permisos | T-8.2 | Verificación manual en navegador | D13 |
+| [X] T-8.5 | Hospital sin coordenadas confirmadas: explicación y sin botón de marcar | T-5.5, T-8.1 | CA-11 | D25 |
+| [X] T-8.6 | Historial propio del trabajador; aviso «ubicación capturada, no validada por el servidor» | T-8.1 | CA-10 | D13 |
 
 ## Hito 9: Incidencias, alertas y auditoría
 
 | ID | Tarea | Depende de | Criterio de terminado | Traza |
 |----|-------|-----------|-----------------------|-------|
-| [ ] T-9.1 | Lista y detalle de incidencias con filtros, y detalle con todos los intentos asociados | T-3.4, T-7.7, T-7.8 | CA-5, CA-12 | HU-06 |
-| [ ] T-9.2 | Justificación (trabajador sobre las propias; coordinador en su nombre con motivo), texto sin adjuntos | T-9.1 | Prueba por rol | P-16 |
-| [ ] T-9.3 | Resolución (justificada / no justificada / pendiente de información), historial inmutable, reabrir con motivo; **sin ninguna sanción** | T-9.1 | CA-13; los intentos no cambian | D11, P-17, P-18 |
-| [ ] T-9.4 | Escalada manual con motivo; intervención directa del administrador; bandeja «pendientes de asignación» | T-9.3, T-5.7 | Prueba de incidencia en hospital sin responsable | D28, D29 |
-| [ ] T-9.5 | Registro de auditoría de cambios de horario, coordenadas, asignaciones, resoluciones y escaladas | T-9.3 | Cada acción deja quién, cuándo y por qué | D29 |
-| [ ] T-9.6 | Alertas y campana con contador; alerta revisada al abrir la incidencia | T-9.1 | Texto distingue leído/sin leer (no solo color) | HU-07, P-19 |
+| [X] T-9.1 | Lista y detalle de incidencias con filtros, y detalle con todos los intentos asociados | T-3.4, T-7.7, T-7.8 | CA-5, CA-12 | HU-06 |
+| [X] T-9.2 | Justificación (trabajador sobre las propias; coordinador en su nombre con motivo), texto sin adjuntos | T-9.1 | Prueba por rol | P-16 |
+| [X] T-9.3 | Resolución (justificada / no justificada / pendiente de información), historial inmutable, reabrir con motivo; **sin ninguna sanción** | T-9.1 | CA-13; los intentos no cambian | D11, P-17, P-18 |
+| [X] T-9.4 | Escalada manual con motivo; intervención directa del administrador; bandeja «pendientes de asignación» | T-9.3, T-5.7 | Prueba de incidencia en hospital sin responsable | D28, D29 |
+| [X] T-9.5 | Registro de auditoría de cambios de horario, coordenadas, asignaciones, resoluciones y escaladas | T-9.3 | Cada acción deja quién, cuándo y por qué | D29 |
+| [X] T-9.6 | Alertas y campana con contador; alerta revisada al abrir la incidencia | T-9.1 | Texto distingue leído/sin leer (no solo color) | HU-07, P-19 |
 | [B] T-9.7 | Corrección manual de una marcación por el coordinador, con permiso, motivo y auditoría | — | **BLOQUEADA por P-12** (quién puede crear o corregir): no se implementa hasta decidirlo | HU-05 |
 
 ## Hito 10: Panel de coordinación
 
 | ID | Tarea | Depende de | Criterio de terminado | Traza |
 |----|-------|-----------|-----------------------|-------|
-| [ ] T-10.1 | Tarjetas de indicadores con enlace al detalle filtrado | T-7.6, T-3.1 | Cada indicador lleva a su lista | HU-01 |
-| [ ] T-10.2 | Tabla «Personal en tiempo real» (búsqueda, filtros por municipio y estado, paginación, acciones) | T-3.4, T-7.6 | Igual de estructura a la referencia | HU-01 |
-| [ ] T-10.3 | Panel de alertas, resumen por hospital, mapa de hospitales | T-9.6, T-5.6 | Resumen coherente con los datos | HU-01 |
-| [ ] T-10.4 | Horas trabajadas hoy, estados del personal y promedio de almuerzo, **con tiempos separados** | T-7.1 | Coherentes con `reglas/duraciones` | HU-01, D21 |
-| [ ] T-10.5 | Actualización cada 60 s (configurable) y botón «Actualizar» con «última actualización» | T-10.2 | Verificado con el reloj | P-25 |
+| [X] T-10.1 | Tarjetas de indicadores con enlace al detalle filtrado | T-7.6, T-3.1 | Cada indicador lleva a su lista | HU-01 |
+| [~] T-10.2 | Tabla «Personal en tiempo real» (búsqueda, filtros por municipio y estado, paginación, acciones) | T-3.4, T-7.6 | Igual de estructura a la referencia | HU-01 |
+| [X] T-10.3 | Panel de alertas, resumen por hospital, mapa de hospitales | T-9.6, T-5.6 | Resumen coherente con los datos | HU-01 |
+| [X] T-10.4 | Horas trabajadas hoy, estados del personal y promedio de almuerzo, **con tiempos separados** | T-7.1 | Coherentes con `reglas/duraciones` | HU-01, D21 |
+| [X] T-10.5 | Actualización cada 60 s (configurable) y botón «Actualizar» con «última actualización» | T-10.2 | Verificado con el reloj | P-25 |
 
 ## Hito 11: Informes y exportación
 
@@ -245,3 +245,60 @@ Resultado: `npm run build` compila; `npm test` pasa **376 pruebas** (28 archivos
 - **T-6.5 [X]:** `PaginaJornadas`, `TablaHorarios`, `PanelHorarioTrabajador`, `FormularioHorario` y `HorarioServicioDemo.asignar`. El coordinador asigna y edita horario y almuerzo; el administrador consulta; el trabajador ve solo «Mi horario». Un horario nuevo **se añade** con su fecha de inicio y los anteriores se conservan; el historial marca «(vigente)» y «(programado)». Se acepta el turno que cruza la medianoche (también con el almuerzo pasada la medianoche). Supuestos provisionales (P-07): rige desde hoy o una fecha futura, no repite la fecha de otro horario, al menos un día, la salida distinta de la entrada, el almuerzo dentro de la jornada y la duración cabe en el intervalo. Todo queda en auditoría.
 - **Cambios técnicos:** `utilidades/horas` (extraída de los datos de demostración y reutilizada por los validadores) y `useCarga`. `package.json` suma `fake-indexeddb` 6.2.5 (solo desarrollo); `plan.md` §3 lo justifica.
 - **Para confirmar:** documento único por trabajador; lista de tipos de documento; límites del formulario de horario (P-07); que nadie cambie la foto de otra persona, ni siquiera administración o coordinación.
+
+### Hito 7 (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **449 pruebas** (33 archivos); `npm run verificar:tamano` pasa (248 archivos); `npm run lint` sin hallazgos. Todo son funciones puras en `reglas/`, sin acceso a datos ni al reloj (reciben `ahora`). Los umbrales y tolerancias salen de `configuracion`.
+
+- **T-7.1 [X]:** `reglas/duraciones` (`calcularDuraciones`, `instantesDeJornada`). Reproduce el ejemplo de la spec §6 (8 h + 1 h = 9 h). Los instantes se truncan al minuto, así que total = efectivo + almuerzo siempre. Sin salida final, sin regreso o con marcas desordenadas: efectivo y total son `null` (incompleto); el almuerzo se entrega si existen sus dos marcas. Tratamiento laboral del almuerzo y horas extra siguen abiertos (P-03, P-05): no se decide nada.
+- **T-7.2 [X]:** `reglas/secuencia` (`siguienteMarcacion`, `validarSecuencia`): rechaza duplicados (`DUPLICADA`), eventos sin entrada (`SIN_JORNADA_ABIERTA`, incluida la salida final) y saltos (`FUERA_DE_SECUENCIA`). La corrección autorizada sigue bloqueada por P-12 (T-9.7).
+- **T-7.3 [X]:** `reglas/fechaOperativa` + `reglas/turnoProgramado`. P-04 provisional: la jornada pertenece a la fecha en que empieza el turno; se compara el turno del día anterior, el mismo y el siguiente (gana el que contiene el instante o, si ninguno, el más cercano). Probado con turno nocturno (22:00-06:00), entrada anticipada antes de medianoche y fecha de Colombia frente a UTC.
+- **T-7.4 [X]:** `reglas/distanciaGeografica` (Haversine, radio 6 371 008,8 m). Probado con 1° de latitud (≈111,2 km), 1° de longitud a 0° y 60°, y Bogotá-Medellín.
+- **T-7.5 [X]:** `reglas/evaluarMarcacion`. Recibe los límites como parámetro (el llamador elige los del hospital o los de `configuracion`; a decidir en T-8.2). Primero la precisión: con precisión peor que el máximo es **fallo técnico** aunque esté lejos (CA-14); luego el radio. Los límites exactos son válidos y solo lo que los supera se rechaza (probado en radio y en precisión). Hospital sin coordenadas confirmadas devuelve `HOSPITAL_SIN_COORDENADAS` (D25).
+- **T-7.6 [X]:** `reglas/estadoActual` con el catálogo D31. Definiciones **provisionales** que conviene confirmar (P-01, P-02): sin entrada pasada la hora → «Retraso» y, tras 60 min, «Ausencia aparente»; **entrar tarde no deja el estado en «Retraso»** (queda «En jornada» y la anomalía se ve como incidencia de entrada tardía); almuerzo pasado de lo autorizado → «Almuerzo prolongado» y, tras 30 min, «Sin registrar»; sin salida 60 min tras el fin → «Sin registrar». «Incidencia» solo se aplica si el llamador indica que hay una abierta y no oculta retraso ni ausencia. Devuelve `null` cuando no se espera nada (sin horario, día no laborable, aún no empieza, hospital sin coordenadas); el catálogo no tiene un estado para eso y no se inventó uno.
+- **T-7.7 [X] (criterio ajustado):** `reglas/detectarIncidencias` detecta los **9 tipos temporales**, uno por prueba. `UBICACION_NO_AUTORIZADA` no sale de aquí sino de los intentos rechazados (`agruparIntentos`), según D23; por eso el criterio «una prueba por tipo» se cumple para esos 9 y el décimo se cubre en T-7.8. Definiciones provisionales que hay que confirmar: `SIN_ENTRADA` = hay marcas posteriores pero falta la entrada, y `AUSENCIA_APARENTE` = ninguna marca (la spec no distingue ambos); `REGRESO_TARDIO` = sin regreso 30 min después del almuerzo autorizado, y `ALMUERZO_EXCEDIDO` = almuerzo completo más largo que lo autorizado; `TIEMPO_INFERIOR` descuenta la suma de las tres tolerancias; con tolerancias en 0 una entrada tardía produce también `TIEMPO_INFERIOR` (son hechos distintos de la spec, pero el coordinador verá dos incidencias). Un trabajador sin estado activo no genera nada (P-20). El resultado solo trae tipo e instante de detección: nunca consecuencias (probado, P-18).
+- **T-7.8 [X]:** `reglas/agruparIntentos` (`agruparIntentos`, `resolverAgrupacion`): una incidencia por trabajador + fecha operativa + hospital, con todos sus intentos (CA-12); los fallos técnicos quedan fuera (CA-14); indica si hay que abrir la incidencia o añadir solo los intentos que aún no lista. No modifica los intentos.
+- **Sin cambios de contrato** ni de la versión del esquema de la demostración. **No se tocó la interfaz**; las reglas se conectan a pantallas en los hitos 8 a 10.
+- **Para confirmar con el responsable:** las definiciones provisionales de T-7.6 y T-7.7 señaladas arriba (en especial si entrar tarde debe seguir mostrándose como «Retraso»).
+
+### Hito 8 (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **467 pruebas** (35 archivos); `npm run verificar:tamano` pasa (268 archivos); `npm run lint` sin hallazgos. **Nada de este hito se ha probado con un GPS real ni en un teléfono**: las pruebas sustituyen `obtenerUbicacionActual` por una respuesta controlada (solo en pruebas) y jsdom no carga los estilos.
+
+- **Arquitectura:** `IMarcacionServicio` + `MarcacionServicioDemo` (orquesta las reglas del hito 7 y guarda en el almacenamiento local), `asociarIntentoAIncidencia` (agrupa en una incidencia por trabajador + fecha operativa + hospital, abre su alerta y la deja «pendiente de asignación» si el hospital no tiene responsable), `useRegistroJornada` y `useContador`, y `PaginaRegistro` con `AccionDeRegistro`, `MensajeResultadoRegistro`, `ResumenJornadaDelDia` e `HistorialPropio`. Sin cambios de contrato ni de la versión del esquema.
+- **T-8.1 [~]:** `/registro` muestra la jornada del día, **solo la acción siguiente permitida**, el estado, los tiempos efectivo, de almuerzo y total por separado (con «Incompleto» si falta una marca), el horario planificado y un contador desde la entrada rotulado como referencia (los tiempos oficiales salen de las marcas). Probado por componentes. **Pendiente: verificación manual en un móvil.**
+- **T-8.2 [~]:** el flujo pide la ubicación real en cada intento (`useUbicacion`), la entrega al servicio y nunca marca sin coordenadas ni simula una (CA-1, CA-2 probados con ubicación controlada). **Pendiente: probar con GPS real** (permiso, precisión y radio en un dispositivo).
+- **T-8.3 [X]:** los intentos rechazados se guardan aparte con su motivo. Fuera de radio con ubicación válida: intento + incidencia de ubicación no autorizada + alerta (CA-4); varios intentos el mismo día y hospital comparten **una** incidencia (CA-12); fallo técnico y precisión insuficiente: solo intento, sin incidencia ni alerta y con texto «Fallo técnico» (CA-14); un intento no cambia tiempos ni secuencia (CA-3).
+- **T-8.4 [~]:** con el permiso bloqueado se muestran las instrucciones del navegador (candado, «Configuración del sitio») y el botón vuelve a pedir la ubicación y a comprobar el permiso (probado que se llama dos veces). **Pendiente: verificación manual en un navegador real** con el permiso realmente bloqueado.
+- **T-8.5 [X]:** hospital sin coordenadas confirmadas: aviso «necesita configuración antes de habilitar el registro», ningún botón de marcar y el servicio devuelve `HOSPITAL_SIN_COORDENADAS` sin guardar nada (CA-11).
+- **T-8.6 [X]:** historial propio con marcaciones e intentos rechazados en tablas separadas (CA-5, últimas 20 de cada una) y aviso «las ubicaciones se capturan en tu dispositivo y no están validadas por el servidor» (CA-10); tras registrar, el mensaje dice «ubicación capturada… no está validada por un servidor».
+- **Decisiones de implementación a confirmar:** (1) los límites de radio y precisión que se aplican son los **del propio hospital** (copiados de la configuración al crearlo), no los de `/configuracion`; si se quiere que editar la configuración afecte a hospitales existentes, hay que decidirlo en T-12.1. (2) Un trabajador sin horario vigente **puede** marcar (ninguna regla lo impide); la pantalla solo avisa. (3) Un trabajador no activo tampoco está bloqueado para marcar (la spec solo dice que no se le detectan incidencias, P-20).
+- **Pendiente para el hito 9:** la lista y el detalle de las incidencias creadas aquí, y la creación de incidencias por las reglas temporales (`detectarIncidencias`); aún no se ven en ninguna pantalla.
+
+### Hito 9 (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **499 pruebas** (38 archivos); `npm run verificar:tamano` pasa (300 archivos); `npm run lint` sin hallazgos. No se ha revisado visualmente en un navegador real. **T-9.7 sigue `[B]`** (P-12): no se implementó ninguna corrección manual de marcaciones.
+
+- **Detección (`sincronizarIncidencias`):** las incidencias de hoy las abren las reglas del hito 7 (`detectarIncidencias`) sobre la jornada actual de cada trabajador, con su alerta (P-19). Es idempotente (el identificador sale de tipo + trabajador + fecha operativa), solo añade y solo mira la fecha operativa de «ahora» (los días anteriores traen su semilla). **En la demostración corre cuando alguien abre la lista de incidencias o la campana**; no hay un proceso continuo (el refresco cada 60 s llega con T-10.5). Un único `abrirIncidencia` crea también las de ubicación no autorizada del hito 8.
+- **T-9.1 [X]:** `PaginaIncidencias` (búsqueda, filtros por estado, tipo, hospital y situación —pendientes de asignación o escaladas—, paginación) y `PaginaIncidencia` (datos, intentos asociados con hora, coordenadas, precisión, distancia y motivo, justificaciones, historial y acciones). El trabajador solo ve las suyas («Mis incidencias») y no abre las de otra persona. Los intentos aparecen separados de las marcaciones (CA-5 en pantallas; los informes llegan en el hito 11) y la incidencia agrupada los lista todos (CA-12).
+- **T-9.2 [X]:** justifica el trabajador sobre las propias o el coordinador revisor en su nombre, **con motivo obligatorio**; texto sin adjuntos, hasta 1000 caracteres (P-16). El autor de las justificaciones nuevas es el **usuario**; las sembradas guardan el trabajador, y la pantalla resuelve ambos nombres.
+- **T-9.3 [X]:** «Iniciar revisión», resolución (justificada / no justificada / pendiente de información), reabrir con motivo. **El motivo de toda resolución es obligatorio** (decisión mía, para cumplir «quién, cuándo y por qué»; hay que confirmarla). Cerrada = justificada o no justificada; una cerrada no admite justificar ni resolver, solo reabrir (pasa a «En revisión»). Una justificación sobre una «pendiente de información» la devuelve a «En revisión» (supuesto provisional). «No justificada» usa un tono neutro y solo queda registrada (P-18). Los intentos originales no cambian (CA-13, probado).
+- **T-9.4 [X]:** escalada manual con motivo (solo una vez y solo el revisor), intervención directa del administrador (revisa, resuelve y reabre cualquiera; **interpretación provisional de «cuando se requiera»**, D29) y bandeja «pendientes de asignación» del administrador con asignación de revisor a la incidencia (`ASIGNADA`). Probado con una incidencia de un hospital sin responsable.
+- **T-9.5 [X]:** auditoría de resoluciones, reaperturas, escaladas y asignaciones de revisor (quién, cuándo, motivo y detalle); los cambios de horario, coordenadas y coordinador ya se auditaban en los hitos 5 y 6. **No hay pantalla para consultar la auditoría** (el plan no la pide); cada incidencia muestra su historial.
+- **T-9.6 [X]:** campana en la barra superior para coordinación y administración (el trabajador no ve alertas, P-19): «Alertas: N sin revisar», lista de las más recientes con el texto «Sin revisar» o «Revisada» y enlace a la incidencia. La alerta se marca revisada al abrir la incidencia quien revisa; las alertas no se descartan. El contador se actualiza al cambiar de pantalla.
+- **Permisos (`reglas/permisosIncidencia`, solo visuales, D27):** provisionales, de la matriz del plan §13. Otro coordinador que no es el revisor **ve pero no actúa**. Es una interpretación de «revisor principal de sus hospitales» a confirmar con P-21 y P-28.
+- **Sin cambios de contrato** ni de la versión del esquema. Nuevos: `IIncidenciaServicio`, `IAlertaServicio`, `modelos/alerta`, `modelos/etiquetasIncidencia` y los componentes de `componentes/incidencias/` y `MenuAlertas`.
+- **Para confirmar con el responsable:** motivo obligatorio en toda resolución; intervención del administrador sobre cualquier incidencia; que otro coordinador no pueda actuar; el paso a «En revisión» tras una justificación.
+
+### Hito 10 (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **522 pruebas** (41 archivos); `npm run lint` sin hallazgos; `npm run verificar:tamano` pasa (326 archivos). Revisado a mano en Chrome (escritorio, ventana estrecha) como coordinadora: carga, tarjetas, tabla, resumen por hospital y mapa se ven bien. **No se revisó en tableta ni en otras anchuras, ni la pantalla completa frente a la referencia píxel a píxel** (por eso T-10.2 queda `[~]`).
+
+- **Arquitectura:** `IPanelServicio` + `PanelServicioDemo` (arma una fila por trabajador con `estadoActual`, `duraciones` y `turnoProgramado`; solo lee), `reglas/indicadoresPanel` (indicadores, resumen por hospital, horas, estados, promedio de almuerzo; funciones puras), `calcularEfectivoHastaAhora` en `reglas/duraciones`, `usePanel`, `PaginaInicio` y los componentes de `componentes/panel/`. Ruta `/inicio` (antes en construcción). Sin cambios de contrato ni de la versión del esquema.
+- **T-10.1 [X]:** seis tarjetas (activos, en jornada, en almuerzo, con retraso, sin entrada, con incidencias). Las cuatro de estado llevan a la tabla filtrada (`/inicio?indicador=…`, el número de la tarjeta coincide con el de la tabla, probado); activos va a Personal e incidencias a Incidencias.
+- **T-10.2 [~]:** tabla con búsqueda, filtros por municipio y estado, paginación y «Ver detalle». Pendiente la comparación visual con la referencia en tableta/escritorio ancho.
+- **T-10.3 [X]:** alertas (sin revisar primero, con texto «Sin revisar/Revisada»), resumen por hospital «presentes / esperados» y mapa esquemático.
+- **T-10.4 [X]:** horas programadas vs. registradas hasta ahora (solo efectivo), estados del personal (anillo + lista con texto) y promedio de almuerzo aparte (D21).
+- **T-10.5 [X]:** actualización cada `intervaloActualizacionSegundos` (60 s) y botón «Actualizar»; la tabla conserva búsqueda y página; si falla, se conservan los datos y se avisa. Probado con el reloj.
+- **Definiciones provisionales a confirmar:** (1) «con retraso» = entrada posterior a la hora programada (tolerancia de configuración) **o** sin entrada pasada la hora; «sin entrada» es el subconjunto sin entrada; «en jornada/almuerzo» salen de la última marca de hoy. Sigue abierto si quien entra tarde debe mostrarse con estado «Retraso» (hito 7). (2) Las horas registradas son **parciales** durante el día y la «diferencia» es del momento, no un incumplimiento. (3) El panel muestra a **todo** el personal a cualquier coordinador, sin limitarlo a sus hospitales (permisos solo visuales, P-21). (4) «Esperado hoy» = activo, con horario laborable hoy y hospital con coordenadas confirmadas. (5) «Ver mapa completo» y «Ver hospitales» llevan a Hospitales; no hay reportes aún (hito 11).
+- **Pruebas existentes ajustadas:** `App.prueba.tsx` buscaba el título provisional «Inicio»; ahora busca el saludo «Hola, …».

@@ -1,7 +1,7 @@
 import type { NombreIcono } from '../../reglas/permisosRuta'
 
 /** Trazados SVG (cuadrícula de 24 × 24) de los iconos del menú. Son propios; no hay librería de iconos. */
-const TRAZADOS: Record<NombreIcono | 'flecha' | 'menu', string> = {
+const TRAZADOS: Record<NombreIcono | 'flecha' | 'menu' | 'campana', string> = {
   inicio: 'M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
   personal: 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5zm14.5-4.8c3 .1 5.5 1.8 5.5 4.8h-4.5c0-1.9-.4-3.6-1-4.8z',
   hospitales: 'M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z',
@@ -12,10 +12,11 @@ const TRAZADOS: Record<NombreIcono | 'flecha' | 'menu', string> = {
   configuracion: 'M19.4 13a7.7 7.7 0 0 0 0-2l2.1-1.6-2-3.4-2.5 1a7.6 7.6 0 0 0-1.7-1L15 3h-4l-.4 3a7.6 7.6 0 0 0-1.7 1l-2.5-1-2 3.4L6.6 11a7.7 7.7 0 0 0 0 2l-2.1 1.6 2 3.4 2.5-1a7.6 7.6 0 0 0 1.7 1l.4 3h4l.4-3a7.6 7.6 0 0 0 1.7-1l2.5 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z',
   flecha: 'M7 10l5 5 5-5z',
   menu: 'M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z',
+  campana: 'M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1z',
 }
 
 interface PropiedadesIcono {
-  nombre: NombreIcono | 'flecha' | 'menu'
+  nombre: NombreIcono | 'flecha' | 'menu' | 'campana'
 }
 
 /** Icono decorativo (`aria-hidden`): el significado siempre lo da el texto que lo acompaña. */

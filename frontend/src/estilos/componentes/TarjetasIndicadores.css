@@ -1,0 +1,63 @@
+.tarjetas-indicadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--espacio-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tarjetas-indicadores__tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  height: 100%;
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-left-width: 4px;
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-tarjeta);
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.tarjetas-indicadores__tarjeta:hover {
+  background: var(--color-marca-claro);
+}
+
+.tarjetas-indicadores__tarjeta--neutro {
+  border-left-color: var(--color-marca-electrico);
+}
+
+.tarjetas-indicadores__tarjeta--verde {
+  border-left-color: var(--color-estado-jornada);
+}
+
+.tarjetas-indicadores__tarjeta--azul {
+  border-left-color: var(--color-estado-almuerzo);
+}
+
+.tarjetas-indicadores__tarjeta--ambar {
+  border-left-color: var(--color-estado-aviso);
+}
+
+.tarjetas-indicadores__tarjeta--rojo {
+  border-left-color: var(--color-estado-critico);
+}
+
+.tarjetas-indicadores__titulo {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.tarjetas-indicadores__valor {
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--color-marca-oscuro);
+}
+
+.tarjetas-indicadores__detalle {
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}

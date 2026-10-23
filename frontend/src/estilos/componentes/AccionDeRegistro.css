@@ -1,0 +1,18 @@
+.accion-registro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.accion-registro__boton {
+  width: 100%;
+  min-height: 56px;
+  font-size: 1.1rem;
+}
+
+.accion-registro__ayuda,
+.accion-registro__fin {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}

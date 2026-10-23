@@ -1,6 +1,7 @@
 import '../../estilos/componentes/BarraSuperior.css'
 import { Icono } from '../iconos/Icono'
 import { LogoLFTime } from '../iconos/LogoLFTime'
+import { MenuAlertas } from './MenuAlertas'
 import { MenuPerfil } from './MenuPerfil'
 
 interface PropiedadesBarraSuperior {
@@ -12,7 +13,7 @@ interface PropiedadesBarraSuperior {
 
 /**
  * Barra superior azul oscuro con la marca y el menú del usuario. En pantallas pequeñas añade el
- * botón que abre y cierra la navegación lateral. La campana de alertas se añade en T-9.6.
+ * botón que abre y cierra la navegación lateral. Incluye la campana de alertas (coordinación y administración).
  */
 export function BarraSuperior({ menuAbierto, onAlternarMenu, idMenu }: PropiedadesBarraSuperior) {
   return (
@@ -22,6 +23,7 @@ export function BarraSuperior({ menuAbierto, onAlternarMenu, idMenu }: Propiedad
       </button>
       <LogoLFTime />
       <div className="barra-superior__derecha">
+        <MenuAlertas />
         <MenuPerfil />
       </div>
     </header>

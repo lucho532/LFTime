@@ -8,17 +8,18 @@ import { useSesion } from './hooks/useSesion'
 import { PaginaEnConstruccion } from './paginas/PaginaEnConstruccion'
 import { PaginaHospital } from './paginas/PaginaHospital'
 import { PaginaHospitales } from './paginas/PaginaHospitales'
+import { PaginaIncidencia } from './paginas/PaginaIncidencia'
+import { PaginaIncidencias } from './paginas/PaginaIncidencias'
+import { PaginaInicio } from './paginas/PaginaInicio'
 import { PaginaIngreso } from './paginas/PaginaIngreso'
 import { PaginaJornadas } from './paginas/PaginaJornadas'
 import { PaginaPersonal } from './paginas/PaginaPersonal'
+import { PaginaRegistro } from './paginas/PaginaRegistro'
 import { PaginaTrabajador } from './paginas/PaginaTrabajador'
 import { rutaInicialDe } from './reglas/permisosRuta'
 
 /** Rutas con sesión y su título provisional (ver plan §12). Cada una se reemplaza por su página en su hito. */
 const RUTAS_PROVISIONALES: Array<{ ruta: string; titulo: string }> = [
-  { ruta: 'inicio', titulo: 'Inicio' },
-  { ruta: 'registro', titulo: 'Registro de jornada' },
-  { ruta: 'incidencias', titulo: 'Incidencias' },
   { ruta: 'reportes', titulo: 'Reportes' },
   { ruta: 'configuracion', titulo: 'Configuración' },
 ]
@@ -41,11 +42,15 @@ export default function App() {
           <Route element={<RutaProtegida />}>
             <Route element={<DisposicionBase />}>
               <Route index element={<RedireccionInicial />} />
+              <Route path="inicio" element={<RestriccionPorRol ruta="inicio"><PaginaInicio /></RestriccionPorRol>} />
               <Route path="hospitales" element={<RestriccionPorRol ruta="hospitales"><PaginaHospitales /></RestriccionPorRol>} />
               <Route path="hospitales/:hospitalId" element={<RestriccionPorRol ruta="hospitales"><PaginaHospital /></RestriccionPorRol>} />
               <Route path="personal" element={<RestriccionPorRol ruta="personal"><PaginaPersonal /></RestriccionPorRol>} />
               <Route path="personal/:trabajadorId" element={<RestriccionPorRol ruta="personal"><PaginaTrabajador /></RestriccionPorRol>} />
               <Route path="jornadas" element={<RestriccionPorRol ruta="jornadas"><PaginaJornadas /></RestriccionPorRol>} />
+              <Route path="registro" element={<RestriccionPorRol ruta="registro"><PaginaRegistro /></RestriccionPorRol>} />
+              <Route path="incidencias" element={<RestriccionPorRol ruta="incidencias"><PaginaIncidencias /></RestriccionPorRol>} />
+              <Route path="incidencias/:incidenciaId" element={<RestriccionPorRol ruta="incidencias"><PaginaIncidencia /></RestriccionPorRol>} />
               {RUTAS_PROVISIONALES.map(({ ruta, titulo }) => (
                 <Route
                   key={ruta}
