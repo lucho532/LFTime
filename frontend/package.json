@@ -14,12 +14,15 @@
     "verificar:contraste": "node scripts/verificarContraste.mjs"
   },
   "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3",
     "exceljs": "4.4.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-router-dom": "7.18.4"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.5.3",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.8",

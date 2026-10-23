@@ -47,6 +47,21 @@ Abre la dirección que indica Vite y entra con `/ingreso`: elige un usuario de p
 
 Las cinco comprobaciones deben pasar antes de dar un cambio por bueno.
 
+## APK de pruebas para Android
+
+Para instalar la demostración en un teléfono (Capacitor, solo depuración). Requiere JDK 21, el SDK de Android y el teléfono con la depuración USB activada.
+
+```bash
+cd frontend
+npm run build
+npx cap sync android
+cd android
+./gradlew assembleDebug        # genera app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+Los datos de la demostración quedan solo en ese teléfono. No es una versión para publicar.
+
 ## Tecnología
 
 React 19 · TypeScript · Vite · React Router · Vitest y Testing Library · ExcelJS (solo para exportar a Excel, cargado bajo demanda). Sin librerías de interfaz, de estado ni de iconos.

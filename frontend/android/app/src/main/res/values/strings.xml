@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LFTime</string>
+    <string name="title_activity_main">LFTime</string>
+    <string name="package_name">com.lftime.demo</string>
+    <string name="custom_url_scheme">com.lftime.demo</string>
+</resources>
