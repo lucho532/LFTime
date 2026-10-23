@@ -32,7 +32,7 @@
 }
 
 .mapa-esquematico__marcador text {
-  fill: var(--color-marca-oscuro);
+  fill: var(--color-titulo);
   font-size: 13px;
   font-weight: 600;
   paint-order: stroke;

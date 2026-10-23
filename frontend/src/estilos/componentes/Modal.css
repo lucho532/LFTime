@@ -21,7 +21,7 @@
 
 .modal__titulo {
   margin: 0 0 var(--espacio-3);
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .modal__acciones {

@@ -1,0 +1,20 @@
+.lista-usuarios-prueba {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista-usuarios-prueba li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--espacio-2);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.lista-usuarios-prueba small {
+  color: var(--color-texto-suave);
+}

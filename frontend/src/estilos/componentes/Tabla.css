@@ -25,7 +25,7 @@
 
 .tabla th {
   font-size: 0.85rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
   background: var(--color-fondo);
 }
 
@@ -63,7 +63,7 @@
   .tabla td::before {
     content: attr(data-etiqueta);
     font-weight: 600;
-    color: var(--color-marca-oscuro);
+    color: var(--color-titulo);
     text-align: left;
   }
 }

@@ -43,7 +43,7 @@
 
 .estados-del-personal__total,
 .estados-del-personal__rotulo {
-  fill: var(--color-marca-oscuro);
+  fill: var(--color-titulo);
   transform: rotate(90deg);
   transform-origin: 18px 18px;
 }

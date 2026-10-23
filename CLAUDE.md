@@ -51,9 +51,10 @@ npm run build               # tsc -b + vite build
 npm test                    # Vitest, una vez
 npm run lint                # oxlint
 npm run verificar:tamano    # falla si un archivo supera 250 líneas
+npm run verificar:contraste # falla si un par de colores de los temas no llega a 4.5:1
 ```
 
-Las cuatro comprobaciones (`build`, `test`, `lint`, `verificar:tamano`) deben pasar antes de dar un hito por terminado.
+Las cinco comprobaciones (`build`, `test`, `lint`, `verificar:tamano`, `verificar:contraste`) deben pasar antes de dar un hito por terminado.
 
 ## Cosas útiles de saber
 

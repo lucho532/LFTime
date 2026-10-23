@@ -12,7 +12,7 @@
 .resumen-jornada-dia__contador strong {
   font-variant-numeric: tabular-nums;
   font-size: 1.2rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .resumen-jornada-dia__contador small {

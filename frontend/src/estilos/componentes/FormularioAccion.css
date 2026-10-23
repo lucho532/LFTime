@@ -16,5 +16,5 @@
 .formulario-accion__titulo {
   margin: 0;
   font-size: 0.95rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }

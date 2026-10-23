@@ -86,7 +86,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
   it('recuerda a dónde se quería ir si el rol lo permite, y si no lleva a su inicio', async () => {
     renderizar('/reportes')
     await ingresarComo('Laura Gómez')
-    expect(await screen.findByRole('heading', { name: 'Reportes' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Informes' })).toBeInTheDocument()
   })
 
   it('al ingresar con un rol sin acceso al destino recordado, va a su pantalla de inicio', async () => {

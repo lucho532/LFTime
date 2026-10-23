@@ -18,15 +18,18 @@
   --color-texto: #14213d;
   --color-texto-suave: #5a6b8a;
   --color-texto-sobre-marca: #ffffff;
+  --color-titulo: #0a2a5e;
+  --color-acento: #1b5fe8;
+  --color-peligro: #d62f3f;
 
   /* Estados (siempre se muestran también con texto, nunca solo con color) */
-  --color-estado-jornada: #1f9d63;
+  --color-estado-jornada: #12724a;
   --color-estado-jornada-fondo: #e3f6ec;
   --color-estado-almuerzo: #1b5fe8;
   --color-estado-almuerzo-fondo: #e4edfd;
-  --color-estado-aviso: #d98a0b;
+  --color-estado-aviso: #8f5a00;
   --color-estado-aviso-fondo: #fdf1dc;
-  --color-estado-critico: #d62f3f;
+  --color-estado-critico: #b81f2e;
   --color-estado-critico-fondo: #fde7ea;
 
   /* Aviso de modo demostración */
@@ -34,6 +37,8 @@
   --color-demo-texto: #6b4e00;
 
   /* Tipografía y medidas */
+  color-scheme: light;
+
   --fuente-base: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
   --radio-borde: 8px;
   --espacio-1: 4px;
@@ -72,4 +77,38 @@ body {
 :focus-visible {
   outline: 3px solid var(--color-foco);
   outline-offset: 2px;
+}
+
+/* Tema oscuro (D32): se activa con data-tema="oscuro" en la raíz (ver utilidades/tema.ts). */
+:root[data-tema='oscuro'] {
+  color-scheme: dark;
+  --color-marca-oscuro: #08204a;
+  --color-marca-claro: #1e3358;
+  --color-fondo: #0d1424;
+  --color-superficie: #16203a;
+  --color-borde: #2c3b5c;
+  --color-texto: #e8eefb;
+  --color-texto-suave: #a9b7d4;
+  --color-titulo: #d6e4ff;
+  --color-acento: #8fb4ff;
+  --color-peligro: #c0283a;
+  --color-estado-jornada: #5fd39a;
+  --color-estado-jornada-fondo: #123a2a;
+  --color-estado-almuerzo: #8fb4ff;
+  --color-estado-almuerzo-fondo: #1b2f57;
+  --color-estado-aviso: #f2b84b;
+  --color-estado-aviso-fondo: #3d2e0f;
+  --color-estado-critico: #ff8a96;
+  --color-estado-critico-fondo: #4a1c24;
+  --color-demo-fondo: #3d3210;
+  --color-demo-texto: #ffe08a;
+  --color-foco: #8fb4ff;
+  --color-gris-fondo: #222d47;
+  --color-gris-texto: #b8c4de;
+  --sombra-tarjeta: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --sombra-modal: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+a {
+  color: var(--color-acento);
 }

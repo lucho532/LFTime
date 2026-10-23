@@ -28,16 +28,16 @@
 
 .boton--secundario {
   background: var(--color-superficie);
-  border-color: var(--color-marca-electrico);
-  color: var(--color-marca-electrico);
+  border-color: var(--color-acento);
+  color: var(--color-acento);
 }
 
 .boton--peligro {
-  background: var(--color-estado-critico);
+  background: var(--color-peligro);
   color: var(--color-texto-sobre-marca);
 }
 
 .boton--texto {
   background: transparent;
-  color: var(--color-marca-electrico);
+  color: var(--color-acento);
 }

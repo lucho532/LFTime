@@ -17,5 +17,5 @@
 .tarjeta__titulo {
   margin: 0;
   font-size: 1.05rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }

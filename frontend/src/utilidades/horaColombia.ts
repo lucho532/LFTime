@@ -59,10 +59,15 @@ function conCeros(valor: number, largo = 2): string {
   return String(valor).padStart(largo, '0')
 }
 
+/** Fecha de un instante UTC en Colombia con formato `AAAA-MM-DD`. */
+export function fechaColombiaDe(instante: Date): string {
+  const { anio, mes, dia } = descomponerEnColombia(instante)
+  return `${conCeros(anio, 4)}-${conCeros(mes)}-${conCeros(dia)}`
+}
+
 /** Fecha de hoy en Colombia con formato `AAAA-MM-DD`. */
 export function hoyColombia(): string {
-  const { anio, mes, dia } = descomponerEnColombia(obtenerAhoraUtc())
-  return `${conCeros(anio, 4)}-${conCeros(mes)}-${conCeros(dia)}`
+  return fechaColombiaDe(obtenerAhoraUtc())
 }
 
 /** Hora actual en Colombia con formato `HH:mm` (24 horas). */

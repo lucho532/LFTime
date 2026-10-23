@@ -12,7 +12,7 @@
 .panel-horario__subtitulo {
   margin: var(--espacio-2) 0 0;
   font-size: 0.95rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .panel-horario__aviso {

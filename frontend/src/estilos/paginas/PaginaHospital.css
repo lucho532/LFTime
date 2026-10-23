@@ -13,7 +13,7 @@
 
 .pagina-hospital__encabezado h1 {
   margin: 0;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .pagina-hospital__rejilla {
@@ -26,7 +26,7 @@
 .pagina-hospital__subtitulo {
   margin: var(--espacio-4) 0 var(--espacio-2);
   font-size: 0.95rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 @media (max-width: 1100px) {

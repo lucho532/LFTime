@@ -13,7 +13,7 @@
 
 .pagina-trabajador__encabezado h1 {
   margin: 0;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .pagina-trabajador__rejilla {

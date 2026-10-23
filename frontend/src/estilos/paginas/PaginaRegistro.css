@@ -7,7 +7,7 @@
 
 .pagina-registro h1 {
   margin: 0;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .pagina-registro header p {

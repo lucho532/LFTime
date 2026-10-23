@@ -1,0 +1,10 @@
+.tabla-de-informe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.tabla-de-informe__resumen {
+  margin: 0;
+  color: var(--color-texto-suave);
+}

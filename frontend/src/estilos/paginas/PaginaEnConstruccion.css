@@ -1,6 +1,6 @@
 .pagina-en-construccion h1 {
   margin: 0 0 var(--espacio-2);
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .pagina-en-construccion p {

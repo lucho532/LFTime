@@ -6,6 +6,7 @@ import { MarcacionServicioDemo } from './demo/MarcacionServicioDemo'
 import { PanelServicioDemo } from './demo/PanelServicioDemo'
 import { AlertaServicioDemo } from './demo/AlertaServicioDemo'
 import { HospitalServicioDemo } from './demo/HospitalServicioDemo'
+import { InformeServicioDemo } from './demo/InformeServicioDemo'
 import { IncidenciaServicioDemo } from './demo/IncidenciaServicioDemo'
 import { SesionServicioDemo } from './demo/SesionServicioDemo'
 import { TrabajadorServicioDemo } from './demo/TrabajadorServicioDemo'
@@ -16,6 +17,7 @@ import type { IDatosDemoServicio } from './IDatosDemoServicio'
 import type { IFotoServicio } from './IFotoServicio'
 import type { IHorarioServicio } from './IHorarioServicio'
 import type { IHospitalServicio } from './IHospitalServicio'
+import type { IInformeServicio } from './IInformeServicio'
 import type { IIncidenciaServicio } from './IIncidenciaServicio'
 import type { IMarcacionServicio } from './IMarcacionServicio'
 import type { IPanelServicio } from './IPanelServicio'
@@ -32,6 +34,7 @@ export interface Servicios {
   incidencias: IIncidenciaServicio
   alertas: IAlertaServicio
   panel: IPanelServicio
+  informes: IInformeServicio
   usuarios: IUsuarioServicio
   sesion: ISesionServicio
   fotos: IFotoServicio
@@ -52,6 +55,7 @@ export const servicios: Servicios = {
   incidencias: new IncidenciaServicioDemo(),
   alertas: new AlertaServicioDemo(),
   panel: new PanelServicioDemo(),
+  informes: new InformeServicioDemo(),
   usuarios: new UsuarioServicioDemo(),
   sesion: new SesionServicioDemo(),
   fotos: new FotoServicioDemo(),

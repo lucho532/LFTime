@@ -7,7 +7,7 @@
 
 .resumen-horario dt {
   font-weight: 600;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .resumen-horario dd {

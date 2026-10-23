@@ -9,7 +9,7 @@
 
 .estado-vacio__titulo {
   margin: 0;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .estado-vacio__descripcion {

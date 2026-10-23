@@ -1,0 +1,16 @@
+.pagina-configuracion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  max-width: 960px;
+}
+
+.pagina-configuracion h1 {
+  margin: 0;
+  color: var(--color-titulo);
+}
+
+.pagina-configuracion header p {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-texto-suave);
+}

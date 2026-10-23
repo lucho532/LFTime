@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:vigilar": "vitest",
     "lint": "oxlint",
-    "verificar:tamano": "node scripts/verificarTamano.mjs"
+    "verificar:tamano": "node scripts/verificarTamano.mjs",
+    "verificar:contraste": "node scripts/verificarContraste.mjs"
   },
   "dependencies": {
     "exceljs": "4.4.0",

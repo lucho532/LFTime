@@ -14,5 +14,5 @@
 
 .promedio-almuerzo-hoy__valor {
   font-size: 1.8rem;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }

@@ -1,0 +1,11 @@
+.formulario-filtros-informe {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espacio-3);
+}
+
+@media (max-width: 720px) {
+  .formulario-filtros-informe {
+    grid-template-columns: 1fr;
+  }
+}

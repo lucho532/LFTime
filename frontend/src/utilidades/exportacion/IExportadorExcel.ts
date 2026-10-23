@@ -17,6 +17,7 @@ export interface HojaExportacion {
   filas: Array<Array<string | number>>
 }
 
+/** Generador de archivos Excel; la única implementación usa ExcelJS (`ExportadorExcelExceljs`). */
 export interface IExportadorExcel {
   /** Genera el contenido de un archivo `.xlsx` con la hoja indicada. */
   generar(hoja: HojaExportacion): Promise<Uint8Array>

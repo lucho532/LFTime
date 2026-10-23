@@ -54,7 +54,7 @@
 .tarjetas-indicadores__valor {
   font-size: 2rem;
   line-height: 1.1;
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .tarjetas-indicadores__detalle {

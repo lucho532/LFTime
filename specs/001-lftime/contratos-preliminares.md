@@ -182,7 +182,7 @@ interface JornadaCalculadaDto {                    // resultado de reglas/, no d
 | Horas por trabajador | Trabajador, Periodo, Horas programadas, Tiempo efectivo, Tiempo de almuerzo, Tiempo total, Diferencia, Cómputo completo (Sí/No) |
 | Incidencias | Id, Tipo, Estado, Trabajador, Hospital, Fecha operativa, Detectada, Revisor, Resolución, Nº de intentos |
 | Intentos rechazados | Fecha y hora, Trabajador, Hospital, Tipo de evento, Motivo, Fallo técnico (Sí/No), Distancia, Precisión, Incidencia |
-| Cumplimiento por hospital | Hospital, Municipio, Periodo, Programadas, Registradas, Retrasos, Salidas anticipadas, Incidencias pendientes/resueltas |
+| Cumplimiento por hospital | Hospital, Municipio, Periodo, Jornadas programadas, Jornadas con entrada, Retrasos, Salidas anticipadas, Incidencias pendientes, Incidencias resueltas *(las dos últimas se separaron en el hito 11)* |
 
 Todos los archivos de la demo, **CSV y Excel**, llevan la marca **DEMO en el nombre y en el encabezado** (D36): nombre `DEMO_<informe>_<AAAAMMDD>.csv|xlsx`; primera fila «DEMO — datos de demostración, sin validez» y debajo los nombres de columna. En CSV esa primera fila es una línea de texto; las herramientas que esperen cabecera en la primera línea deben saltarla (decisión de formato provisional).
 

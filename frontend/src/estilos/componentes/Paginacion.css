@@ -28,7 +28,7 @@
   border: 1px solid var(--color-borde);
   border-radius: var(--radio-borde);
   background: var(--color-superficie);
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
   font: inherit;
   cursor: pointer;
 }

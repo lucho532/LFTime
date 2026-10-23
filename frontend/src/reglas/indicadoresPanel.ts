@@ -112,6 +112,7 @@ export function calcularHorasDelDia(filas: FilaPersonalEnVivo[]): HorasDelDia {
 /** Clave de un grupo del gráfico de estados: un estado del catálogo o «sin turno hoy». */
 export type ClaveEstadoPersonal = EstadoVisible | 'SIN_TURNO'
 
+/** Un grupo del gráfico «Estados del personal»: su clave, el texto que se muestra y cuántas personas tiene. */
 export interface GrupoEstadoPersonal {
   clave: ClaveEstadoPersonal
   texto: string

@@ -15,7 +15,7 @@
 
 .pagina-ingreso__contenido h1 {
   margin: 0 0 var(--espacio-2);
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
 }
 
 .pagina-ingreso__lista {
@@ -48,7 +48,7 @@
   padding: 2px var(--espacio-2);
   border-radius: 999px;
   background: var(--color-marca-claro);
-  color: var(--color-marca-oscuro);
+  color: var(--color-titulo);
   font-size: 0.8rem;
   font-weight: 600;
 }
