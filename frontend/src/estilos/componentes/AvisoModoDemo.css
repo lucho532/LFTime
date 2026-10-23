@@ -1,0 +1,31 @@
+.aviso-modo-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2) var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-3);
+  background: var(--color-demo-fondo);
+  color: var(--color-demo-texto);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.aviso-modo-demo__estado {
+  font-weight: 600;
+}
+
+.aviso-modo-demo__boton {
+  padding: var(--espacio-1) var(--espacio-3);
+  border: 1px solid currentColor;
+  border-radius: var(--radio-borde);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.aviso-modo-demo__boton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

@@ -1,0 +1,35 @@
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: 2px var(--espacio-2);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.insignia--verde {
+  background: var(--color-estado-jornada-fondo);
+  color: var(--color-estado-jornada);
+}
+
+.insignia--azul {
+  background: var(--color-estado-almuerzo-fondo);
+  color: var(--color-estado-almuerzo);
+}
+
+.insignia--ambar {
+  background: var(--color-estado-aviso-fondo);
+  color: var(--color-estado-aviso);
+}
+
+.insignia--rojo {
+  background: var(--color-estado-critico-fondo);
+  color: var(--color-estado-critico);
+}
+
+.insignia--gris {
+  background: var(--color-gris-fondo);
+  color: var(--color-gris-texto);
+}

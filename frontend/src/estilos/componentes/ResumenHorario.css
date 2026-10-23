@@ -1,0 +1,30 @@
+.resumen-horario {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin: 0;
+}
+
+.resumen-horario dt {
+  font-weight: 600;
+  color: var(--color-marca-oscuro);
+}
+
+.resumen-horario dd {
+  margin: 0;
+}
+
+.resumen-horario small {
+  color: var(--color-texto-suave);
+}
+
+@media (max-width: 560px) {
+  .resumen-horario {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .resumen-horario dd {
+    margin-bottom: var(--espacio-2);
+  }
+}

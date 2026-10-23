@@ -1,0 +1,9 @@
+.pagina-en-construccion h1 {
+  margin: 0 0 var(--espacio-2);
+  color: var(--color-marca-oscuro);
+}
+
+.pagina-en-construccion p {
+  margin: 0;
+  color: var(--color-texto-suave);
+}

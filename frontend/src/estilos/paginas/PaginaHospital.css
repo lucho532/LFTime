@@ -1,0 +1,36 @@
+.pagina-hospital {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.pagina-hospital__encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.pagina-hospital__encabezado h1 {
+  margin: 0;
+  color: var(--color-marca-oscuro);
+}
+
+.pagina-hospital__rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-4);
+  align-items: start;
+}
+
+.pagina-hospital__subtitulo {
+  margin: var(--espacio-4) 0 var(--espacio-2);
+  font-size: 0.95rem;
+  color: var(--color-marca-oscuro);
+}
+
+@media (max-width: 1100px) {
+  .pagina-hospital__rejilla {
+    grid-template-columns: 1fr;
+  }
+}

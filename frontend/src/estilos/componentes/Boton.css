@@ -1,0 +1,43 @@
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  min-height: 40px;
+  padding: var(--espacio-2) var(--espacio-3);
+  border: 1px solid transparent;
+  border-radius: var(--radio-borde);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.boton[aria-busy='true'] {
+  cursor: wait;
+}
+
+.boton--primario {
+  background: var(--color-marca-electrico);
+  color: var(--color-texto-sobre-marca);
+}
+
+.boton--secundario {
+  background: var(--color-superficie);
+  border-color: var(--color-marca-electrico);
+  color: var(--color-marca-electrico);
+}
+
+.boton--peligro {
+  background: var(--color-estado-critico);
+  color: var(--color-texto-sobre-marca);
+}
+
+.boton--texto {
+  background: transparent;
+  color: var(--color-marca-electrico);
+}

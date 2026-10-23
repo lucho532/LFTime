@@ -1,0 +1,24 @@
+.formulario-trabajador {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.formulario-trabajador__fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-3);
+}
+
+.formulario-trabajador__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--espacio-2);
+}
+
+@media (max-width: 560px) {
+  .formulario-trabajador__fila {
+    grid-template-columns: 1fr;
+  }
+}

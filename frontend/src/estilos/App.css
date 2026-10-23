@@ -1,0 +1,7 @@
+/* Estilos del contenedor raíz de la aplicación (enrutado y disposición general). */
+
+.aplicacion {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

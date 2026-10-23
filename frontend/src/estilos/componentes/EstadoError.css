@@ -1,0 +1,16 @@
+.estado-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4);
+  border: 1px solid var(--color-estado-critico);
+  border-radius: var(--radio-borde);
+  background: var(--color-estado-critico-fondo);
+  text-align: center;
+}
+
+.estado-error__mensaje {
+  margin: 0;
+  color: var(--color-estado-critico);
+}

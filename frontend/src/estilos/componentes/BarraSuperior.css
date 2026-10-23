@@ -1,0 +1,35 @@
+.barra-superior {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-4);
+  background: var(--color-marca-oscuro);
+  color: var(--color-texto-sobre-marca);
+}
+
+.barra-superior__derecha {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  margin-left: auto;
+}
+
+.barra-superior__menu {
+  display: none;
+  padding: var(--espacio-1);
+  border: 0;
+  border-radius: var(--radio-borde);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .barra-superior {
+    padding: var(--espacio-2) var(--espacio-3);
+  }
+
+  .barra-superior__menu {
+    display: inline-flex;
+  }
+}

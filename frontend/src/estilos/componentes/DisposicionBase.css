@@ -1,0 +1,23 @@
+.disposicion-base {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.disposicion-base__cuerpo {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.disposicion-base__contenido {
+  flex: 1;
+  min-width: 0;
+  padding: var(--espacio-4);
+}
+
+@media (max-width: 900px) {
+  .disposicion-base__contenido {
+    padding: var(--espacio-3);
+  }
+}

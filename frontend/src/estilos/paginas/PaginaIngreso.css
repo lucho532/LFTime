@@ -1,0 +1,61 @@
+.pagina-ingreso {
+  min-height: 100vh;
+}
+
+.pagina-ingreso__cabecera {
+  padding: var(--espacio-3) var(--espacio-4);
+  background: var(--color-marca-oscuro);
+}
+
+.pagina-ingreso__contenido {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--espacio-4) var(--espacio-3);
+}
+
+.pagina-ingreso__contenido h1 {
+  margin: 0 0 var(--espacio-2);
+  color: var(--color-marca-oscuro);
+}
+
+.pagina-ingreso__lista {
+  display: grid;
+  gap: var(--espacio-3);
+  margin: var(--espacio-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagina-ingreso__usuario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+}
+
+.pagina-ingreso__usuario p {
+  margin: var(--espacio-1) 0 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.pagina-ingreso__rol {
+  margin-left: var(--espacio-2);
+  padding: 2px var(--espacio-2);
+  border-radius: 999px;
+  background: var(--color-marca-claro);
+  color: var(--color-marca-oscuro);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .pagina-ingreso__usuario {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

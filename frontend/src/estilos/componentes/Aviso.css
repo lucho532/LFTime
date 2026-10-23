@@ -1,0 +1,29 @@
+.aviso {
+  padding: var(--espacio-2) var(--espacio-3);
+  border-left: 4px solid currentColor;
+  border-radius: var(--radio-borde);
+}
+
+.aviso--info {
+  background: var(--color-estado-almuerzo-fondo);
+  color: var(--color-estado-almuerzo);
+}
+
+.aviso--exito {
+  background: var(--color-estado-jornada-fondo);
+  color: var(--color-estado-jornada);
+}
+
+.aviso--advertencia {
+  background: var(--color-estado-aviso-fondo);
+  color: var(--color-demo-texto);
+}
+
+.aviso--error {
+  background: var(--color-estado-critico-fondo);
+  color: var(--color-estado-critico);
+}
+
+.aviso span {
+  color: var(--color-texto);
+}

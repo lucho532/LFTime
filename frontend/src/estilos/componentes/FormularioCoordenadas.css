@@ -1,0 +1,50 @@
+.formulario-coordenadas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.formulario-coordenadas__modo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin: 0;
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+}
+
+.formulario-coordenadas__modo legend {
+  padding: 0 var(--espacio-1);
+  font-weight: 600;
+}
+
+.formulario-coordenadas__manual,
+.formulario-coordenadas__gps,
+.formulario-coordenadas__resultado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-3);
+}
+
+.formulario-coordenadas__gps p {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.formulario-coordenadas__resultado dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--espacio-1) var(--espacio-3);
+  margin: 0;
+}
+
+.formulario-coordenadas__resultado dt {
+  font-weight: 600;
+}
+
+.formulario-coordenadas__resultado dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}

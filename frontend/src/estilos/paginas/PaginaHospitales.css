@@ -1,0 +1,31 @@
+.pagina-hospitales__encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  margin-bottom: var(--espacio-4);
+}
+
+.pagina-hospitales__encabezado h1 {
+  margin: 0;
+  color: var(--color-marca-oscuro);
+}
+
+.pagina-hospitales__encabezado p {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-texto-suave);
+}
+
+.pagina-hospitales__contenido {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--espacio-4);
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .pagina-hospitales__contenido {
+    grid-template-columns: 1fr;
+  }
+}

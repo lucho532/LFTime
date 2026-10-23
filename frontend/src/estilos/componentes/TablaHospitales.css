@@ -1,0 +1,12 @@
+.tabla-hospitales__filtros {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--espacio-3);
+  margin-bottom: var(--espacio-3);
+}
+
+@media (max-width: 720px) {
+  .tabla-hospitales__filtros {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,33 @@
+.selector-foto {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espacio-4);
+}
+
+.selector-foto__controles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-2);
+}
+
+.selector-foto__entrada {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.selector-foto__ayuda {
+  margin: 0;
+  max-width: 420px;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+@media (max-width: 560px) {
+  .selector-foto {
+    flex-direction: column;
+  }
+}

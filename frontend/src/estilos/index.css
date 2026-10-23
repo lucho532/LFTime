@@ -1,0 +1,75 @@
+/*
+ * Estilos globales de LFTime.
+ * Contiene únicamente: reinicio, variables de tema y estilos de elementos raíz.
+ * No debe contener estilos de un componente o página concretos (constitución R-6).
+ */
+
+:root {
+  /* Marca: azul oscuro, azul eléctrico y blanco (referencia visual) */
+  --color-marca-oscuro: #0a2a5e;
+  --color-marca-medio: #123a82;
+  --color-marca-electrico: #1b5fe8;
+  --color-marca-claro: #e8f0fe;
+
+  /* Superficies y texto */
+  --color-fondo: #f3f6fb;
+  --color-superficie: #ffffff;
+  --color-borde: #dce4f0;
+  --color-texto: #14213d;
+  --color-texto-suave: #5a6b8a;
+  --color-texto-sobre-marca: #ffffff;
+
+  /* Estados (siempre se muestran también con texto, nunca solo con color) */
+  --color-estado-jornada: #1f9d63;
+  --color-estado-jornada-fondo: #e3f6ec;
+  --color-estado-almuerzo: #1b5fe8;
+  --color-estado-almuerzo-fondo: #e4edfd;
+  --color-estado-aviso: #d98a0b;
+  --color-estado-aviso-fondo: #fdf1dc;
+  --color-estado-critico: #d62f3f;
+  --color-estado-critico-fondo: #fde7ea;
+
+  /* Aviso de modo demostración */
+  --color-demo-fondo: #fff4cc;
+  --color-demo-texto: #6b4e00;
+
+  /* Tipografía y medidas */
+  --fuente-base: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --radio-borde: 8px;
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 16px;
+  --espacio-4: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-base);
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.45;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Foco visible para navegación con teclado (accesibilidad) */
+:root {
+  --color-foco: #1b5fe8;
+  --color-gris-fondo: #eceff4;
+  --color-gris-texto: #4a5568;
+  --sombra-tarjeta: 0 1px 3px rgba(10, 42, 94, 0.12);
+  --sombra-modal: 0 12px 40px rgba(10, 42, 94, 0.3);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}

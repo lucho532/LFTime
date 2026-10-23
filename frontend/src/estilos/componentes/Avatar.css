@@ -1,0 +1,35 @@
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--color-marca-claro);
+  color: var(--color-marca-oscuro);
+  font-weight: 700;
+}
+
+.avatar--pequeno {
+  width: 32px;
+  height: 32px;
+  font-size: 0.75rem;
+}
+
+.avatar--mediano {
+  width: 40px;
+  height: 40px;
+  font-size: 0.9rem;
+}
+
+.avatar--grande {
+  width: 72px;
+  height: 72px;
+  font-size: 1.4rem;
+}
+
+.avatar__imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

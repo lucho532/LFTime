@@ -1,0 +1,29 @@
+.estado-carga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-4);
+  color: var(--color-texto-suave);
+}
+
+.estado-carga__rueda {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--color-borde);
+  border-top-color: var(--color-marca-electrico);
+  border-radius: 50%;
+  animation: giro 0.8s linear infinite;
+}
+
+@keyframes giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estado-carga__rueda {
+    animation: none;
+  }
+}

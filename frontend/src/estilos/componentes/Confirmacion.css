@@ -1,0 +1,24 @@
+.confirmacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-3);
+  border-left: 4px solid var(--color-estado-jornada);
+  border-radius: var(--radio-borde);
+  background: var(--color-estado-jornada-fondo);
+}
+
+.confirmacion__mensaje {
+  margin: 0;
+  color: var(--color-estado-jornada);
+}
+
+.confirmacion__cerrar {
+  border: 0;
+  background: transparent;
+  color: var(--color-texto-suave);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

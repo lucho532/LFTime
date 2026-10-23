@@ -1,0 +1,60 @@
+.mapa-esquematico {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.mapa-esquematico__lienzo {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+}
+
+.mapa-esquematico__fondo {
+  fill: var(--color-marca-claro);
+}
+
+.mapa-esquematico__rejilla line {
+  stroke: var(--color-borde);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.mapa-esquematico__marcador {
+  cursor: pointer;
+}
+
+.mapa-esquematico__marcador circle {
+  fill: var(--color-marca-electrico);
+  stroke: var(--color-superficie);
+  stroke-width: 3;
+}
+
+.mapa-esquematico__marcador text {
+  fill: var(--color-marca-oscuro);
+  font-size: 13px;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--color-superficie);
+  stroke-width: 3px;
+}
+
+.mapa-esquematico__marcador:focus-visible circle {
+  stroke: var(--color-foco);
+}
+
+.mapa-esquematico__nota {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+.mapa-esquematico__pendientes {
+  font-size: 0.9rem;
+}
+
+.mapa-esquematico__pendientes ul {
+  margin: var(--espacio-1) 0 0;
+  padding-left: var(--espacio-4);
+}

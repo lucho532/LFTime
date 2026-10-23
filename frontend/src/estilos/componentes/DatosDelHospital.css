@@ -1,0 +1,26 @@
+.datos-del-hospital {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin: 0;
+}
+
+.datos-del-hospital dt {
+  font-weight: 600;
+  color: var(--color-marca-oscuro);
+}
+
+.datos-del-hospital dd {
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .datos-del-hospital {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .datos-del-hospital dd {
+    margin-bottom: var(--espacio-2);
+  }
+}

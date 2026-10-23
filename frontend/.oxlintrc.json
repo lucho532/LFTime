@@ -1,0 +1,1 @@
+{ "overrides": [ { "files": ["src/pruebas/**"], "rules": { "react/only-export-components": "off" } } ] }

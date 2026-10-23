@@ -1,0 +1,33 @@
+.modal__fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espacio-3);
+  background: rgba(10, 42, 94, 0.5);
+}
+
+.modal {
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--espacio-4);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-modal);
+}
+
+.modal__titulo {
+  margin: 0 0 var(--espacio-3);
+  color: var(--color-marca-oscuro);
+}
+
+.modal__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--espacio-2);
+  margin-top: var(--espacio-4);
+}

@@ -1,0 +1,47 @@
+.formulario-horario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.formulario-horario__fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-3);
+}
+
+.formulario-horario__dias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin: 0;
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+}
+
+.formulario-horario__dias legend {
+  padding: 0 var(--espacio-1);
+  font-weight: 600;
+}
+
+.formulario-horario__error {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-estado-critico);
+}
+
+.formulario-horario__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--espacio-2);
+}
+
+@media (max-width: 560px) {
+  .formulario-horario__fila {
+    grid-template-columns: 1fr;
+  }
+}

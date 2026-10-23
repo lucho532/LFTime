@@ -1,0 +1,42 @@
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+}
+
+.campo__etiqueta {
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.campo__obligatorio {
+  font-weight: 400;
+  color: var(--color-texto-suave);
+}
+
+.campo__ayuda {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.campo__error {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-estado-critico);
+}
+
+.campo__control {
+  min-height: 40px;
+  padding: var(--espacio-2) var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  font: inherit;
+}
+
+.campo__control[aria-invalid='true'] {
+  border-color: var(--color-estado-critico);
+}

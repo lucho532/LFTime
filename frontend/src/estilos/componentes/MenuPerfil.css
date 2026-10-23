@@ -1,0 +1,68 @@
+.menu-perfil {
+  position: relative;
+}
+
+.menu-perfil__boton {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-1) var(--espacio-2);
+  border: 0;
+  border-radius: var(--radio-borde);
+  background: transparent;
+  color: var(--color-texto-sobre-marca);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-perfil__datos {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.menu-perfil__nombre {
+  font-weight: 600;
+}
+
+.menu-perfil__rol {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.menu-perfil__lista {
+  position: absolute;
+  right: 0;
+  z-index: 50;
+  min-width: 240px;
+  margin: var(--espacio-1) 0 0;
+  padding: var(--espacio-1);
+  list-style: none;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-modal);
+}
+
+.menu-perfil__lista button {
+  width: 100%;
+  padding: var(--espacio-2) var(--espacio-3);
+  border: 0;
+  border-radius: var(--radio-borde);
+  background: transparent;
+  color: var(--color-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-perfil__lista button:hover {
+  background: var(--color-marca-claro);
+}
+
+@media (max-width: 720px) {
+  .menu-perfil__datos {
+    display: none;
+  }
+}
