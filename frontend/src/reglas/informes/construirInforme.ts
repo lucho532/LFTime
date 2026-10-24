@@ -1,8 +1,10 @@
 import type { DatosInformes, FiltrosInforme, TablaInforme, TipoInforme } from '../../modelos/informe'
+import { informeAcumuladoMensual } from './informeAcumuladoMensual'
 import { informeAsistencia } from './informeAsistencia'
 import { informeCumplimiento } from './informeCumplimiento'
 import { informeHoras } from './informeHoras'
 import { informeIncidencias } from './informeIncidencias'
+import { informeTiempoDebido } from './informeTiempoDebido'
 import { informeIntentos } from './informeIntentos'
 import { validarPeriodo } from './periodo'
 
@@ -12,6 +14,8 @@ const CONSTRUCTORES: Record<TipoInforme, (datos: DatosInformes, filtros: Filtros
   INCIDENCIAS: informeIncidencias,
   INTENTOS_RECHAZADOS: informeIntentos,
   CUMPLIMIENTO_POR_HOSPITAL: informeCumplimiento,
+  ACUMULADO_MENSUAL: informeAcumuladoMensual,
+  TIEMPO_DEBIDO: informeTiempoDebido,
 }
 
 /**

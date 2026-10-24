@@ -1,0 +1,39 @@
+.detalle-jornada-activa {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.detalle-jornada-activa__tiempo {
+  color: var(--color-titulo);
+  font-size: 1.7rem;
+}
+
+.detalle-jornada-activa__marcas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espacio-2);
+  margin: 0;
+  text-align: center;
+}
+
+.detalle-jornada-activa__marcas dt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}
+
+.detalle-jornada-activa__marcas dd {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-titulo);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.detalle-jornada-activa__boton {
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+}

@@ -10,6 +10,8 @@ interface PropiedadesModal {
   children: ReactNode
   /** Botones al pie del diálogo. */
   acciones?: ReactNode
+  /** `amplio` es para contenido con tablas. */
+  ancho?: 'normal' | 'amplio'
 }
 
 /**
@@ -18,7 +20,7 @@ interface PropiedadesModal {
  * Al abrirse mueve el foco al diálogo, lo mantiene dentro (Tab y Mayús+Tab), se cierra con Escape
  * o al pulsar fuera, y devuelve el foco a quien lo abrió. No decide qué pasa al confirmar.
  */
-export function Modal({ abierto, titulo, onCerrar, children, acciones }: PropiedadesModal) {
+export function Modal({ abierto, titulo, onCerrar, children, acciones, ancho = 'normal' }: PropiedadesModal) {
   const idTitulo = useId()
   const contenedor = useRef<HTMLDivElement>(null)
 
@@ -64,7 +66,7 @@ export function Modal({ abierto, titulo, onCerrar, children, acciones }: Propied
     <div className="modal__fondo" onClick={(evento) => evento.target === evento.currentTarget && onCerrar()}>
       <div
         ref={contenedor}
-        className="modal"
+        className={`modal${ancho === 'amplio' ? ' modal--amplio' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={idTitulo}

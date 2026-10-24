@@ -1,0 +1,5 @@
+.barra-superior-movil {
+  display: flex;
+  align-items: center;
+  padding: var(--espacio-3) var(--espacio-3) var(--espacio-1);
+}

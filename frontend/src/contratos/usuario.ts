@@ -12,6 +12,11 @@ export interface UsuarioDto {
   nombres: string
   apellidos: string
   rol: Rol
+  /** Datos personales de quien no es trabajador (los del trabajador viven en `TrabajadorDto`, P-13). */
+  tipoDocumento?: string
+  numeroDocumento?: string
+  cargo?: string
+  telefono?: string
   /** Trabajador asociado cuando el rol es TRABAJADOR. */
   trabajadorId?: string
   /** Hospitales de los que el coordinador es responsable principal (D28). */

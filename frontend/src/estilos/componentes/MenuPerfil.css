@@ -45,7 +45,11 @@
   box-shadow: var(--sombra-modal);
 }
 
-.menu-perfil__lista button {
+.menu-perfil__lista button,
+.menu-perfil__lista a {
+  display: block;
+  box-sizing: border-box;
+  text-decoration: none;
   width: 100%;
   padding: var(--espacio-2) var(--espacio-3);
   border: 0;
@@ -57,7 +61,8 @@
   cursor: pointer;
 }
 
-.menu-perfil__lista button:hover {
+.menu-perfil__lista button:hover,
+.menu-perfil__lista a:hover {
   background: var(--color-marca-claro);
 }
 

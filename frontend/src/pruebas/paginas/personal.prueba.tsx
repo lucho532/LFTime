@@ -125,7 +125,7 @@ describe('pantallas de personal (HU-02)', () => {
 
     it('el coordinador edita el estado y la ficha lo refleja', async () => {
       await abrir('/personal/trab-001', 'usr-coord-1')
-      await userEvent.click(await screen.findByRole('button', { name: 'Editar datos' }))
+      await userEvent.click(await screen.findByRole('button', { name: 'Editar datos personales' }))
       const dialogo = screen.getByRole('dialog', { name: 'Editar trabajador' })
       await userEvent.selectOptions(within(dialogo).getByLabelText(/^Estado/), 'VACACIONES')
       await userEvent.click(within(dialogo).getByRole('button', { name: 'Guardar trabajador' }))
@@ -134,11 +134,22 @@ describe('pantallas de personal (HU-02)', () => {
       expect(within(datos).getByText('Vacaciones')).toBeInTheDocument()
     })
 
-    it('el trabajador entra directo a su ficha desde Personal y no puede editarla', async () => {
+    it('el trabajador entra directo a su ficha desde Personal y edita sus datos personales, pero no su hospital ni su estado', async () => {
       await abrir('/personal', 'usr-trab-001')
       expect(await screen.findByRole('heading', { name: 'María López' })).toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: 'Editar datos' })).not.toBeInTheDocument()
       expect(screen.queryByRole('link', { name: '← Personal' })).not.toBeInTheDocument()
+      await userEvent.click(screen.getByRole('button', { name: 'Editar datos personales' }))
+      const dialogo = screen.getByRole('dialog', { name: 'Editar trabajador' })
+      expect(within(dialogo).queryByLabelText(/Hospital asignado/)).not.toBeInTheDocument()
+      expect(within(dialogo).queryByLabelText(/^Estado/)).not.toBeInTheDocument()
+      const telefono = within(dialogo).getByLabelText(/Teléfono/)
+      await userEvent.clear(telefono)
+      await userEvent.type(telefono, '3109998877')
+      await userEvent.click(within(dialogo).getByRole('button', { name: 'Guardar trabajador' }))
+      expect(await screen.findByText('Datos del trabajador guardados en esta demostración.')).toBeInTheDocument()
+      const datos = screen.getByText('Documento').closest('dl')!
+      expect(within(datos).getByText('3109998877')).toBeInTheDocument()
+      expect(within(datos).getByText('Hospital San José')).toBeInTheDocument()
     })
 
     it('el trabajador no puede abrir la ficha de otra persona', async () => {

@@ -67,3 +67,17 @@
     text-align: left;
   }
 }
+
+/* Columna fija al borde derecho: sigue a la vista aunque la tabla se desplace; el fondo evita que se transparente lo de atrás. */
+@media (min-width: 721px) {
+  .tabla .tabla__celda--fija {
+    position: sticky;
+    right: 0;
+    background: inherit;
+    box-shadow: -6px 0 8px -6px rgba(0, 0, 0, 0.35);
+  }
+
+  .tabla th.tabla__celda--fija {
+    background: var(--color-fondo);
+  }
+}

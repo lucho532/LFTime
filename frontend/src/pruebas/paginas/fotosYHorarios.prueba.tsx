@@ -26,6 +26,12 @@ async function abrir(ruta: string, usuarioId: string) {
     </MemoryRouter>,
   )
 }
+/** La foto se edita solo desde la ficha: el botón de la cámara abre el selector (D41). */
+async function abrirEditorDeFoto() {
+  await userEvent.click(screen.getByRole('button', { name: 'Cambiar mi foto de perfil' }))
+  const dialogo = screen.getByRole('dialog', { name: 'Mi foto de perfil' })
+  return { dialogo, entrada: dialogo.querySelector<HTMLInputElement>('input[type="file"]')! }
+}
 const imagen = (nombre = 'foto.jpg', tipo = 'image/jpeg') => new File([new Uint8Array(2000)], nombre, { type: tipo })
 
 beforeEach(() => {
@@ -38,12 +44,13 @@ beforeEach(() => {
 
 describe('foto de perfil en la interfaz (D14, D24, D35)', () => {
   it('la propia persona sube, ve y retira su foto; la app funciona igual sin ella', async () => {
-    const { container } = await abrir('/personal/trab-001', 'usr-trab-001')
+    await abrir('/personal/trab-001', 'usr-trab-001')
     await screen.findByRole('heading', { name: 'María López' })
     expect(screen.queryByRole('button', { name: 'Retirar foto' })).not.toBeInTheDocument()
     expect(screen.getAllByRole('img', { name: /Sin foto visible de María López/ }).length).toBeGreaterThan(0)
 
-    await userEvent.upload(container.querySelector('input[type="file"]')!, imagen())
+    const { entrada } = await abrirEditorDeFoto()
+    await userEvent.upload(entrada, imagen())
     expect(await screen.findByText('Foto guardada en esta demostración.')).toBeInTheDocument()
     expect(await screen.findByRole('button', { name: 'Retirar foto' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Cambiar foto' })).toBeInTheDocument()
@@ -58,9 +65,10 @@ describe('foto de perfil en la interfaz (D14, D24, D35)', () => {
 
   it('rechaza un formato no admitido con un mensaje claro y no guarda nada', async () => {
     const usuario = userEvent.setup({ applyAccept: false })
-    const { container } = await abrir('/personal/trab-001', 'usr-trab-001')
+    await abrir('/personal/trab-001', 'usr-trab-001')
     await screen.findByRole('heading', { name: 'María López' })
-    await usuario.upload(container.querySelector('input[type="file"]')!, imagen('animada.gif', 'image/gif'))
+    const { entrada } = await abrirEditorDeFoto()
+    await usuario.upload(entrada, imagen('animada.gif', 'image/gif'))
     expect(await screen.findByText('Formato no admitido. Usa una foto JPG, JPEG, PNG o WebP.')).toBeInTheDocument()
     expect(await almacen.contar()).toBe(0)
   })
@@ -71,9 +79,10 @@ describe('foto de perfil en la interfaz (D14, D24, D35)', () => {
     ['ALMACENAMIENTO_NO_DISPONIBLE', /no permite guardar fotos/],
   ] as const)('si el almacenamiento falla (%s) explica qué pasó y la app sigue funcionando', async (motivo, mensaje) => {
     almacen.falloAlGuardar = new ErrorAlmacenFotos(motivo)
-    const { container } = await abrir('/personal/trab-001', 'usr-trab-001')
+    await abrir('/personal/trab-001', 'usr-trab-001')
     await screen.findByRole('heading', { name: 'María López' })
-    await userEvent.upload(container.querySelector('input[type="file"]')!, imagen())
+    const { entrada } = await abrirEditorDeFoto()
+    await userEvent.upload(entrada, imagen())
     expect(await screen.findByText(mensaje)).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'María López' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Subir foto' })).toBeInTheDocument()
@@ -82,7 +91,7 @@ describe('foto de perfil en la interfaz (D14, D24, D35)', () => {
   it('administración y coordinación no cambian la foto de otra persona', async () => {
     await abrir('/personal/trab-001', 'usr-coord-1')
     await screen.findByRole('heading', { name: 'María López' })
-    expect(screen.getByText('La foto de perfil la cambia únicamente cada persona.')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Cambiar mi foto de perfil' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Subir foto' })).not.toBeInTheDocument()
   })
 
@@ -98,15 +107,33 @@ describe('foto de perfil en la interfaz (D14, D24, D35)', () => {
     expect(screen.getAllByRole('img', { name: /Sin foto visible de María López/ }).length).toBeGreaterThan(0)
   })
 
-  it('todo usuario puede poner su foto desde el menú del perfil, también administración', async () => {
-    const { container } = await abrir('/hospitales', 'usr-admin-1')
-    await userEvent.click(await screen.findByRole('button', { name: /Carolina Mejía/ }))
-    await userEvent.click(screen.getByRole('button', { name: 'Mi foto de perfil' }))
-    const dialogo = screen.getByRole('dialog', { name: 'Mi foto de perfil' })
+  it('todo usuario puede poner su foto desde su ficha, también administración', async () => {
+    await abrir('/usuarios/usr-admin-1', 'usr-admin-1')
+    await screen.findByRole('heading', { name: 'Carolina Mejía' })
+    const { dialogo, entrada } = await abrirEditorDeFoto()
     expect(within(dialogo).getByRole('button', { name: 'Subir foto' })).toBeInTheDocument()
-    await userEvent.upload(container.ownerDocument.querySelector('[role="dialog"] input[type="file"]')!, imagen('perfil.png', 'image/png'))
+    await userEvent.upload(entrada, imagen('perfil.png', 'image/png'))
     expect(await within(dialogo).findByText('Foto guardada en esta demostración.')).toBeInTheDocument()
     expect(await almacen.obtener('usuario:usr-admin-1')).not.toBeNull()
+  })
+
+  it('la foto propia no aparece fuera de la ficha: ni en la barra superior ni en el menú del perfil (D41)', async () => {
+    await servicios.fotos.guardar({ usuarioId: 'usr-admin-1' }, new Blob([new Uint8Array(10)], { type: 'image/webp' }))
+    await abrir('/hospitales', 'usr-admin-1')
+    await userEvent.click(await screen.findByRole('button', { name: /Carolina Mejía/ }))
+    expect(screen.getByRole('link', { name: 'Mi ficha' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Mi foto de perfil' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('img', { name: /Carolina Mejía/ })).not.toBeInTheDocument()
+  })
+
+  it('el trabajador no ve su foto en la aplicación móvil, solo en su ficha (D41)', async () => {
+    await servicios.fotos.guardar({ trabajadorId: 'trab-001' }, new Blob([new Uint8Array(10)], { type: 'image/webp' }))
+    await abrir('/registro', 'usr-trab-001')
+    await screen.findByRole('heading', { name: 'Registro de jornada' })
+    expect(screen.queryByRole('img', { name: /María López/ })).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('link', { name: 'Perfil' }))
+    await screen.findByRole('heading', { name: 'María López' })
+    await waitFor(() => expect(screen.getAllByRole('img', { name: 'Foto de María López' }).length).toBeGreaterThan(0))
   })
 })
 

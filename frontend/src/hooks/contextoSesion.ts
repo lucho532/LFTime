@@ -9,6 +9,8 @@ export interface ValorSesion {
   cargando: boolean
   ingresar: (usuarioId: string) => Promise<Usuario>
   salir: () => Promise<void>
+  /** Vuelve a leer al usuario con sesión, por ejemplo tras editar sus datos personales. */
+  recargar: () => Promise<void>
 }
 
 /** Contexto de la sesión. Se provee con `ProveedorSesion` y se consume con `useSesion`. */

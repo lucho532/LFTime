@@ -5,7 +5,7 @@ import type { ValorSesion } from './contextoSesion'
 
 /**
  * Estado de la sesión simulada (D9): recupera al abrir la aplicación el usuario de prueba guardado y ofrece
- * `ingresar` y `salir` conectados a `ISesionServicio`. Lo usa solo `ProveedorSesion`; el resto de la
+ * `ingresar`, `salir` y `recargar` conectados a `ISesionServicio`. Lo usa solo `ProveedorSesion`; el resto de la
  * interfaz lee la sesión con `useSesion`. No autentica ni autoriza: es solo la demostración.
  */
 export function useSesionSimulada(): ValorSesion {
@@ -36,5 +36,9 @@ export function useSesionSimulada(): ValorSesion {
     setUsuario(null)
   }, [])
 
-  return useMemo<ValorSesion>(() => ({ usuario, cargando, ingresar, salir }), [usuario, cargando, ingresar, salir])
+  const recargar = useCallback(async () => {
+    setUsuario(await servicios.sesion.obtenerUsuarioActual())
+  }, [])
+
+  return useMemo<ValorSesion>(() => ({ usuario, cargando, ingresar, salir, recargar }), [usuario, cargando, ingresar, salir, recargar])
 }

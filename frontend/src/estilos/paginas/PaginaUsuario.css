@@ -1,0 +1,12 @@
+.pagina-usuario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.pagina-usuario__rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: var(--espacio-4);
+  align-items: start;
+}

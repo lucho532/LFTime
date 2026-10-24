@@ -1,0 +1,13 @@
+.reloj-jornada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.reloj-jornada__hora {
+  color: var(--color-titulo);
+  font-size: 2.6rem;
+  line-height: 1.1;
+}

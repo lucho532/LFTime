@@ -20,6 +20,8 @@ const NOMBRE_EN_ARCHIVO: Record<TipoInforme, string> = {
   INCIDENCIAS: 'incidencias',
   INTENTOS_RECHAZADOS: 'intentos_rechazados',
   CUMPLIMIENTO_POR_HOSPITAL: 'cumplimiento_por_hospital',
+  ACUMULADO_MENSUAL: 'acumulado_mensual',
+  TIEMPO_DEBIDO: 'tiempo_por_reponer',
 }
 
 const TIPO_MIME: Record<FormatoExportacion, string> = {

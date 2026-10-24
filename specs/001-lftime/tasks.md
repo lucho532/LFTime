@@ -150,6 +150,23 @@ Leyenda de estado: `[ ]` pendiente · `[~]` en curso · `[X]` terminada y verifi
 
 ---
 
+## Hito 13: Aplicación móvil del trabajador y foto solo en la ficha
+
+| ID | Tarea | Depende de | Criterio de terminado | Traza |
+|----|-------|-----------|-----------------------|-------|
+| [X] T-13.1 | Disposición móvil con barra inferior (Inicio, Historial, Perfil) para el trabajador; el resto de roles conserva el panel | T-4.2 | Prueba de menú por rol | D40 |
+| [X] T-13.2 | Pantalla principal, confirmación (almuerzo aparte), «Se requiere tu ubicación» y detalle de jornada | T-8.x | Pruebas del flujo de registro | D40, HU-05 |
+| [X] T-13.3 | Historial por día con intentos aparte y resumen con tres tiempos | T-8.x | Pruebas de historial y «Incompleto» | D40, CA-5 |
+| [X] T-13.4 | Ingreso con «Usuario o cédula» y contraseña no validada, más lista de usuarios de prueba | T-4.x | Prueba de ingreso | D40, D9 |
+| [X] T-13.5 | Foto de perfil solo en la ficha, editable con el botón de la cámara; fuera de barra, menú y app móvil | T-6.x | Pruebas de foto | D41 |
+| [X] T-13.7 | Ficha del trabajador con tarjeta «Jornada de hoy»: cronómetro en vivo (corre, se pausa en el almuerzo, se detiene al salir), marcaciones con hora programada y registrada, resumen con tramos, almuerzo frente a lo autorizado y total | T-13.2 | Pruebas de la tarjeta y de las reglas del cronómetro | HU-02, D16 |
+| [X] T-13.8 | Reportes: nombres e incidencias como enlaces, desglose de la diferencia con lo programado (entrada, almuerzo, salida), columna de diferencia fija, tabla sin apretar | T-11.2 | Pruebas de enlaces y del desglose (los aportes suman la diferencia) | HU-08, D38 |
+| [X] T-13.9 | Informes «Acumulado mensual» y «Tiempo por reponer» con desglose día por día | T-13.8 | Pruebas de las reglas y de la pantalla | HU-08 |
+| [X] T-13.10 | Fechas de informes: por defecto solo hoy, ocultas tras «Filtrar por fechas»; los informes mensuales usan el mes en curso | T-13.8 | Pruebas de periodo por defecto | HU-08 |
+| [~] T-13.6 | Revisión visual frente al diseño en un teléfono real y en ambos temas | T-13.1 a T-13.5 | Revisada pantalla por pantalla | D40 |
+
+---
+
 ## Dependencias entre hitos
 
 ```text
@@ -334,3 +351,32 @@ Resultado: `npm run build` compila; `npm test` pasa **567 pruebas** (48 archivos
 - **Hallazgo 2, JSDoc:** las diez exportaciones sin documentación (`TonoInsignia`, `TRABAJADOR_INTENTO_FALLO_TECNICO`, `ResultadoEvaluacion`, `ResultadoSecuencia`, `ResultadoEscritura`, `MotivoFalloFoto`, `ResultadoPreparacionFoto`, `ResultadoUbicacion`, `PuntoEnLienzo`, `MENSAJE_FORMATO_NO_ADMITIDO`) tienen ahora su comentario en español. Un recorrido de todos los `export` de `src/` (sin pruebas) ya no encuentra ninguno sin JSDoc.
 - **Hallazgo 3, lógica en componentes:** se movió solo lo que correspondía. El orden y el conteo de alertas (`PanelAlertas`) y el filtro «sin turno» (`TablaPersonalEnVivo`) pasaron a `reglas/indicadoresPanel` (con pruebas), y el reparto de los arcos del anillo (`EstadosDelPersonal`) a `utilidades/segmentosAnillo` (con pruebas). **Se dejó sin mover** lo puramente presentacional: las búsquedas de nombres (`trabajadorDe`, `hospitalDe`), el orden de historiales en `AsignacionCoordinador` y `PanelHorarioTrabajador`, y el reparto de hospitales con y sin coordenadas en el mapa.
 - **No verificado:** el anillo de «Estados del personal» no se volvió a mirar en un navegador tras mover su cálculo (solo está probada la función); la pestaña de red sigue sin abrirse.
+
+### Seguimiento 2 del hito 12: ubicación como enlace, informes y fichas (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **586 pruebas** (52 archivos); `npm run lint` sin hallazgos; `npm run verificar:tamano` pasa (393 archivos); `npm run verificar:contraste` pasa. **Sube la versión del esquema de la demostración a 3** (los usuarios de prueba traen datos personales): quien tenga datos guardados verá el aviso para restablecerlos. Revisada en Chrome la ficha de coordinadora con su lápiz y el formulario; **no se revisó** la ubicación con un registro real ni el enlace en el teléfono.
+
+- **Ubicación como enlace (D38):** las marcaciones válidas muestran coordenadas y «Abrir en Maps» en lugar de la distancia en metros (historial propio, resumen de la jornada y mensaje tras registrar). Los **intentos rechazados conservan la distancia** (es la evidencia del rechazo) y suman el enlace. La incidencia muestra ahora los **registros válidos de su jornada** con hora y ubicación. La aplicación no consulta ningún servicio de mapas: solo ofrece el enlace, y la ubicación llega a Google cuando la persona lo pulsa. Guarda en la prueba de arquitectura que `enlaceMapa` solo lo usa `EnlaceUbicacion`.
+- **Informes:** casilla «Solo personal con incidencias en el periodo» (aplica a los cinco informes). «Asistencia diaria» suma «Incidencias del día» y «Diferencia con lo programado»; «Incidencias» suma entrada, salida a almuerzo, regreso, salida final y la diferencia. La diferencia es el efectivo registrado menos el programado, **solo en jornadas completas** (si no, «Incompleto»); lo que falta sale **en rojo y con el signo −** (nunca solo color) y la pantalla aclara que es provisional (P-03, P-05) y no una sanción ni un descuento. **«Cuánto tiempo debe» se interpretó como esa diferencia; no se calcula ningún monto ni descuento.**
+- **Fichas (D39):** administrador y coordinador tienen ficha (`/usuarios/:id`, «Mi ficha» en el menú del perfil y enlaces desde Configuración) con documento, cargo, teléfono, rol y hospitales a cargo; el lápiz dentro de la tarjeta «Datos» reemplaza el botón «Editar datos» de la cabecera de la ficha del trabajador. Cada persona edita sus datos; el administrador edita los de todos; en el formulario del propio trabajador no aparecen hospital ni estado. Los datos de usuarios quedan auditados (`EDITAR_DATOS_USUARIO`) y se rechaza un documento ya registrado por otra persona.
+- **Para confirmar:** si el trabajador debe poder cambiar su propio cargo o documento (hoy sí, por la opción elegida); que otro coordinador no abra la ficha de un compañero; que editar el nombre de un trabajador no cambia el nombre de su cuenta de ingreso (son registros separados en la demostración).
+- **Pruebas existentes ajustadas:** la de personal (el lápiz y la edición por el propio trabajador), la de registro (texto y enlace de ubicación) y la de la versión del esquema (3).
+
+### Hito 13 (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **591 pruebas** (una de hospitales falló solo bajo carga y pasa sola); `npm run lint`, `verificar:tamano` y `verificar:contraste` pasan. Revisado en Chrome (ventana de escritorio, tema oscuro): ingreso por cédula, pantalla principal y ficha con la cámara. **No se revisaron** en un teléfono real ni todas las pantallas (confirmar, ubicación, detalle, historial, resumen) ni el tema claro frente al diseño; por eso T-13.6 queda `[~]`.
+
+- **Cambios:** disposición móvil (`componentes/movil/`), flujo de registro por pantallas (`componentes/registro/`), historial (`componentes/historial/`, `PaginaHistorial`), ingreso renovado (`FormularioIngreso`, `buscarUsuarioDeIngreso`), `EncabezadoFicha` con la cámara y `AccionesDeCuenta` (horario, incidencias, tema, cerrar sesión) en la ficha propia del trabajador. Se eliminaron `AccionDeRegistro`, `ResumenJornadaDelDia`, `HistorialPropio` y `useContador`. Sin cambios de contratos ni de la versión del esquema.
+- **Decisiones del diseño a confirmar:** sin campana ni «Recordarme» (ver D40); el tiempo trabajado del detalle es una referencia ("de N h programadas" cuenta de entrada a salida, incluido el almuerzo); la contraseña del ingreso no se valida; el día del historial usa la fecha operativa.
+- **Pruebas ajustadas:** registro (flujo en dos pasos), fotos (se editan desde la ficha), menú del trabajador, ficha y título del ingreso.
+
+### Seguimiento del hito 13: ficha, reportes y tiempo por reponer (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa **606 pruebas** (54 archivos; la de la lista de hospitales falló dos veces solo bajo carga del conjunto y pasa sola); `npm run lint`, `verificar:tamano` (441 archivos) y `verificar:contraste` pasan. Revisado en Chrome (escritorio, tema oscuro): ficha con cronómetro, reportes (tabla, enlaces, columna fija, desglose, acumulado mensual, tiempo por reponer y el botón «Filtrar por fechas»). **No se revisó** en teléfono real, en tema claro ni la jornada de un trabajador con el cronómetro corriendo.
+
+- **Ficha del trabajador (T-13.7):** tarjeta «Jornada de hoy» a la derecha de Datos y Horario; la jornada se vuelve a leer cada 30 s. El horario no fija una hora exacta de almuerzo: la hora programada de la salida a almuerzo se muestra como la ventana y la del regreso como la duración autorizada. Nuevas reglas puras `calcularTramos` y `calcularEfectivoHastaAhoraSegundos`.
+- **Reportes (T-13.8):** los nombres abren la ficha y las incidencias abren cada incidencia (`TablaInforme.enlaces`, solo para la pantalla, no se exporta). La diferencia con lo programado abre su desglose: como efectivo = salida − entrada − almuerzo, la diferencia es la suma de tres aportes (llegada, almuerzo y salida) y suma exactamente; no se estima en jornadas incompletas. La columna de diferencia queda fija a la derecha cuando es la última.
+- **Acumulado mensual y Tiempo por reponer (T-13.9):** suman solo jornadas completas por trabajador y mes; «Debe tiempo» solo dice que lo registrado quedó por debajo de lo programado. El segundo lista a quienes deben y de dónde sale (entrada, almuerzo, salida) con el día por día y las incidencias de cada día.
+- **Fechas (T-13.10):** por defecto el periodo es hoy; Desde y Hasta salen al pulsar «Filtrar por fechas». «Acumulado mensual» y «Tiempo por reponer» usan del día 1 del mes en curso a hoy. Al volver a otro informe, si seguía el mes automático, vuelve a hoy; las fechas elegidas a mano se conservan.
+- **Para confirmar con el responsable:** que el desglose cuente la diferencia contra el efectivo programado (turno menos almuerzo autorizado) como ya hacía el informe; que «Debe tiempo» sea el rótulo; que «Tiempo por reponer» también use el mes en curso; todo sigue provisional (P-03 y P-05 abiertos): no es una sanción ni un descuento y no decide si el almuerzo se paga.
+- **Pruebas ajustadas:** informes (fechas ocultas y por defecto), registro, fotos, menú, ficha.

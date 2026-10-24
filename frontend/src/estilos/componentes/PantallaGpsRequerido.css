@@ -1,0 +1,68 @@
+.pantalla-gps {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--espacio-3);
+  text-align: center;
+}
+
+.pantalla-gps h1 {
+  margin: 0;
+  color: var(--color-titulo);
+  font-size: 1.4rem;
+}
+
+.pantalla-gps p {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.pantalla-gps__pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--color-acento);
+}
+
+.pantalla-gps__pin .icono {
+  color: var(--color-superficie);
+}
+
+.pantalla-gps__mapa {
+  width: 100%;
+  height: auto;
+}
+
+.pantalla-gps__fondo {
+  fill: var(--color-gris-fondo);
+}
+
+.pantalla-gps__calles {
+  fill: none;
+  stroke: var(--color-superficie);
+  stroke-width: 6;
+}
+
+.pantalla-gps__radio {
+  fill: var(--color-estado-almuerzo-fondo);
+  stroke: var(--color-acento);
+  stroke-width: 1.5;
+}
+
+.pantalla-gps__marca {
+  fill: var(--color-acento);
+}
+
+.pantalla-gps__explicacion {
+  text-align: left;
+}
+
+.pantalla-gps__boton {
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+}

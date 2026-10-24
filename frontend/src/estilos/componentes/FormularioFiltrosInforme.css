@@ -1,11 +1,30 @@
+/* Primero los selectores y las fechas en una rejilla pareja; la casilla va debajo, en su propia fila. */
 .formulario-filtros-informe {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--espacio-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espacio-3) var(--espacio-4);
 }
 
-@media (max-width: 720px) {
-  .formulario-filtros-informe {
-    grid-template-columns: 1fr;
-  }
+.formulario-filtros-informe__casilla {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  grid-column: 1 / -1;
+  padding-top: var(--espacio-2);
+  border-top: 1px solid var(--color-borde);
+}
+
+.formulario-filtros-informe__periodo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-3);
+  grid-column: 1 / -1;
+}
+
+.formulario-filtros-informe__fechas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espacio-3) var(--espacio-4);
+  grid-column: 1 / -1;
 }

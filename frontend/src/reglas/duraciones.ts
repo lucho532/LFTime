@@ -79,6 +79,45 @@ export function calcularDuraciones(marcaciones: MarcacionBasica[]): DuracionesJo
   return { efectivoMinutos: primerTramo + segundoTramo, almuerzoMinutos, totalMinutos, completa: true }
 }
 
+/** Tramos de una jornada en minutos; `null` mientras falta alguna de las marcas que los delimitan. */
+export interface TramosJornada {
+  primerTramoMinutos: number | null
+  segundoTramoMinutos: number | null
+  almuerzoMinutos: number | null
+}
+
+/**
+ * Tramos de la jornada: primero (entrada → salida a almuerzo), segundo (regreso → salida final) y almuerzo.
+ * Cada uno se calcula en cuanto tiene sus dos marcas; uno desordenado o incompleto es `null`. Regla provisional
+ * (P-03, P-05): no decide si el almuerzo se paga ni clasifica horas extra.
+ */
+export function calcularTramos(marcaciones: MarcacionBasica[]): TramosJornada {
+  const { entrada, salidaAlmuerzo, regresoAlmuerzo, salidaFinal } = instantesDeJornada(marcaciones)
+  const valido = (minutos: number | null) => (minutos !== null && minutos >= 0 ? minutos : null)
+  return {
+    primerTramoMinutos: valido(minutosEntreInstantes(entrada, salidaAlmuerzo)),
+    segundoTramoMinutos: valido(minutosEntreInstantes(regresoAlmuerzo, salidaFinal)),
+    almuerzoMinutos: valido(minutosEntreInstantes(salidaAlmuerzo, regresoAlmuerzo)),
+  }
+}
+
+/**
+ * Tiempo efectivo acumulado hasta `ahora`, en segundos, para el cronómetro en vivo; `null` si aún no hay entrada.
+ * Corre mientras el trabajador está en jornada, se detiene durante el almuerzo y al registrar la salida final.
+ * **No es el tiempo oficial** (los oficiales se truncan al minuto, ver `calcularDuraciones`): es una referencia
+ * provisional (P-03 y P-05 abiertos).
+ */
+export function calcularEfectivoHastaAhoraSegundos(marcaciones: MarcacionBasica[], ahora: Date): number | null {
+  const { entrada, salidaAlmuerzo, regresoAlmuerzo, salidaFinal } = instantesDeJornada(marcaciones)
+  if (!entrada) {
+    return null
+  }
+  const tramo = (desde: Date, hasta: Date | null) => Math.max(0, Math.min((hasta ?? ahora).getTime(), ahora.getTime()) - desde.getTime())
+  const primerTramo = tramo(entrada, salidaAlmuerzo ?? salidaFinal)
+  const segundoTramo = regresoAlmuerzo ? tramo(regresoAlmuerzo, salidaFinal) : 0
+  return Math.floor((primerTramo + segundoTramo) / 1000)
+}
+
 /**
  * Tiempo efectivo acumulado hasta `ahora`, en minutos enteros, para mostrar el avance del día en el panel;
  * `null` si aún no hay entrada. Cuenta el tramo abierto hasta `ahora` y nunca pasa de las marcas

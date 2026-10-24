@@ -1,7 +1,11 @@
+import type { DatosPersonales } from '../modelos/datosPersonales'
 import type { DatosTrabajador } from '../modelos/trabajador'
 
 /** Errores del formulario de trabajador, por campo. Un campo sin error no aparece. */
 export type ErroresTrabajador = Partial<Record<keyof DatosTrabajador, string>>
+
+/** Errores de los datos personales, por campo (trabajadores, coordinadores y administradores). */
+export type ErroresDatosPersonales = Partial<Record<keyof DatosPersonales, string>>
 
 /**
  * Tipos de documento. **Lista provisional** (P-13): la lista definitiva de datos personales y de tipos
@@ -23,16 +27,15 @@ export function normalizarDocumento(documento: string): string {
 }
 
 /**
- * Valida los datos de un trabajador antes de guardarlos (límites de interfaz, provisionales hasta
- * cerrar P-13). Devuelve un objeto vacío si todo es válido. No comprueba si el documento ya existe:
- * eso lo hace el servicio, que conoce a los demás trabajadores.
+ * Valida los datos personales de cualquier persona (límites de interfaz, provisionales hasta cerrar P-13).
+ * Devuelve un objeto vacío si todo es válido. No comprueba si el documento ya existe: eso lo hace el
+ * servicio, que conoce a las demás personas.
  */
-export function validarDatosTrabajador(datos: DatosTrabajador): ErroresTrabajador {
-  const errores: ErroresTrabajador = {}
+export function validarDatosPersonales(datos: DatosPersonales): ErroresDatosPersonales {
+  const errores: ErroresDatosPersonales = {}
   if (datos.nombres.trim() === '') errores.nombres = 'Escribe los nombres.'
   if (datos.apellidos.trim() === '') errores.apellidos = 'Escribe los apellidos.'
   if (datos.cargo.trim() === '') errores.cargo = 'Escribe el cargo o servicio que presta.'
-  if (datos.hospitalId === '') errores.hospitalId = 'Elige el hospital asignado.'
 
   if (!TIPOS_DOCUMENTO.some((tipo) => tipo.valor === datos.tipoDocumento)) {
     errores.tipoDocumento = 'Elige el tipo de documento.'
@@ -51,5 +54,15 @@ export function validarDatosTrabajador(datos: DatosTrabajador): ErroresTrabajado
   if (telefono !== '' && !/^\+?\d{7,15}$/.test(telefono)) {
     errores.telefono = 'Escribe un teléfono válido, solo con números (puede empezar con +).'
   }
+  return errores
+}
+
+/**
+ * Valida los datos de un trabajador antes de guardarlos: sus datos personales y el hospital asignado.
+ * Devuelve un objeto vacío si todo es válido.
+ */
+export function validarDatosTrabajador(datos: DatosTrabajador): ErroresTrabajador {
+  const errores: ErroresTrabajador = validarDatosPersonales(datos)
+  if (datos.hospitalId === '') errores.hospitalId = 'Elige el hospital asignado.'
   return errores
 }

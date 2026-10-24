@@ -1,0 +1,17 @@
+.boton-editar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  color: var(--color-acento);
+  cursor: pointer;
+}
+
+.boton-editar:hover {
+  background: var(--color-marca-claro);
+}

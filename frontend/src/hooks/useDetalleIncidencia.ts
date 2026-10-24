@@ -16,7 +16,8 @@ export interface AccionesIncidencia {
 }
 
 /**
- * Hook del detalle de una incidencia (HU-06, HU-07). Carga la incidencia con sus intentos y los nombres,
+ * Hook del detalle de una incidencia (HU-06, HU-07). Carga la incidencia con sus intentos, los registros
+ * válidos de esa jornada y los nombres,
  * marca su alerta como revisada al abrirla quien revisa (P-19), calcula los permisos con
  * `reglas/permisosIncidencia` y expone las acciones del flujo. Recarga tras cada acción. No decide reglas.
  */
@@ -28,8 +29,9 @@ export function useDetalleIncidencia(incidenciaId: string, usuario: Usuario | nu
     async () => {
       const incidencia = await servicios.incidencias.obtenerPorId(incidenciaId)
       if (!incidencia) return null
-      const [intentos, trabajadores, hospitales, usuarios] = await Promise.all([
+      const [intentos, historial, trabajadores, hospitales, usuarios] = await Promise.all([
         servicios.incidencias.listarIntentos(incidenciaId),
+        servicios.marcaciones.listarHistorial(incidencia.trabajadorId),
         servicios.trabajadores.listar(),
         servicios.hospitales.listar(),
         servicios.usuarios.listar(),
@@ -37,7 +39,8 @@ export function useDetalleIncidencia(incidenciaId: string, usuario: Usuario | nu
       if (usuario && usuario.rol !== 'TRABAJADOR') {
         await servicios.alertas.marcarRevisadaDeIncidencia(incidenciaId)
       }
-      return { incidencia, intentos, trabajadores, hospitales, usuarios }
+      const registros = historial.marcaciones.filter((m) => m.fechaOperativa === incidencia.fechaOperativa).sort((a, b) => a.instante.localeCompare(b.instante))
+      return { incidencia, intentos, registros, trabajadores, hospitales, usuarios }
     },
     'No se pudo cargar la incidencia.',
     [incidenciaId],

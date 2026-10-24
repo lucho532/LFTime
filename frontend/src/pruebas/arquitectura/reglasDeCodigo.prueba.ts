@@ -20,8 +20,14 @@ describe('reglas de código verificadas sobre el código fuente', () => {
   })
 
   it('CA-10: ningún archivo llama a servicios externos ni usa direcciones http(s) fuera de comentarios', () => {
-    const sospechosos = rutas.filter((ruta) => /\bfetch\s*\(|XMLHttpRequest|axios|navigator\.sendBeacon|https?:\/\//.test(sinComentarios(FUENTES[ruta])))
+    // Única excepción (D38): `enlaceMapa.ts` construye el enlace «Abrir en Maps» que la persona pulsa; no hace ninguna petición.
+    const sospechosos = rutas.filter((ruta) => !ruta.endsWith('/utilidades/enlaceMapa.ts') && /\bfetch\s*\(|XMLHttpRequest|axios|navigator\.sendBeacon|https?:\/\//.test(sinComentarios(FUENTES[ruta])))
     expect(sospechosos.map(nombre)).toEqual([])
+  })
+
+  it('D38: el enlace a Maps solo lo usa el componente que lo muestra como enlace', () => {
+    const usan = rutas.filter((ruta) => FUENTES[ruta].includes('crearEnlaceMapa') && !ruta.endsWith('enlaceMapa.ts'))
+    expect(usan.map(nombre)).toEqual(['componentes/base/EnlaceUbicacion.tsx'])
   })
 
   it('D34: solo ExportadorExcelExceljs importa exceljs', () => {

@@ -5,7 +5,7 @@ import { hoyColombia, obtenerAhoraUtc } from '../../utilidades/horaColombia'
 import { almacenamientoDisponible, eliminarTodasLasClaves, escribirJson, leerJson, leerTexto } from './almacenamientoLocal'
 
 /** Versión del esquema de los datos guardados. Cámbiala cuando cambie la forma de los contratos. */
-export const VERSION_ESQUEMA = 2
+export const VERSION_ESQUEMA = 3
 
 const CLAVE_VERSION = 'version'
 const CLAVE_FECHA_SEMILLA = 'fechaSemilla'

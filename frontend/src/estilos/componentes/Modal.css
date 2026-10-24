@@ -31,3 +31,7 @@
   gap: var(--espacio-2);
   margin-top: var(--espacio-4);
 }
+
+.modal--amplio {
+  width: min(820px, 100%);
+}

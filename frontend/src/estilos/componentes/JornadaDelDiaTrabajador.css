@@ -1,0 +1,87 @@
+.jornada-trabajador {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+}
+
+.jornada-trabajador h3 {
+  margin: 0 0 var(--espacio-2);
+  color: var(--color-titulo);
+  font-size: 1.05rem;
+}
+
+.jornada-trabajador__desplazable {
+  overflow-x: auto;
+}
+
+.jornada-trabajador table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+}
+
+.jornada-trabajador th,
+.jornada-trabajador td {
+  padding: var(--espacio-3) var(--espacio-3) var(--espacio-3) 0;
+  border-bottom: 1px solid var(--color-borde);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.jornada-trabajador thead th {
+  color: var(--color-titulo);
+  font-size: 0.9rem;
+}
+
+.jornada-trabajador tbody th {
+  font-weight: 400;
+}
+
+.jornada-trabajador__oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.jornada-trabajador__resumen {
+  padding: var(--espacio-4);
+  border: 1px solid var(--color-borde);
+  border-radius: 16px;
+}
+
+.jornada-trabajador__resumen dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--espacio-3);
+  margin: 0;
+}
+
+.jornada-trabajador__resumen dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+}
+
+.jornada-trabajador__principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  margin-bottom: var(--espacio-3);
+  padding-bottom: var(--espacio-3);
+  border-bottom: 1px solid var(--color-borde);
+  color: var(--color-texto-suave);
+}
+
+.jornada-trabajador__efectivo {
+  color: var(--color-estado-jornada);
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.jornada-trabajador__nota {
+  margin: var(--espacio-3) 0 0;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}

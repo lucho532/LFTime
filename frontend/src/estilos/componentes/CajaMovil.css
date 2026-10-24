@@ -1,0 +1,67 @@
+.caja-movil {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: 16px;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+.caja-movil__icono {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.caja-movil__icono .icono {
+  color: var(--color-superficie);
+}
+
+.caja-movil__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.caja-movil__detalle {
+  color: var(--color-texto);
+  font-size: 0.9rem;
+}
+
+.caja-movil--verde {
+  border-color: transparent;
+  background: var(--color-estado-jornada-fondo);
+  color: var(--color-estado-jornada);
+}
+
+.caja-movil--ambar {
+  border-color: transparent;
+  background: var(--color-estado-aviso-fondo);
+  color: var(--color-estado-aviso);
+}
+
+.caja-movil--azul {
+  border-color: transparent;
+  background: var(--color-estado-almuerzo-fondo);
+  color: var(--color-estado-almuerzo);
+}
+
+.caja-movil--neutro .caja-movil__icono {
+  background: var(--color-marca-claro);
+}
+
+.caja-movil--neutro .caja-movil__icono .icono {
+  color: var(--color-acento);
+}
+
+.caja-movil--neutro .caja-movil__detalle {
+  color: var(--color-texto-suave);
+}

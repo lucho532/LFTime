@@ -1,0 +1,33 @@
+.formulario-ingreso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.formulario-ingreso label {
+  color: var(--color-titulo);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.formulario-ingreso input {
+  min-height: 46px;
+  padding: 0 var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  font: inherit;
+}
+
+.formulario-ingreso .boton {
+  min-height: 48px;
+  margin-top: var(--espacio-2);
+  border-radius: 12px;
+}
+
+.formulario-ingreso__error {
+  margin: 0;
+  color: var(--color-estado-critico);
+  font-size: 0.9rem;
+}

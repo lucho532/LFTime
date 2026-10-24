@@ -1,4 +1,5 @@
 import type { EstadoTrabajador } from '../contratos/trabajador'
+import type { DatosPersonales } from './datosPersonales'
 
 /**
  * Modelo interno de un trabajador para la interfaz.
@@ -26,13 +27,7 @@ export interface Trabajador {
  * Datos editables de un trabajador en el formulario de alta y edición. Solo los datos personales
  * estrictamente necesarios (P-13). La foto no se edita aquí: es de cada persona (D14).
  */
-export interface DatosTrabajador {
-  nombres: string
-  apellidos: string
-  tipoDocumento: string
-  numeroDocumento: string
-  cargo: string
-  telefono: string
+export interface DatosTrabajador extends DatosPersonales {
   hospitalId: string
   estado: EstadoTrabajador
 }

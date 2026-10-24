@@ -1,0 +1,21 @@
+.encabezado-pantalla-movil {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+}
+
+.encabezado-pantalla-movil h1 {
+  margin: 0;
+  color: var(--color-titulo);
+  font-size: 1.15rem;
+}
+
+.encabezado-pantalla-movil__atras {
+  display: inline-flex;
+  padding: var(--espacio-2);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-titulo);
+  cursor: pointer;
+}

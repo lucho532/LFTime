@@ -178,9 +178,9 @@ interface JornadaCalculadaDto {                    // resultado de reglas/, no d
 
 | Informe | Columnas |
 |---------|----------|
-| Asistencia diaria | Fecha operativa, Trabajador, Documento, Hospital, Municipio, Entrada, Salida almuerzo, Regreso almuerzo, Salida final, Estado |
+| Asistencia diaria | Fecha operativa, Trabajador, Documento, Hospital, Municipio, Entrada, Salida almuerzo, Regreso almuerzo, Salida final, Estado, Incidencias del día, Diferencia con lo programado *(añadidas en el seguimiento del hito 12)* |
 | Horas por trabajador | Trabajador, Periodo, Horas programadas, Tiempo efectivo, Tiempo de almuerzo, Tiempo total, Diferencia, Cómputo completo (Sí/No) |
-| Incidencias | Id, Tipo, Estado, Trabajador, Hospital, Fecha operativa, Detectada, Revisor, Resolución, Nº de intentos |
+| Incidencias | Id, Tipo, Estado, Trabajador, Hospital, Fecha operativa, Detectada, Revisor, Resolución, Nº de intentos, Entrada, Salida almuerzo, Regreso almuerzo, Salida final, Diferencia con lo programado *(añadidas en el seguimiento del hito 12)* |
 | Intentos rechazados | Fecha y hora, Trabajador, Hospital, Tipo de evento, Motivo, Fallo técnico (Sí/No), Distancia, Precisión, Incidencia |
 | Cumplimiento por hospital | Hospital, Municipio, Periodo, Jornadas programadas, Jornadas con entrada, Retrasos, Salidas anticipadas, Incidencias pendientes, Incidencias resueltas *(las dos últimas se separaron en el hito 11)* |
 

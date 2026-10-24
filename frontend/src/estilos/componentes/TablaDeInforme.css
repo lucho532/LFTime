@@ -8,3 +8,71 @@
   margin: 0;
   color: var(--color-texto-suave);
 }
+
+.tabla-de-informe__en-contra {
+  color: var(--color-estado-critico);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tabla-de-informe__nota {
+  margin: 0;
+  padding: var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-borde);
+  background: var(--color-estado-aviso-fondo);
+  color: var(--color-demo-texto);
+  font-size: 0.85rem;
+}
+
+/* Los informes tienen muchas columnas: cada celda va en una línea y la tabla se desplaza hacia el lado en vez de apretarse. */
+@media (min-width: 721px) {
+  .tabla-de-informe .tabla {
+    min-width: max-content;
+  }
+
+  .tabla-de-informe .tabla th,
+  .tabla-de-informe .tabla td {
+    padding: var(--espacio-3) 12px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .tabla-de-informe .tabla tbody tr {
+    background: var(--color-superficie);
+  }
+
+  .tabla-de-informe .tabla tbody tr:nth-child(even) {
+    background: var(--color-fondo);
+  }
+
+  .tabla-de-informe .tabla tbody tr:hover {
+    background: var(--color-marca-claro);
+  }
+}
+
+.tabla-de-informe .tabla__contenedor {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+}
+
+.tabla-de-informe__enlace {
+  color: var(--color-acento);
+  font-weight: 600;
+}
+
+.tabla-de-informe__diferencia {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-acento);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.tabla-de-informe__diferencia.tabla-de-informe__en-contra {
+  color: var(--color-estado-critico);
+  font-weight: 700;
+}

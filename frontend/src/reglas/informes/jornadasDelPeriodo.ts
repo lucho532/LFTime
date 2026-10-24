@@ -26,19 +26,25 @@ export interface JornadaInforme {
   marcaciones: MarcacionDto[]
   instantes: InstantesJornada
   duraciones: DuracionesJornada
+  /** Efectivo registrado menos efectivo programado, en minutos; `null` si la jornada no se esperaba o no está completa (no se estima, D16). */
+  diferenciaMinutos: number | null
   /** Estado visible calculado con la hora de la foto (D31); `null` si ese día no se esperaba nada. */
   estado: EstadoVisible | null
   incidencias: IncidenciaDto[]
 }
 
-/** Trabajadores que cumplen los filtros de trabajador, hospital y municipio (HU-08). */
+/** Trabajadores que cumplen los filtros de trabajador, hospital, municipio y «solo con incidencias» (HU-08). */
 export function filtrarTrabajadores(datos: DatosInformes, filtros: FiltrosInforme): Trabajador[] {
+  const conIncidencias = filtros.soloConIncidencias
+    ? new Set(datos.incidencias.filter((i) => i.fechaOperativa >= filtros.desde && i.fechaOperativa <= filtros.hasta).map((i) => i.trabajadorId))
+    : null
   const municipioDe = (hospitalId: string) => datos.hospitales.find((h) => h.id === hospitalId)?.municipioId
   return datos.trabajadores.filter(
     (t) =>
       (filtros.trabajadorId === '' || t.id === filtros.trabajadorId) &&
       (filtros.hospitalId === '' || t.hospitalId === filtros.hospitalId) &&
-      (filtros.municipioId === '' || municipioDe(t.hospitalId) === filtros.municipioId),
+      (filtros.municipioId === '' || municipioDe(t.hospitalId) === filtros.municipioId) &&
+      (conIncidencias === null || conIncidencias.has(t.id)),
   )
 }
 
@@ -78,6 +84,7 @@ export function construirJornadas(datos: DatosInformes, filtros: FiltrosInforme)
       if (!programada && marcaciones.length === 0) continue
       const incidencias = incidenciasPor.get(claveDe(trabajador.id, fecha)) ?? []
       const turno = horario ? resolverTurno(horario, fecha) : null
+      const duraciones = calcularDuraciones(marcaciones)
       jornadas.push({
         trabajador,
         hospital,
@@ -89,7 +96,8 @@ export function construirJornadas(datos: DatosInformes, filtros: FiltrosInforme)
         turnoFin: turno?.fin ?? null,
         marcaciones,
         instantes: instantesDeJornada(marcaciones),
-        duraciones: calcularDuraciones(marcaciones),
+        duraciones,
+        diferenciaMinutos: programada && duraciones.completa && duraciones.efectivoMinutos !== null ? duraciones.efectivoMinutos - (turno?.efectivoProgramadoMinutos ?? 0) : null,
         estado: calcularEstadoActual(
           { estadoTrabajador: trabajador.estado, horario, fechaOperativa: fecha, marcaciones, ahora, reglas: datos.reglas, hospitalAdmiteMarcacion: hospital.admiteMarcaciones },
           incidencias.some((i) => !estaCerrada(i.estado)),

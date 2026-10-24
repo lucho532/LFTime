@@ -1,0 +1,21 @@
+.resumen-jornada-movil {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.resumen-jornada-movil__fecha {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.resumen-jornada-movil__valor {
+  color: var(--color-titulo);
+  font-size: 1.5rem;
+}
+
+.resumen-jornada-movil__nota {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}

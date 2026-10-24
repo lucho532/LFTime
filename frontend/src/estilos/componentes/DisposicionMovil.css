@@ -1,0 +1,30 @@
+.disposicion-movil {
+  min-height: 100vh;
+  background: var(--color-fondo);
+}
+
+.disposicion-movil .aviso-modo-demo {
+  font-size: 0.75rem;
+}
+
+.disposicion-movil__telefono {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 440px);
+  min-height: calc(100vh - 3rem);
+  margin: 0 auto;
+  background: var(--color-fondo);
+}
+
+.disposicion-movil__contenido {
+  flex: 1;
+  padding: var(--espacio-3) var(--espacio-3) 88px;
+}
+
+@media (min-width: 560px) {
+  .disposicion-movil__telefono {
+    border-inline: 1px solid var(--color-borde);
+    box-shadow: var(--sombra-tarjeta);
+  }
+}

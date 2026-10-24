@@ -38,3 +38,25 @@ export function puedeCambiarFoto(usuario: Usuario | null, propietario: Propietar
     (propietario.trabajadorId !== undefined && propietario.trabajadorId === usuario.trabajadorId)
   )
 }
+
+/**
+ * Regla provisional (P-13, P-21): quién edita los datos personales de un trabajador. Cada trabajador edita
+ * los suyos; el administrador y el coordinador editan los de cualquier trabajador. El hospital y el estado
+ * no son datos personales: los cambia solo quien gestiona el personal (`puedeGestionarPersonal`). Solo visual.
+ */
+export function puedeEditarDatosDeTrabajador(usuario: Usuario | null, trabajadorId: string): boolean {
+  return puedeGestionarPersonal(usuario) || (usuario?.trabajadorId !== null && usuario?.trabajadorId === trabajadorId)
+}
+
+/**
+ * Regla provisional (P-13, P-21): quién abre y edita la ficha de un administrador o coordinador. Cada uno
+ * la suya; el administrador la de cualquiera. El coordinador no abre la de otros. Solo visual.
+ */
+export function puedeEditarFichaDeUsuario(usuario: Usuario | null, usuarioId: string): boolean {
+  return usuario !== null && (usuario.id === usuarioId || usuario.rol === 'ADMINISTRADOR')
+}
+
+/** Ruta de la ficha de una persona con cuenta: la de trabajador para un trabajador y la de usuario para el resto. */
+export function rutaDeFichaDe(usuario: Pick<Usuario, 'id' | 'rol' | 'trabajadorId'>): string {
+  return usuario.rol === 'TRABAJADOR' && usuario.trabajadorId ? `/personal/${usuario.trabajadorId}` : `/usuarios/${usuario.id}`
+}

@@ -1,4 +1,6 @@
 import type { Rol } from '../contratos/usuario'
+import type { Usuario } from '../modelos/usuario'
+import { rutaDeFichaDe } from './permisosPersonal'
 
 /** Nombre de cada icono del menú (ver `componentes/iconos/Icono.tsx`). */
 export type NombreIcono = 'inicio' | 'personal' | 'hospitales' | 'jornadas' | 'registro' | 'incidencias' | 'reportes' | 'configuracion'
@@ -35,6 +37,16 @@ const ENTRADAS_MENU: EntradaMenu[] = [
   { ruta: 'configuracion', icono: 'configuracion', etiquetas: { ADMINISTRADOR: 'Configuración' } },
 ]
 
+/**
+ * Rutas con sesión que no aparecen en el menú lateral: la ficha de un administrador o coordinador (`/usuarios/:id`)
+ * y el historial del trabajador (`/historial`, que se abre desde la barra inferior de su aplicación móvil).
+ * Quién abre cada una la decide su pantalla con `permisosPersonal`; aquí solo se dice qué roles llegan.
+ */
+const RUTAS_SIN_MENU: Array<{ ruta: string; roles: Rol[] }> = [
+  { ruta: 'usuarios', roles: ['ADMINISTRADOR', 'COORDINADOR'] },
+  { ruta: 'historial', roles: ['TRABAJADOR'] },
+]
+
 /** Entradas del menú que ve un rol, en orden. */
 export function entradasMenuDe(rol: Rol): EntradaMenuDeRol[] {
   return ENTRADAS_MENU.flatMap((entrada) => {
@@ -49,10 +61,29 @@ export function entradasMenuDe(rol: Rol): EntradaMenuDeRol[] {
  */
 export function puedeAccederARuta(rol: Rol, rutaCompleta: string): boolean {
   const primerSegmento = rutaCompleta.split('/').filter(Boolean)[0]
-  return entradasMenuDe(rol).some((entrada) => entrada.ruta === primerSegmento)
+  return entradasMenuDe(rol).some((entrada) => entrada.ruta === primerSegmento) || RUTAS_SIN_MENU.some((r) => r.ruta === primerSegmento && r.roles.includes(rol))
 }
 
 /** Ruta a la que llega cada rol al iniciar sesión: el trabajador al registro y el resto al panel. */
 export function rutaInicialDe(rol: Rol): string {
   return rol === 'TRABAJADOR' ? '/registro' : '/inicio'
+}
+
+/** Pestaña de la barra inferior de la aplicación móvil del trabajador. */
+export interface PestanaMovil {
+  ruta: string
+  icono: NombreIcono
+  etiqueta: string
+}
+
+/**
+ * Pestañas de la barra inferior del trabajador (D40): Inicio, Historial y Perfil. «Perfil» lleva a su ficha,
+ * donde están su foto y sus datos. Solo visual (D27).
+ */
+export function pestanasMovilDe(usuario: Pick<Usuario, 'id' | 'rol' | 'trabajadorId'>): PestanaMovil[] {
+  return [
+    { ruta: '/registro', icono: 'inicio', etiqueta: 'Inicio' },
+    { ruta: '/historial', icono: 'jornadas', etiqueta: 'Historial' },
+    { ruta: rutaDeFichaDe(usuario), icono: 'personal', etiqueta: 'Perfil' },
+  ]
 }

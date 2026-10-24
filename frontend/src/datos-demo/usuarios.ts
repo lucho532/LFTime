@@ -8,6 +8,10 @@ import type { UsuarioDto } from '../contratos/usuario'
 export const USUARIOS_DEMO: UsuarioDto[] = [
   {
     id: 'usr-admin-1',
+    tipoDocumento: 'CC',
+    numeroDocumento: '1.020.304.050',
+    cargo: 'Administradora general',
+    telefono: '3001234501',
     nombres: 'Carolina',
     apellidos: 'Mejía',
     rol: 'ADMINISTRADOR',
@@ -16,6 +20,10 @@ export const USUARIOS_DEMO: UsuarioDto[] = [
   },
   {
     id: 'usr-admin-2',
+    tipoDocumento: 'CC',
+    numeroDocumento: '1.020.304.051',
+    cargo: 'Administrador de personal',
+    telefono: '3001234502',
     nombres: 'Ricardo',
     apellidos: 'Pardo',
     rol: 'ADMINISTRADOR',
@@ -24,6 +32,10 @@ export const USUARIOS_DEMO: UsuarioDto[] = [
   },
   {
     id: 'usr-coord-1',
+    tipoDocumento: 'CC',
+    numeroDocumento: '1.020.304.052',
+    cargo: 'Coordinadora de personal de salud',
+    telefono: '3001234503',
     nombres: 'Laura',
     apellidos: 'Gómez',
     rol: 'COORDINADOR',
@@ -32,6 +44,10 @@ export const USUARIOS_DEMO: UsuarioDto[] = [
   },
   {
     id: 'usr-coord-2',
+    tipoDocumento: 'CC',
+    numeroDocumento: '1.020.304.053',
+    cargo: 'Coordinador de personal de salud',
+    telefono: '3001234504',
     nombres: 'Andrés',
     apellidos: 'Salazar',
     rol: 'COORDINADOR',

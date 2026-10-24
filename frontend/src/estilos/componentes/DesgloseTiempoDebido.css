@@ -1,0 +1,55 @@
+.desglose-deuda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.desglose-deuda p {
+  margin: 0;
+}
+
+.desglose-deuda__desplazable {
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.desglose-deuda table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.desglose-deuda th,
+.desglose-deuda td {
+  padding: var(--espacio-2) var(--espacio-3) var(--espacio-2) 0;
+  border-bottom: 1px solid var(--color-borde);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.desglose-deuda thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-superficie);
+  color: var(--color-titulo);
+}
+
+.desglose-deuda tbody th {
+  font-weight: 400;
+}
+
+.desglose-deuda__total {
+  font-weight: 700;
+}
+
+.desglose-deuda__en-contra {
+  color: var(--color-estado-critico);
+  font-weight: 700;
+}
+
+.desglose-deuda__oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

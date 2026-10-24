@@ -3,24 +3,40 @@ import type { FiltrosInforme, TablaInforme, TipoInforme } from '../modelos/infor
 import { construirInforme } from '../reglas/informes/construirInforme'
 import { validarPeriodo } from '../reglas/informes/periodo'
 import { servicios } from '../servicios/fabrica'
-import { hoyColombia, sumarDias } from '../utilidades/horaColombia'
+import { hoyColombia } from '../utilidades/horaColombia'
 import { useCarga } from './useCarga'
 
-/** Días que cubre el periodo al abrir la pantalla: la última semana, hoy incluido. */
-const DIAS_PERIODO_INICIAL = 7
+/** Informes que cubren el mes en curso al elegirlos. */
+const INFORMES_MENSUALES: TipoInforme[] = ['ACUMULADO_MENSUAL', 'TIEMPO_DEBIDO']
 
 /**
  * Estado de la pantalla de informes (HU-08): carga una vez lo registrado, guarda el informe elegido y los
- * filtros, y calcula la tabla con `construirInforme`. El periodo inicial es la última semana. Si el periodo
+ * filtros, y calcula la tabla con `construirInforme`. El periodo inicial es solo el día de hoy; los informes mensuales lo cambian al mes en curso (del día 1 a hoy). Si el periodo
  * no es válido devuelve el mensaje en lugar de la tabla. No calcula por su cuenta ni exporta.
  */
 export function useInformes() {
   const carga = useCarga(() => servicios.informes.obtenerDatos(), 'No se pudieron cargar los datos de los informes.')
-  const [tipo, setTipo] = useState<TipoInforme>('ASISTENCIA_DIARIA')
+  const [tipo, setTipoElegido] = useState<TipoInforme>('ASISTENCIA_DIARIA')
   const [filtros, setFiltros] = useState<FiltrosInforme>(() => {
     const hoy = hoyColombia()
-    return { trabajadorId: '', hospitalId: '', municipioId: '', desde: sumarDias(hoy, 1 - DIAS_PERIODO_INICIAL), hasta: hoy }
+    return { trabajadorId: '', hospitalId: '', municipioId: '', soloConIncidencias: false, desde: hoy, hasta: hoy }
   })
+
+  /**
+   * Al elegir un informe mensual (acumulado mensual o tiempo por reponer) el periodo pasa a ser el mes en curso, del día
+   * 1 a hoy. Al volver a otro informe, si el periodo sigue siendo ese mes, vuelve a ser solo hoy. Las fechas elegidas a
+   * mano no se tocan.
+   */
+  const setTipo = (nuevo: TipoInforme) => {
+    const hoy = hoyColombia()
+    const mesEnCurso = { desde: `${hoy.slice(0, 8)}01`, hasta: hoy }
+    setTipoElegido(nuevo)
+    setFiltros((anterior) => {
+      if (INFORMES_MENSUALES.includes(nuevo)) return { ...anterior, ...mesEnCurso }
+      const eraElMes = anterior.desde === mesEnCurso.desde && anterior.hasta === mesEnCurso.hasta
+      return INFORMES_MENSUALES.includes(tipo) && eraElMes ? { ...anterior, desde: hoy, hasta: hoy } : anterior
+    })
+  }
 
   const errorPeriodo = validarPeriodo(filtros.desde, filtros.hasta)
   const tabla = useMemo<TablaInforme | null>(
@@ -34,7 +50,7 @@ export function useInformes() {
     tipo,
     setTipo,
     filtros,
-    cambiarFiltro: (nombre: keyof FiltrosInforme, valor: string) => setFiltros((anterior) => ({ ...anterior, [nombre]: valor })),
+    cambiarFiltro: (nombre: keyof FiltrosInforme, valor: string | boolean) => setFiltros((anterior) => ({ ...anterior, [nombre]: valor })),
     errorPeriodo,
     tabla,
   }

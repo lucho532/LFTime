@@ -33,7 +33,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
 
   it('sin sesión lleva al ingreso, que ofrece los 8 usuarios de prueba y el aviso de demostración', async () => {
     renderizar('/inicio')
-    expect(await screen.findByRole('heading', { name: 'Ingreso a la demostración' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Iniciar sesión' })).toBeInTheDocument()
     expect(await screen.findAllByRole('button', { name: /^Ingresar como/ })).toHaveLength(8)
     expect(screen.getByText(/control de acceso por rol es solo visual/i)).toBeInTheDocument()
     expect(screen.getByText(/No hay contraseñas/i)).toBeInTheDocument()
@@ -58,7 +58,8 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     renderizar('/')
     await ingresarComo('María López')
     expect(await screen.findByRole('heading', { name: 'Registro de jornada' })).toBeInTheDocument()
-    expect(enlacesDelMenu()).toEqual(['Mi ficha', 'Mi horario', 'Registro', 'Mis incidencias'])
+    expect(enlacesDelMenu()).toEqual(['Inicio', 'Historial', 'Perfil'])
+    expect(screen.queryByRole('button', { name: 'Menú de navegación' })).not.toBeInTheDocument()
   })
 
   it('el menú marca la página actual con aria-current', async () => {
@@ -102,7 +103,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     primera.unmount()
     renderizar('/')
     expect(await screen.findByRole('heading', { name: /^Hola, / })).toBeInTheDocument()
-    expect(screen.queryByRole('heading', { name: 'Ingreso a la demostración' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Iniciar sesión' })).not.toBeInTheDocument()
   })
 
   it('cerrar sesión desde el menú del perfil vuelve al ingreso y borra la sesión', async () => {
@@ -115,7 +116,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     await userEvent.click(botonPerfil)
     expect(botonPerfil).toHaveAttribute('aria-expanded', 'true')
     await userEvent.click(screen.getByRole('button', { name: 'Cerrar sesión' }))
-    expect(await screen.findByRole('heading', { name: 'Ingreso a la demostración' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Iniciar sesión' })).toBeInTheDocument()
     expect(window.localStorage.getItem('lftime.demo.sesion')).toBeNull()
   })
 
@@ -155,12 +156,12 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     const recargar = vi.fn()
     Object.defineProperty(window, 'location', { value: { ...window.location, reload: recargar }, writable: true })
     renderizar('/ingreso')
-    await waitFor(() => expect(window.localStorage.getItem('lftime.demo.version')).toBe('2'))
+    await waitFor(() => expect(window.localStorage.getItem('lftime.demo.version')).toBe('3'))
     window.localStorage.setItem('lftime.demo.configuracion', '{"toleranciaSalidaMinutos":99}')
     await userEvent.click(screen.getByRole('button', { name: /Restablecer datos de demostración/i }))
     await waitFor(() => expect(recargar).toHaveBeenCalledTimes(1))
     expect(window.localStorage.getItem('lftime.demo.configuracion')).toBeNull()
-    expect(window.localStorage.getItem('lftime.demo.version')).toBe('2')
+    expect(window.localStorage.getItem('lftime.demo.version')).toBe('3')
   })
 
   it('advierte cuando los datos guardados son de otra versión', async () => {

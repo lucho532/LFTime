@@ -1,0 +1,26 @@
+.datos-del-usuario {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin: 0;
+}
+
+.datos-del-usuario dt {
+  font-weight: 600;
+  color: var(--color-titulo);
+}
+
+.datos-del-usuario dd {
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .datos-del-usuario {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .datos-del-usuario dd {
+    margin-bottom: var(--espacio-2);
+  }
+}

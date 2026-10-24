@@ -1,0 +1,17 @@
+.pagina-historial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.pagina-historial h1 {
+  margin: 0;
+  color: var(--color-titulo);
+  font-size: 1.15rem;
+}
+
+.pagina-historial h2 {
+  margin: var(--espacio-2) 0 0;
+  color: var(--color-titulo);
+  font-size: 1rem;
+}

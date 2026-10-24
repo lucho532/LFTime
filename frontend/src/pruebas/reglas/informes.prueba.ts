@@ -5,6 +5,7 @@ import { REGLAS_PROVISIONALES_POR_DEFECTO } from '../../configuracion/reglasProv
 import type { Hospital } from '../../modelos/hospital'
 import type { DatosInformes, FiltrosInforme } from '../../modelos/informe'
 import type { Trabajador } from '../../modelos/trabajador'
+import { esTiempoEnContra, textoDiferencia, textoDiferenciaDeJornada } from '../../reglas/informes/formatoInforme'
 import { construirInforme } from '../../reglas/informes/construirInforme'
 import { DIAS_MAXIMOS_PERIODO, fechasDelPeriodo, validarPeriodo } from '../../reglas/informes/periodo'
 import { aInstanteUtc } from '../../utilidades/horaColombia'
@@ -51,7 +52,7 @@ const DATOS: DatosInformes = {
   incidencias: [INCIDENCIA],
 }
 
-const FILTROS: FiltrosInforme = { trabajadorId: '', hospitalId: '', municipioId: '', desde: FECHA_PRUEBA, hasta: FECHA_PRUEBA }
+const FILTROS: FiltrosInforme = { trabajadorId: '', hospitalId: '', municipioId: '', soloConIncidencias: false, desde: FECHA_PRUEBA, hasta: FECHA_PRUEBA }
 
 describe('periodo de los informes', () => {
   it('valida fechas completas, orden y largo máximo', () => {
@@ -74,11 +75,12 @@ describe('periodo de los informes', () => {
 describe('informes (HU-08)', () => {
   it('asistencia diaria: una fila por trabajador con la hora de cada evento y su estado; quien está de vacaciones no aparece', () => {
     const { columnas, filas } = construirInforme('ASISTENCIA_DIARIA', DATOS, FILTROS)
-    expect(columnas).toHaveLength(10)
+    expect(columnas).toHaveLength(12)
     expect(filas.map((f) => f[1])).toEqual(['Ana Prueba', 'Beatriz Prueba'])
-    expect(filas[0]).toEqual([FECHA_PRUEBA, 'Ana Prueba', 'doc-a', 'Hospital A', 'Manizales', '07:00 a. m.', '12:00 p. m.', '01:00 p. m.', '04:00 p. m.', 'Finalizada'])
+    expect(filas[0]).toEqual([FECHA_PRUEBA, 'Ana Prueba', 'doc-a', 'Hospital A', 'Manizales', '07:00 a. m.', '12:00 p. m.', '01:00 p. m.', '04:00 p. m.', 'Finalizada', '—', '0 min'])
     expect(filas[1].slice(5, 9)).toEqual(['07:30 a. m.', '—', '—', '—'])
     expect(filas[1][9]).toBe('Sin registrar')
+    expect(filas[1].slice(10)).toEqual(['Ubicación no autorizada', 'Incompleto'])
   })
 
   it('horas por trabajador: separa efectivo, almuerzo y total, y no estima las jornadas incompletas (D16)', () => {
@@ -90,7 +92,7 @@ describe('informes (HU-08)', () => {
   it('incidencias: estado, revisor, resolución con su motivo y número de intentos', () => {
     const { filas } = construirInforme('INCIDENCIAS', DATOS, FILTROS)
     expect(filas).toHaveLength(1)
-    expect(filas[0]).toEqual(['inc-1', 'Ubicación no autorizada', 'No justificada', 'Beatriz Prueba', 'Hospital A', FECHA_PRUEBA, `${FECHA_PRUEBA} 07:10 a. m.`, 'Laura Gómez', 'No justificada: Sin soporte', 1])
+    expect(filas[0]).toEqual(['inc-1', 'Ubicación no autorizada', 'No justificada', 'Beatriz Prueba', 'Hospital A', FECHA_PRUEBA, `${FECHA_PRUEBA} 07:10 a. m.`, 'Laura Gómez', 'No justificada: Sin soporte', 1, '07:30 a. m.', '—', '—', '—', 'Incompleto'])
   })
 
   it('intentos rechazados: aparte de las marcaciones, con motivo, distancia, precisión e incidencia', () => {
@@ -114,5 +116,34 @@ describe('informes (HU-08)', () => {
     const tabla = construirInforme('INCIDENCIAS', DATOS, { ...FILTROS, desde: '2026-10-01', hasta: '2026-10-02' })
     expect(tabla.filas).toEqual([])
     expect(tabla.columnas.length).toBeGreaterThan(0)
+  })
+})
+
+describe('filtro «solo personal con incidencias», horarios de registro y tiempo en contra', () => {
+  it('con el filtro solo entra el personal con alguna incidencia en el periodo, en todos los informes', () => {
+    const solo = { ...FILTROS, soloConIncidencias: true }
+    expect(construirInforme('ASISTENCIA_DIARIA', DATOS, solo).filas.map((f) => f[1])).toEqual(['Beatriz Prueba'])
+    expect(construirInforme('HORAS_POR_TRABAJADOR', DATOS, solo).filas.map((f) => f[0])).toEqual(['Beatriz Prueba'])
+    expect(construirInforme('CUMPLIMIENTO_POR_HOSPITAL', DATOS, solo).filas[0][3]).toBe(1)
+    expect(construirInforme('ASISTENCIA_DIARIA', DATOS, { ...solo, desde: '2026-10-01', hasta: '2026-10-02' }).filas).toEqual([])
+  })
+
+  it('una jornada completa con menos tiempo efectivo que el programado queda con diferencia negativa, con signo', () => {
+    const corta = [marcacion('a', 'ENTRADA', '07:00'), marcacion('a', 'SALIDA_ALMUERZO', '12:00'), marcacion('a', 'REGRESO_ALMUERZO', '13:00'), marcacion('a', 'SALIDA_FINAL', '15:00')]
+    const datos = { ...DATOS, marcaciones: [...corta, ...DATOS.marcaciones.filter((m) => m.trabajadorId !== 'a')] }
+    const asistencia = construirInforme('ASISTENCIA_DIARIA', datos, { ...FILTROS, trabajadorId: 'a' })
+    expect(asistencia.filas[0][11]).toBe('−1 h 00 min')
+    expect(construirInforme('HORAS_POR_TRABAJADOR', datos, { ...FILTROS, trabajadorId: 'a' }).filas[0][6]).toBe('−1 h 00 min')
+  })
+
+  it('el signo menos marca los tiempos en contra; «Incompleto» y «—» no se estiman', () => {
+    expect(textoDiferencia(-75)).toBe('−1 h 15 min')
+    expect(textoDiferencia(15)).toBe('+15 min')
+    expect(textoDiferencia(0)).toBe('0 min')
+    expect(esTiempoEnContra('−5 min')).toBe(true)
+    expect(esTiempoEnContra('+5 min')).toBe(false)
+    expect(esTiempoEnContra(3)).toBe(false)
+    expect(textoDiferenciaDeJornada(false, null)).toBe('—')
+    expect(textoDiferenciaDeJornada(true, null)).toBe('Incompleto')
   })
 })

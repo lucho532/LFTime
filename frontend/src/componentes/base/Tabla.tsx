@@ -7,6 +7,8 @@ export interface ColumnaTabla<T> {
   titulo: string
   render: (fila: T) => ReactNode
   alineacion?: 'izquierda' | 'derecha'
+  /** `derecha` deja la columna fija al borde derecho cuando la tabla se desplaza hacia un lado (solo en pantallas anchas). */
+  fija?: 'derecha'
 }
 
 interface PropiedadesTabla<T> {
@@ -36,7 +38,7 @@ export function Tabla<T>({ columnas, filas, clavePorFila, descripcion, vacio }: 
         <thead>
           <tr>
             {columnas.map((columna) => (
-              <th key={columna.clave} scope="col" className={`tabla__celda--${columna.alineacion ?? 'izquierda'}`}>
+              <th key={columna.clave} scope="col" className={`tabla__celda--${columna.alineacion ?? 'izquierda'}${columna.fija ? ' tabla__celda--fija' : ''}`}>
                 {columna.titulo}
               </th>
             ))}
@@ -46,7 +48,7 @@ export function Tabla<T>({ columnas, filas, clavePorFila, descripcion, vacio }: 
           {filas.map((fila) => (
             <tr key={clavePorFila(fila)}>
               {columnas.map((columna) => (
-                <td key={columna.clave} data-etiqueta={columna.titulo} className={`tabla__celda--${columna.alineacion ?? 'izquierda'}`}>
+                <td key={columna.clave} data-etiqueta={columna.titulo} className={`tabla__celda--${columna.alineacion ?? 'izquierda'}${columna.fija ? ' tabla__celda--fija' : ''}`}>
                   {columna.render(fila)}
                 </td>
               ))}

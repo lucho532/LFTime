@@ -10,6 +10,7 @@ import { AccionesDeIncidencia } from '../componentes/incidencias/AccionesDeIncid
 import { DatosIncidencia } from '../componentes/incidencias/DatosIncidencia'
 import { HistorialIncidencia } from '../componentes/incidencias/HistorialIncidencia'
 import { IntentosDeIncidencia } from '../componentes/incidencias/IntentosDeIncidencia'
+import { RegistrosDeLaJornada } from '../componentes/incidencias/RegistrosDeLaJornada'
 import { useDetalleIncidencia } from '../hooks/useDetalleIncidencia'
 import { useSesion } from '../hooks/useSesion'
 import { TEXTO_TIPO_INCIDENCIA } from '../modelos/etiquetasIncidencia'
@@ -39,7 +40,7 @@ export function PaginaIncidencia() {
     )
   }
 
-  const { incidencia, intentos, trabajadores, hospitales, usuarios } = datos
+  const { incidencia, intentos, registros, trabajadores, hospitales, usuarios } = datos
   const trabajador = trabajadores.find((t) => t.id === incidencia.trabajadorId)?.nombreCompleto ?? 'Persona no disponible'
   const hospital = hospitales.find((h) => h.id === incidencia.hospitalId)?.nombre ?? 'Hospital no disponible'
   const revisor = incidencia.revisorPrincipalId ? detalle.nombreDe(incidencia.revisorPrincipalId) : null
@@ -61,6 +62,9 @@ export function PaginaIncidencia() {
           <IntentosDeIncidencia intentos={intentos} />
         </Tarjeta>
       )}
+      <Tarjeta titulo={`Registros de la jornada (${registros.length})`}>
+        <RegistrosDeLaJornada marcaciones={registros} />
+      </Tarjeta>
       <Tarjeta titulo="Justificaciones e historial">
         <HistorialIncidencia incidencia={incidencia} nombreDe={detalle.nombreDe} />
       </Tarjeta>

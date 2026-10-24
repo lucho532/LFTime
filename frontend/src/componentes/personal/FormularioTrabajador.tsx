@@ -3,11 +3,11 @@ import '../../estilos/componentes/FormularioTrabajador.css'
 import { ESTADOS_TRABAJADOR, TEXTO_ESTADO_TRABAJADOR } from '../../modelos/estadoTrabajador'
 import type { Hospital } from '../../modelos/hospital'
 import type { DatosTrabajador } from '../../modelos/trabajador'
-import { TIPOS_DOCUMENTO, validarDatosTrabajador, type ErroresTrabajador } from '../../validadores/trabajador'
+import { validarDatosTrabajador, type ErroresTrabajador } from '../../validadores/trabajador'
 import { Aviso } from '../base/Aviso'
 import { Boton } from '../base/Boton'
-import { Campo } from '../base/Campo'
 import { Selector } from '../base/Selector'
+import { CamposDatosPersonales } from './CamposDatosPersonales'
 
 interface PropiedadesFormularioTrabajador {
   inicial?: DatosTrabajador
@@ -15,6 +15,8 @@ interface PropiedadesFormularioTrabajador {
   /** Guarda los datos. Si lanza un error, el mensaje se muestra en el formulario. */
   onGuardar: (datos: DatosTrabajador) => Promise<void>
   onCancelar: () => void
+  /** Verdadero cuando edita el propio trabajador: no ve ni cambia el hospital ni el estado, que no son datos personales. */
+  soloDatosPersonales?: boolean
 }
 
 const VACIO: DatosTrabajador = { nombres: '', apellidos: '', tipoDocumento: 'CC', numeroDocumento: '', cargo: '', telefono: '', hospitalId: '', estado: 'ACTIVO' }
@@ -22,9 +24,10 @@ const VACIO: DatosTrabajador = { nombres: '', apellidos: '', tipoDocumento: 'CC'
 /**
  * Formulario de alta y edición de un trabajador (HU-02): solo los datos personales estrictamente
  * necesarios. Valida en la interfaz y muestra todos los errores juntos. La foto no se edita aquí: la
- * pone cada persona. La lista de tipos de documento es provisional (P-13). No decide quién puede guardar.
+ * pone cada persona. La lista de tipos de documento es provisional (P-13). Con `soloDatosPersonales` oculta el
+ * hospital y el estado (los cambia quien gestiona el personal). No decide quién puede guardar.
  */
-export function FormularioTrabajador({ inicial = VACIO, hospitales, onGuardar, onCancelar }: PropiedadesFormularioTrabajador) {
+export function FormularioTrabajador({ inicial = VACIO, hospitales, onGuardar, onCancelar, soloDatosPersonales = false }: PropiedadesFormularioTrabajador) {
   const [datos, setDatos] = useState<DatosTrabajador>(inicial)
   const [errores, setErrores] = useState<ErroresTrabajador>({})
   const [errorGeneral, setErrorGeneral] = useState<string | null>(null)
@@ -51,24 +54,8 @@ export function FormularioTrabajador({ inicial = VACIO, hospitales, onGuardar, o
 
   return (
     <form className="formulario-trabajador" onSubmit={enviar} noValidate>
-      <div className="formulario-trabajador__fila">
-        <Campo etiqueta="Nombres" required value={datos.nombres} error={errores.nombres} onChange={cambiar('nombres')} />
-        <Campo etiqueta="Apellidos" required value={datos.apellidos} error={errores.apellidos} onChange={cambiar('apellidos')} />
-      </div>
-      <div className="formulario-trabajador__fila">
-        <Selector
-          etiqueta="Tipo de documento"
-          required
-          value={datos.tipoDocumento}
-          error={errores.tipoDocumento}
-          ayuda="Lista provisional de tipos de documento."
-          opciones={TIPOS_DOCUMENTO.map((tipo) => ({ valor: tipo.valor, etiqueta: `${tipo.valor} · ${tipo.etiqueta}` }))}
-          onChange={cambiar('tipoDocumento')}
-        />
-        <Campo etiqueta="Número de documento" required value={datos.numeroDocumento} error={errores.numeroDocumento} onChange={cambiar('numeroDocumento')} />
-      </div>
-      <Campo etiqueta="Cargo o servicio" required value={datos.cargo} error={errores.cargo} onChange={cambiar('cargo')} />
-      <Campo etiqueta="Teléfono (opcional)" type="tel" value={datos.telefono} ayuda="Solo si es necesario para contactar a la persona." error={errores.telefono} onChange={cambiar('telefono')} />
+      <CamposDatosPersonales datos={datos} errores={errores} onCambiar={cambiar} />
+      {!soloDatosPersonales && (
       <div className="formulario-trabajador__fila">
         <Selector
           etiqueta="Hospital asignado"
@@ -87,6 +74,7 @@ export function FormularioTrabajador({ inicial = VACIO, hospitales, onGuardar, o
           onChange={cambiar('estado')}
         />
       </div>
+      )}
       {errorGeneral && <Aviso tipo="error">{errorGeneral}</Aviso>}
       <div className="formulario-trabajador__acciones">
         <Boton variante="secundario" onClick={onCancelar}>

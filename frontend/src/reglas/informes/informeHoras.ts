@@ -1,6 +1,7 @@
 import type { DatosInformes, FiltrosInforme, TablaInforme } from '../../modelos/informe'
 import { formatearDuracion } from '../../utilidades/formatoDuracion'
 import { construirJornadas, type JornadaInforme } from './jornadasDelPeriodo'
+import { textoDiferencia } from './formatoInforme'
 import { textoPeriodo } from './periodo'
 
 /** Columnas provisionales del informe de horas por trabajador (P-23). */
@@ -9,11 +10,6 @@ export const COLUMNAS_HORAS = [
 ]
 
 const suma = (jornadas: JornadaInforme[], valor: (j: JornadaInforme) => number | null) => jornadas.reduce((total, j) => total + (valor(j) ?? 0), 0)
-
-function textoDiferencia(minutos: number): string {
-  const signo = minutos < 0 ? '−' : minutos > 0 ? '+' : ''
-  return `${signo}${formatearDuracion(Math.abs(minutos))}`
-}
 
 function textoComputo(incompletas: number): string {
   if (incompletas === 0) return 'Sí'
@@ -33,9 +29,8 @@ export function informeHoras(datos: DatosInformes, filtros: FiltrosInforme): Tab
     porTrabajador.set(jornada.trabajador.id, [...(porTrabajador.get(jornada.trabajador.id) ?? []), jornada])
   }
   const periodo = textoPeriodo(filtros.desde, filtros.hasta)
-  const filas = [...porTrabajador.values()]
-    .sort((a, b) => a[0].trabajador.nombreCompleto.localeCompare(b[0].trabajador.nombreCompleto))
-    .map((jornadas) => {
+  const grupos = [...porTrabajador.values()].sort((a, b) => a[0].trabajador.nombreCompleto.localeCompare(b[0].trabajador.nombreCompleto))
+  const filas = grupos.map((jornadas) => {
       const completas = jornadas.filter((j) => j.duraciones.completa)
       const incompletas = jornadas.filter((j) => j.marcaciones.length > 0 && !j.duraciones.completa).length
       const efectivo = suma(completas, (j) => j.duraciones.efectivoMinutos)
@@ -50,5 +45,6 @@ export function informeHoras(datos: DatosInformes, filtros: FiltrosInforme): Tab
         textoComputo(incompletas),
       ]
     })
-  return { tipo: 'HORAS_POR_TRABAJADOR', periodo, columnas: COLUMNAS_HORAS, filas }
+  const enlaces = grupos.map((jornadas) => ({ trabajadorId: jornadas[0].trabajador.id }))
+  return { tipo: 'HORAS_POR_TRABAJADOR', periodo, columnas: COLUMNAS_HORAS, filas, enlaces }
 }

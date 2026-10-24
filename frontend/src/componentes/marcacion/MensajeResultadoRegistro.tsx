@@ -3,6 +3,7 @@ import { NOMBRE_MARCACION } from '../../modelos/etiquetasMarcacion'
 import { formatearHora12 } from '../../utilidades/horaColombia'
 import { mensajeDeIntentoRechazado, mensajeDeSecuencia } from '../../utilidades/mensajesRegistro'
 import { Aviso } from '../base/Aviso'
+import { EnlaceUbicacion } from '../base/EnlaceUbicacion'
 
 interface PropiedadesMensajeResultadoRegistro {
   resultado: ResultadoRegistro | null
@@ -28,7 +29,7 @@ export function MensajeResultadoRegistro({ resultado, error, limites }: Propieda
       const { marcacion } = resultado
       return (
         <Aviso tipo="exito" titulo="Registro guardado en esta demostración">
-          {NOMBRE_MARCACION[marcacion.tipo]} a las {formatearHora12(new Date(marcacion.instante))}. Ubicación capturada en tu dispositivo ({Math.round(marcacion.distanciaAlHospitalMetros)} m del hospital, ± {Math.round(marcacion.ubicacion.precisionMetros)} m); no está validada por un servidor.
+          {NOMBRE_MARCACION[marcacion.tipo]} a las {formatearHora12(new Date(marcacion.instante))}. Ubicación capturada en tu dispositivo (± {Math.round(marcacion.ubicacion.precisionMetros)} m): <EnlaceUbicacion ubicacion={marcacion.ubicacion} />. No está validada por un servidor.
         </Aviso>
       )
     }

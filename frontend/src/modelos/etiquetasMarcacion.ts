@@ -26,3 +26,20 @@ export const TEXTO_MOTIVO_RECHAZO: Record<MotivoRechazo, string> = {
   PRECISION_INSUFICIENTE: 'Fallo técnico: precisión del GPS insuficiente',
   CONTEXTO_NO_SEGURO: 'Fallo técnico: conexión no segura',
 }
+
+/** Título de la pantalla que confirma cada evento en la aplicación móvil. */
+export const TITULO_PANTALLA_MARCACION: Record<TipoMarcacion, string> = {
+  ENTRADA: 'Registrar entrada',
+  SALIDA_ALMUERZO: 'Registrar almuerzo',
+  REGRESO_ALMUERZO: 'Regreso del almuerzo',
+  SALIDA_FINAL: 'Registrar salida',
+}
+
+/** Qué le pasa a la jornada según el evento que toca registrar a continuación; `null` si la jornada ya terminó. */
+export const SITUACION_SEGUN_SIGUIENTE: Record<TipoMarcacion | 'COMPLETA', string> = {
+  ENTRADA: 'Aún no has registrado tu entrada de hoy.',
+  SALIDA_ALMUERZO: 'Tu registro de entrada se ha guardado.',
+  REGRESO_ALMUERZO: 'Saliste a almorzar; falta registrar tu regreso.',
+  SALIDA_FINAL: 'Ya regresaste del almuerzo; falta registrar tu salida.',
+  COMPLETA: 'Tu jornada de hoy está completa.',
+}

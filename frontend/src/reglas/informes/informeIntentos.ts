@@ -18,10 +18,10 @@ export function informeIntentos(datos: DatosInformes, filtros: FiltrosInforme): 
   const ids = new Set(filtrarTrabajadores(datos, filtros).map((t) => t.id))
   const trabajador = (id: string) => datos.trabajadores.find((t) => t.id === id)?.nombreCompleto ?? 'Persona no disponible'
   const hospital = (id: string) => datos.hospitales.find((h) => h.id === id)?.nombre ?? 'Hospital no disponible'
-  const filas = datos.intentos
+  const intentos = datos.intentos
     .filter((i) => ids.has(i.trabajadorId) && i.fechaOperativa >= filtros.desde && i.fechaOperativa <= filtros.hasta)
     .sort((a, b) => b.instante.localeCompare(a.instante))
-    .map((i) => [
+  const filas = intentos.map((i) => [
       textoFechaHora(i.instante),
       trabajador(i.trabajadorId),
       hospital(i.hospitalId),
@@ -32,5 +32,9 @@ export function informeIntentos(datos: DatosInformes, filtros: FiltrosInforme): 
       i.ubicacion ? `${Math.round(i.ubicacion.precisionMetros)} m` : SIN_DATO,
       i.incidenciaId ?? SIN_DATO,
     ])
-  return { tipo: 'INTENTOS_RECHAZADOS', periodo: textoPeriodo(filtros.desde, filtros.hasta), columnas: COLUMNAS_INTENTOS, filas }
+  const enlaces = intentos.map((i) => ({
+    trabajadorId: i.trabajadorId,
+    incidencias: i.incidenciaId ? [{ id: i.incidenciaId, texto: i.incidenciaId }] : [],
+  }))
+  return { tipo: 'INTENTOS_RECHAZADOS', periodo: textoPeriodo(filtros.desde, filtros.hasta), columnas: COLUMNAS_INTENTOS, filas, enlaces }
 }

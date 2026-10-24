@@ -1,6 +1,7 @@
 import type { IntentoMarcacionDto } from '../../contratos/marcacion'
 import { NOMBRE_MARCACION, TEXTO_MOTIVO_RECHAZO } from '../../modelos/etiquetasMarcacion'
 import { formatearFechaCorta, formatearHora12 } from '../../utilidades/horaColombia'
+import { EnlaceUbicacion } from '../base/EnlaceUbicacion'
 import { Tabla, type ColumnaTabla } from '../base/Tabla'
 
 const metros = (valor?: number) => (valor === undefined ? 'Sin dato' : `${Math.round(valor)} m`)
@@ -10,11 +11,7 @@ const COLUMNAS: ColumnaTabla<IntentoMarcacionDto>[] = [
   { clave: 'evento', titulo: 'Evento', render: (i) => NOMBRE_MARCACION[i.tipo] },
   { clave: 'distancia', titulo: 'Distancia al hospital', render: (i) => metros(i.distanciaAlHospitalMetros), alineacion: 'derecha' },
   { clave: 'precision', titulo: 'Precisión', render: (i) => (i.ubicacion ? `± ${Math.round(i.ubicacion.precisionMetros)} m` : 'Sin dato'), alineacion: 'derecha' },
-  {
-    clave: 'coordenadas',
-    titulo: 'Coordenadas',
-    render: (i) => (i.ubicacion ? `${i.ubicacion.latitud.toFixed(5)}, ${i.ubicacion.longitud.toFixed(5)}` : 'Sin ubicación'),
-  },
+  { clave: 'ubicacion', titulo: 'Ubicación', render: (i) => <EnlaceUbicacion ubicacion={i.ubicacion} /> },
   { clave: 'motivo', titulo: 'Motivo', render: (i) => TEXTO_MOTIVO_RECHAZO[i.motivo] },
 ]
 

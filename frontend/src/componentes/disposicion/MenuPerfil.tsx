@@ -1,17 +1,16 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../../estilos/componentes/MenuPerfil.css'
 import { useSesion } from '../../hooks/useSesion'
 import { useTema } from '../../hooks/useTema'
 import { ETIQUETA_ROL } from '../../modelos/etiquetasRol'
-import { Modal } from '../base/Modal'
+import { rutaDeFichaDe } from '../../reglas/permisosPersonal'
 import { Icono } from '../iconos/Icono'
-import { AvatarPersona } from '../personal/AvatarPersona'
-import { SelectorFoto } from '../personal/SelectorFoto'
 
 /**
- * Menú del usuario en la barra superior: muestra su nombre, rol y foto, y permite cambiar su foto de
- * perfil (D14, todo usuario puede) y cambiar de usuario de prueba (cierra la sesión y vuelve al ingreso).
+ * Menú del usuario en la barra superior (administración y coordinación): muestra su nombre y rol, lleva a su
+ * ficha y permite cambiar de usuario de prueba (cierra la sesión y vuelve al ingreso). No muestra ni edita la
+ * foto de perfil: esa vive solo en la ficha de cada persona (D41).
  * Permite alternar entre el tema claro y el oscuro (D32); el botón dice a qué tema cambia. Se cierra con
  * Escape o al pulsar fuera.
  * No decide permisos.
@@ -21,7 +20,6 @@ export function MenuPerfil() {
   const navegar = useNavigate()
   const { tema, alternar: alternarTema } = useTema()
   const [abierto, setAbierto] = useState(false)
-  const [editandoFoto, setEditandoFoto] = useState(false)
   const contenedor = useRef<HTMLDivElement>(null)
   const idLista = useId()
 
@@ -46,8 +44,6 @@ export function MenuPerfil() {
   if (!usuario) {
     return null
   }
-  const propietario = { usuarioId: usuario.id, trabajadorId: usuario.trabajadorId ?? undefined }
-
   async function cerrarSesion() {
     setAbierto(false)
     await salir()
@@ -57,7 +53,7 @@ export function MenuPerfil() {
   return (
     <div className="menu-perfil" ref={contenedor}>
       <button type="button" className="menu-perfil__boton" aria-expanded={abierto} aria-controls={idLista} onClick={() => setAbierto(!abierto)}>
-        <AvatarPersona nombreCompleto={usuario.nombreCompleto} propietario={propietario} />
+        <Icono nombre="usuario" />
         <span className="menu-perfil__datos">
           <span className="menu-perfil__nombre">{usuario.nombreCompleto}</span>
           <span className="menu-perfil__rol">{ETIQUETA_ROL[usuario.rol]}</span>
@@ -67,15 +63,9 @@ export function MenuPerfil() {
       {abierto && (
         <ul id={idLista} className="menu-perfil__lista">
           <li>
-            <button
-              type="button"
-              onClick={() => {
-                setAbierto(false)
-                setEditandoFoto(true)
-              }}
-            >
-              Mi foto de perfil
-            </button>
+            <Link to={rutaDeFichaDe(usuario)} onClick={() => setAbierto(false)}>
+              Mi ficha
+            </Link>
           </li>
           <li>
             <button type="button" onClick={alternarTema}>
@@ -89,9 +79,6 @@ export function MenuPerfil() {
           </li>
         </ul>
       )}
-      <Modal abierto={editandoFoto} titulo="Mi foto de perfil" onCerrar={() => setEditandoFoto(false)}>
-        <SelectorFoto nombreCompleto={usuario.nombreCompleto} propietario={propietario} tieneFoto={usuario.urlFoto !== null} />
-      </Modal>
     </div>
   )
 }

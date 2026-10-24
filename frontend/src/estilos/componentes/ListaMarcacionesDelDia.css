@@ -1,0 +1,61 @@
+.lista-marcaciones-dia {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 var(--espacio-3);
+  list-style: none;
+  border: 1px solid var(--color-borde);
+  border-radius: 16px;
+  background: var(--color-superficie);
+}
+
+.lista-marcaciones-dia__fila {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) 0;
+}
+
+.lista-marcaciones-dia__fila + .lista-marcaciones-dia__fila {
+  border-top: 1px solid var(--color-borde);
+}
+
+.lista-marcaciones-dia__icono {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.lista-marcaciones-dia__icono--verde {
+  background: var(--color-estado-jornada-fondo);
+  color: var(--color-estado-jornada);
+}
+
+.lista-marcaciones-dia__icono--ambar {
+  background: var(--color-estado-aviso-fondo);
+  color: var(--color-estado-aviso);
+}
+
+.lista-marcaciones-dia__icono--azul {
+  background: var(--color-estado-almuerzo-fondo);
+  color: var(--color-estado-almuerzo);
+}
+
+.lista-marcaciones-dia__icono--rojo {
+  background: var(--color-estado-critico-fondo);
+  color: var(--color-estado-critico);
+}
+
+.lista-marcaciones-dia__datos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lista-marcaciones-dia__datos small {
+  color: var(--color-texto-suave);
+}

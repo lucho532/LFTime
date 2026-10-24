@@ -3,7 +3,7 @@ import type { AlertaVisible } from '../../modelos/alerta'
 import type { Hospital } from '../../modelos/hospital'
 import type { FilaPersonalEnVivo } from '../../modelos/panel'
 import type { Trabajador } from '../../modelos/trabajador'
-import { calcularEfectivoHastaAhora } from '../../reglas/duraciones'
+import { calcularEfectivoHastaAhora, calcularEfectivoHastaAhoraSegundos, calcularTramos } from '../../reglas/duraciones'
 import {
   agruparPorEstado,
   calcularHorasDelDia,
@@ -150,5 +150,27 @@ describe('alertas y filtro de estado del panel', () => {
     expect(coincideConEstado(fila('y'), FILTRO_SIN_TURNO)).toBe(false)
     expect(coincideConEstado(fila('y'), 'EN_JORNADA')).toBe(true)
     expect(coincideConEstado(sinTurno, 'EN_JORNADA')).toBe(false)
+  })
+})
+
+describe('cronómetro en vivo y tramos de la jornada', () => {
+  const en = (hora: string) => aInstanteUtc(FECHA_PRUEBA, hora)
+
+  it('el cronómetro cuenta segundos, se pausa en el almuerzo y se detiene con la salida final', () => {
+    expect(calcularEfectivoHastaAhoraSegundos([], en('09:00'))).toBeNull()
+    expect(calcularEfectivoHastaAhoraSegundos([marca('ENTRADA', '07:00')], new Date(en('07:00').getTime() + 90_500))).toBe(90)
+    const almorzando = [marca('ENTRADA', '07:00'), marca('SALIDA_ALMUERZO', '12:00')]
+    expect(calcularEfectivoHastaAhoraSegundos(almorzando, en('12:40'))).toBe(5 * 3600)
+    const terminada = [...almorzando, marca('REGRESO_ALMUERZO', '13:00'), marca('SALIDA_FINAL', '16:00')]
+    expect(calcularEfectivoHastaAhoraSegundos(terminada, en('20:00'))).toBe(8 * 3600)
+  })
+
+  it('cada tramo se calcula en cuanto tiene sus dos marcas; si falta una es null', () => {
+    expect(calcularTramos([marca('ENTRADA', '07:00')])).toEqual({ primerTramoMinutos: null, segundoTramoMinutos: null, almuerzoMinutos: null })
+    expect(calcularTramos([marca('ENTRADA', '07:00'), marca('SALIDA_ALMUERZO', '12:06'), marca('REGRESO_ALMUERZO', '13:11'), marca('SALIDA_FINAL', '16:05')])).toEqual({
+      primerTramoMinutos: 306,
+      segundoTramoMinutos: 174,
+      almuerzoMinutos: 65,
+    })
   })
 })

@@ -14,6 +14,7 @@ const MILISEGUNDOS_POR_MINUTO = 60_000
 
 const DIAS_SEMANA_CORTOS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
 const MESES_CORTOS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+const MESES_LARGOS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
 /** Fecha y hora descompuestas en hora de Colombia. `mes` va de 1 a 12 y `diaSemana` de 0 (domingo) a 6. */
 export interface ComponentesColombia {
@@ -111,4 +112,22 @@ export function formatearHora12(instante: Date): string {
 export function formatearFechaCorta(instante: Date): string {
   const { anio, mes, dia, diaSemana } = descomponerEnColombia(instante)
   return `${DIAS_SEMANA_CORTOS[diaSemana]}, ${dia} ${MESES_CORTOS[mes - 1]} ${anio}`
+}
+
+/** Formatea la hora de un instante UTC, en hora de Colombia, a 24 horas: `09:41`. */
+export function formatearHora24(instante: Date): string {
+  const { hora, minuto } = descomponerEnColombia(instante)
+  return `${conCeros(hora)}:${conCeros(minuto)}`
+}
+
+/** Formatea la fecha de un instante UTC, en hora de Colombia, como `27 de octubre de 2025`. */
+export function formatearFechaLarga(instante: Date): string {
+  const { anio, mes, dia } = descomponerEnColombia(instante)
+  return `${dia} de ${MESES_LARGOS[mes - 1]} de ${anio}`
+}
+
+/** Formatea una fecha `AAAA-MM-DD` como `27 oct. 2025` (sin conversión de zona: ya es la fecha de Colombia). */
+export function formatearFechaDia(fecha: string): string {
+  const [anio, mes, dia] = fecha.split('-').map(Number)
+  return `${dia} ${MESES_CORTOS[mes - 1].toLowerCase()}. ${anio}`
 }
