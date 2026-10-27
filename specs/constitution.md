@@ -23,7 +23,7 @@ Cada feature sigue este orden y no se avanza sin revisión humana de la etapa an
 6. **Contratos antes de integración.** Los datos simulados siguen contratos preliminares documentados, para que el backend los sustituya sin rehacer pantallas.
 7. **"Terminado" no es "se ve bien".** Una funcionalidad está terminada cuando cumple sus criterios de aceptación, incluidos estados de carga, error, vacío y confirmación.
 8. **Una incidencia no es una sanción.** El sistema detecta y presenta; la persona coordinadora revisa, solicita justificación y resuelve.
-9. **Privacidad por diseño.** Solo los datos personales estrictamente necesarios; ubicación tratada de forma proporcionada; trazabilidad de correcciones y operaciones administrativas.
+9. **Privacidad por diseño.** Solo los datos personales estrictamente necesarios; ubicación tratada de forma proporcionada; trazabilidad de correcciones y operaciones administrativas. Toda persona puede pedir la eliminación de su cuenta y de sus datos personales, con las condiciones de la excepción de supresión de R-10.
 10. **Cálculos verificables.** Toda regla de cálculo de jornada debe poder comprobarse con pruebas.
 11. **Idioma y contexto.** Interfaz en español (Colombia), zona horaria de Colombia, sujeta a la normativa laboral y de protección de datos colombiana.
 12. **Accesibilidad y responsividad.** Diseño adaptable a escritorio, tableta y móvil, con formularios accesibles.
@@ -92,6 +92,14 @@ Todo se expresa en hora de Colombia (UTC−5 fijo, sin horario de verano).
 
 ### R-10. Histórico inmutable
 Nunca se modifica información histórica por haber cambiado el dato actual. Las marcaciones, los intentos rechazados, las decisiones y las correcciones no se sobrescriben: cada cambio añade una entrada (quién, cuándo, qué, por qué). Resolver una incidencia no altera los intentos originales. Se mantiene solo el estado actual salvo historial explícito en la spec.
+
+**Excepción de supresión (Fase 2; enmienda aprobada por el responsable el 2026-10-27).** La eliminación de una cuenta, pedida por la propia persona o por un administrador de su empresa, y la eliminación de una empresa, pedida por el desarrollador, suprimen o anonimizan los datos personales. Condiciones:
+1. Solo se hace mediante una **operación de plataforma de eliminación** explícita, con confirmación de quien la pide. La aplicación ordinaria sigue sin poder modificar ni borrar registros históricos.
+2. Se suprimen la identidad, el correo, el teléfono, la foto y el dispositivo de la persona. Al eliminar una **cuenta**, los registros de jornada (marcaciones, intentos, incidencias) **se conservan desvinculados de toda persona identificable**, sin datos que permitan reidentificarla. Al eliminar una **empresa entera** (decisión del responsable, 2026-10-27), se borran también los registros de jornada de esa empresa, salvo lo que la norma obligue a conservar (condición 4).
+3. Queda una entrada de auditoría de plataforma **sin datos personales** (quién eliminó, cuándo, qué identificador anulado y de qué tipo), que no se borra con la empresa.
+4. No se elimina lo que una norma vigente obligue a conservar; el plazo lo valida el asesor legal (N-3 de la spec de la Fase 2).
+5. El último administrador de una empresa no puede eliminarse.
+6. Esta excepción no autoriza corregir, editar ni borrar marcaciones o intentos por otra vía.
 
 ### R-11. GPS obligatorio en cada marcación
 Toda marcación se registra con ubicación del dispositivo; sin coordenadas válidas no hay marcación ni se simula (ver spec HU-05).

@@ -5,7 +5,7 @@ LFTime controla las jornadas laborales del personal de salud que una empresa asi
 El proyecto sigue **SDD (desarrollo guiado por especificación)** con documentos propios en markdown, y se construye en **dos fases separadas**:
 
 1. **Fase 1 (la actual): solo frontend** con datos de demostración. Sin backend, base de datos ni servicios externos.
-2. **Fase 2: backend e integración.** No se empieza hasta terminar y revisar la Fase 1.
+2. **Fase 2: backend e integración.** No se empieza hasta terminar y revisar la Fase 1. **Estado (2026-10-27):** el responsable autorizó redactar su especificación y eligió Java con Spring Boot y PostgreSQL. Los documentos están en `specs/002-lftime-backend/` (`spec.md`, `contrato-api.md`, `plan.md`, `tasks.md`), todos en **borrador**. **No hay código de backend** y no se escribe hasta que el responsable apruebe la spec y resuelva las clarificaciones que bloquean cada hito (`spec.md` §6; estado en `tasks.md` de esa carpeta). El trabajo del frontend sigue las reglas de arriba.
 
 ## Antes de hacer nada, lee esto (en este orden)
 

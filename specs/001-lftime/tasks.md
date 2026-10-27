@@ -117,7 +117,7 @@ Leyenda de estado: `[ ]` pendiente · `[~]` en curso · `[X]` terminada y verifi
 | [X] T-9.4 | Escalada manual con motivo; intervención directa del administrador; bandeja «pendientes de asignación» | T-9.3, T-5.7 | Prueba de incidencia en hospital sin responsable | D28, D29 |
 | [X] T-9.5 | Registro de auditoría de cambios de horario, coordenadas, asignaciones, resoluciones y escaladas | T-9.3 | Cada acción deja quién, cuándo y por qué | D29 |
 | [X] T-9.6 | Alertas y campana con contador; alerta revisada al abrir la incidencia | T-9.1 | Texto distingue leído/sin leer (no solo color) | HU-07, P-19 |
-| [B] T-9.7 | Corrección manual de una marcación por el coordinador, con permiso, motivo y auditoría | — | **BLOQUEADA por P-12** (quién puede crear o corregir): no se implementa hasta decidirlo | HU-05 |
+| [-] T-9.7 | ~~Corrección manual de una marcación por el coordinador, con permiso, motivo y auditoría~~ | — | **DESCARTADA (2026-10-27):** el responsable decidió que no habrá corrección manual de marcaciones (D-B23 de `specs/002-lftime-backend/spec.md`); P-12 queda resuelta en ese sentido | HU-05 |
 
 ## Hito 10: Panel de coordinación
 
@@ -380,3 +380,10 @@ Resultado: `npm run build` compila; `npm test` pasa **606 pruebas** (54 archivos
 - **Fechas (T-13.10):** por defecto el periodo es hoy; Desde y Hasta salen al pulsar «Filtrar por fechas». «Acumulado mensual» y «Tiempo por reponer» usan del día 1 del mes en curso a hoy. Al volver a otro informe, si seguía el mes automático, vuelve a hoy; las fechas elegidas a mano se conservan.
 - **Para confirmar con el responsable:** que el desglose cuente la diferencia contra el efectivo programado (turno menos almuerzo autorizado) como ya hacía el informe; que «Debe tiempo» sea el rótulo; que «Tiempo por reponer» también use el mes en curso; todo sigue provisional (P-03 y P-05 abiertos): no es una sanción ni un descuento y no decide si el almuerzo se paga.
 - **Pruebas ajustadas:** informes (fechas ocultas y por defecto), registro, fotos, menú, ficha.
+
+### Recuperación de acceso (2026-10-23)
+
+Resultado: `npm run build` compila; `npm test` pasa 609 de 610 (la de la lista de hospitales falló bajo carga y pasa sola, como antes); `npm run lint`, `verificar:tamano` (451 archivos) y `verificar:contraste` pasan.
+
+- **Cambios (D41):** enlace «¿Olvidaste tu contraseña?» en `FormularioIngreso`; `PaginaRecuperarAcceso` con los pasos `solicitud` y `nueva`; `IRecuperacionAccesoServicio` y su demo (no envía ni guarda nada); `useRecuperacionAcceso`; `validadores/correo`. Prueba en `pruebas/paginas/recuperarAcceso.prueba.tsx`.
+- **Pendiente (P-24, Fase 2):** envío con Brevo desde el backend, código de un solo uso en el enlace, caducidad, límite de intentos y reglas de la contraseña. **No se revisó en un navegador ni en el teléfono.**
