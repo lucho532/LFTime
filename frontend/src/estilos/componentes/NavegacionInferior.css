@@ -3,10 +3,15 @@
   bottom: 0;
   left: 50%;
   z-index: 20;
-  width: min(100%, 440px);
+  width: min(100%, var(--ancho-movil, 440px));
+  padding-bottom: env(safe-area-inset-bottom);
   transform: translateX(-50%);
   border-top: 1px solid var(--color-borde);
-  background: var(--color-superficie);
+  border-radius: 20px 20px 0 0;
+  background: color-mix(in srgb, var(--color-superficie) 92%, transparent);
+  box-shadow: 0 -6px 20px rgba(10, 42, 94, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .navegacion-inferior ul {
@@ -18,17 +23,60 @@
 }
 
 .navegacion-inferior__enlace {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: var(--espacio-2) var(--espacio-1);
+  padding: var(--espacio-2) var(--espacio-1) 10px;
   color: var(--color-texto-suave);
   font-size: 0.8rem;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* Píldora de color detrás del icono de la pestaña activa. */
+.navegacion-inferior__enlace::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 58px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--color-marca-claro);
+  opacity: 0;
+  transform: translateX(-50%) scale(0.5);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.navegacion-inferior__enlace .icono {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.navegacion-inferior__enlace span {
+  position: relative;
 }
 
 .navegacion-inferior__enlace--activo {
   color: var(--color-acento);
   font-weight: 700;
+}
+
+.navegacion-inferior__enlace--activo::before {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.navegacion-inferior__enlace--activo .icono {
+  transform: translateY(-1px) scale(1.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navegacion-inferior__enlace,
+  .navegacion-inferior__enlace::before,
+  .navegacion-inferior__enlace .icono {
+    transition: none;
+  }
 }

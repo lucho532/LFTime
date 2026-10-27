@@ -32,3 +32,8 @@
 .tarjeta-persona-movil__textos small {
   color: var(--color-texto-suave);
 }
+
+/* Profundidad suave en el teléfono. */
+.tarjeta-persona-movil {
+  box-shadow: var(--sombra-tarjeta);
+}

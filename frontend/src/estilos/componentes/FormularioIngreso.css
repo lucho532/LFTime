@@ -31,3 +31,10 @@
   color: var(--color-estado-critico);
   font-size: 0.9rem;
 }
+
+.formulario-ingreso__olvido {
+  align-self: flex-end;
+  color: var(--color-acento);
+  font-size: 0.9rem;
+  font-weight: 600;
+}

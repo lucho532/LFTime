@@ -4,6 +4,7 @@ import { FotoServicioDemo } from './demo/FotoServicioDemo'
 import { HorarioServicioDemo } from './demo/HorarioServicioDemo'
 import { MarcacionServicioDemo } from './demo/MarcacionServicioDemo'
 import { PanelServicioDemo } from './demo/PanelServicioDemo'
+import { RecuperacionAccesoServicioDemo } from './demo/RecuperacionAccesoServicioDemo'
 import { AlertaServicioDemo } from './demo/AlertaServicioDemo'
 import { HospitalServicioDemo } from './demo/HospitalServicioDemo'
 import { InformeServicioDemo } from './demo/InformeServicioDemo'
@@ -21,6 +22,7 @@ import type { IInformeServicio } from './IInformeServicio'
 import type { IIncidenciaServicio } from './IIncidenciaServicio'
 import type { IMarcacionServicio } from './IMarcacionServicio'
 import type { IPanelServicio } from './IPanelServicio'
+import type { IRecuperacionAccesoServicio } from './IRecuperacionAccesoServicio'
 import type { ISesionServicio } from './ISesionServicio'
 import type { ITrabajadorServicio } from './ITrabajadorServicio'
 import type { IUsuarioServicio } from './IUsuarioServicio'
@@ -37,6 +39,7 @@ export interface Servicios {
   informes: IInformeServicio
   usuarios: IUsuarioServicio
   sesion: ISesionServicio
+  recuperacionAcceso: IRecuperacionAccesoServicio
   fotos: IFotoServicio
   configuracion: IConfiguracionServicio
   datosDemo: IDatosDemoServicio
@@ -58,6 +61,7 @@ export const servicios: Servicios = {
   informes: new InformeServicioDemo(),
   usuarios: new UsuarioServicioDemo(),
   sesion: new SesionServicioDemo(),
+  recuperacionAcceso: new RecuperacionAccesoServicioDemo(),
   fotos: new FotoServicioDemo(),
   configuracion: new ConfiguracionServicioDemo(),
   datosDemo: new DatosDemoServicioDemo(),

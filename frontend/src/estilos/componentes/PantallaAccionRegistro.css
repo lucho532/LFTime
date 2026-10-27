@@ -54,3 +54,26 @@
   background: var(--color-estado-jornada);
   color: var(--color-estado-jornada-fondo);
 }
+
+.pantalla-accion-registro__disco--verde,
+.pantalla-accion-registro__disco--azul {
+  animation: disco-pulso 2.2s ease-in-out infinite;
+}
+
+@keyframes disco-pulso {
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.pantalla-accion-registro__boton--verde {
+  background: linear-gradient(135deg, var(--color-estado-jornada), color-mix(in srgb, var(--color-estado-jornada) 70%, #000));
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--color-estado-jornada) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pantalla-accion-registro__disco--verde,
+  .pantalla-accion-registro__disco--azul {
+    animation: none;
+  }
+}

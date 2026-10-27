@@ -19,7 +19,7 @@ export function DisposicionMovil() {
   }
   return (
     <div className="disposicion-movil">
-      <AvisoModoDemo />
+      <AvisoModoDemo compacto />
       <div className="disposicion-movil__telefono">
         <BarraSuperiorMovil />
         <main className="disposicion-movil__contenido">

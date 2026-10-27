@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacio-3);
+  container-type: inline-size;
+}
+
+.pagina-usuario__rejilla > * {
+  min-width: 0;
 }
 
 .pagina-usuario__rejilla {

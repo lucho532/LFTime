@@ -59,3 +59,41 @@
 .lista-marcaciones-dia__datos small {
   color: var(--color-texto-suave);
 }
+
+/* Profundidad suave en el teléfono. */
+.lista-marcaciones-dia {
+  box-shadow: var(--sombra-tarjeta);
+}
+
+.lista-marcaciones-dia__icono {
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.lista-marcaciones-dia__fila {
+  animation: marcacion-aparece 0.4s ease-out both;
+}
+
+.lista-marcaciones-dia__fila:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.lista-marcaciones-dia__fila:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.lista-marcaciones-dia__fila:nth-child(n + 4) {
+  animation-delay: 0.24s;
+}
+
+@keyframes marcacion-aparece {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lista-marcaciones-dia__fila {
+    animation: none;
+  }
+}

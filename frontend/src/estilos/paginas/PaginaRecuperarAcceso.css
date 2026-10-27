@@ -1,0 +1,49 @@
+.pagina-recuperar {
+  min-height: 100vh;
+}
+
+.pagina-recuperar__contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-4);
+  max-width: 440px;
+  margin: 0 auto;
+  padding: var(--espacio-4) var(--espacio-3);
+}
+
+.pagina-recuperar__tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  width: 100%;
+  padding: var(--espacio-4) var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: 16px;
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-tarjeta);
+}
+
+.pagina-recuperar__tarjeta h1 {
+  margin: 0;
+  color: var(--color-titulo);
+  font-size: 1.4rem;
+}
+
+.pagina-recuperar__tarjeta p {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.pagina-recuperar__tarjeta .formulario-recuperacion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.pagina-recuperar__enlace {
+  align-self: center;
+  color: var(--color-acento);
+  font-weight: 600;
+}

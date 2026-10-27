@@ -19,3 +19,8 @@
 .intentos-dia__fila small {
   color: var(--color-texto-suave);
 }
+
+/* Profundidad suave en el teléfono. */
+.intentos-dia__fila {
+  box-shadow: var(--sombra-tarjeta);
+}

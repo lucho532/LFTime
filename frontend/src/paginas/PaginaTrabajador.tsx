@@ -79,6 +79,8 @@ export function PaginaTrabajador() {
   }
 
   const trabajador = datos.trabajador
+  // La jornada de hoy en vivo de la propia persona está en el inicio de su aplicación móvil; aquí solo se ve la de otras personas.
+  const esFichaPropia = usuario?.trabajadorId === trabajador.id
   const hospital = datos.hospitales.find((h) => h.id === trabajador.hospitalId)
   const propietarioFoto = { trabajadorId: trabajador.id }
 
@@ -113,18 +115,20 @@ export function PaginaTrabajador() {
             <DatosDelTrabajador trabajador={trabajador} hospital={hospital} municipio={datos.municipios.find((m) => m.id === hospital?.municipioId)} />
           </Tarjeta>
         </div>
-        <div className="pagina-trabajador__jornada">
-          <Tarjeta titulo="Jornada de hoy">
-            <JornadaDelDiaTrabajador jornada={datos.jornada} ahora={ahora} />
-          </Tarjeta>
-        </div>
+        {!esFichaPropia && (
+          <div className="pagina-trabajador__jornada">
+            <Tarjeta titulo="Jornada de hoy">
+              <JornadaDelDiaTrabajador jornada={datos.jornada} ahora={ahora} />
+            </Tarjeta>
+          </div>
+        )}
         <div className="pagina-trabajador__horario">
           <Tarjeta titulo="Horario">
             <PanelHorarioTrabajador trabajadorId={trabajador.id} horarios={datos.horarios} puedeEditar={puedeEditarHorarios(usuario)} nombreDe={crearNombreDe(datos.usuarios)} onAsignar={asignarHorario} />
           </Tarjeta>
         </div>
       </div>
-      {usuario?.trabajadorId === trabajador.id && <AccionesDeCuenta />}
+      {esFichaPropia && <AccionesDeCuenta />}
       <Modal abierto={editando} titulo="Editar trabajador" onCerrar={() => setEditando(false)}>
         <FormularioTrabajador
           inicial={{ nombres: trabajador.nombres, apellidos: trabajador.apellidos, tipoDocumento: trabajador.tipoDocumento, numeroDocumento: trabajador.numeroDocumento, cargo: trabajador.cargo, telefono: trabajador.telefono ?? '', hospitalId: trabajador.hospitalId, estado: trabajador.estado }}

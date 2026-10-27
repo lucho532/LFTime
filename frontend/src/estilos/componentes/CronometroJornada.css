@@ -69,3 +69,83 @@
     animation: none;
   }
 }
+
+/* Versión «hero» de la pantalla principal del teléfono: fondo de marca, números blancos y un halo que late mientras corre. */
+.cronometro-jornada--hero {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background: linear-gradient(135deg, var(--color-marca-oscuro) 0%, var(--color-marca-medio) 55%, var(--color-marca-electrico) 100%);
+  box-shadow: 0 12px 28px rgba(10, 42, 94, 0.32);
+  color: #ffffff;
+}
+
+.cronometro-jornada--hero::before,
+.cronometro-jornada--hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.cronometro-jornada--hero::before {
+  top: -60px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+}
+
+.cronometro-jornada--hero::after {
+  bottom: -70px;
+  left: -50px;
+  width: 160px;
+  height: 160px;
+}
+
+.cronometro-jornada--hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.cronometro-jornada--hero .cronometro-jornada__estado,
+.cronometro-jornada--hero.cronometro-jornada--en-vivo .cronometro-jornada__estado,
+.cronometro-jornada--hero.cronometro-jornada--almuerzo .cronometro-jornada__estado {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.cronometro-jornada--hero .cronometro-jornada__tiempo,
+.cronometro-jornada--hero.cronometro-jornada--en-vivo .cronometro-jornada__tiempo,
+.cronometro-jornada--hero.cronometro-jornada--almuerzo .cronometro-jornada__tiempo {
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.cronometro-jornada--hero small {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.cronometro-jornada--hero.cronometro-jornada--en-vivo .cronometro-jornada__punto {
+  background: #7df5b4;
+}
+
+.cronometro-jornada--hero.cronometro-jornada--almuerzo .cronometro-jornada__punto {
+  background: #ffd37a;
+}
+
+.cronometro-jornada--hero.cronometro-jornada--en-vivo {
+  animation: cronometro-halo 2.4s ease-in-out infinite;
+}
+
+@keyframes cronometro-halo {
+  50% {
+    box-shadow: 0 12px 28px rgba(10, 42, 94, 0.32), 0 0 0 8px rgba(27, 95, 232, 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cronometro-jornada--hero.cronometro-jornada--en-vivo {
+    animation: none;
+  }
+}

@@ -7,6 +7,8 @@ interface PropiedadesCronometroJornada {
   marcaciones: MarcacionDto[]
   /** Instante actual, que se actualiza cada segundo fuera de este componente. */
   ahora: Date
+  /** `hero` es la versión grande de color de la pantalla principal del teléfono. */
+  variante?: 'tarjeta' | 'hero'
 }
 
 type Fase = 'sin-entrada' | 'en-vivo' | 'almuerzo' | 'terminada'
@@ -24,12 +26,12 @@ const ROTULO: Record<Fase, string> = {
  * referencia visual (los tiempos oficiales salen de las marcas y se truncan al minuto, D16) y provisional
  * (P-03, P-05). No decide nada.
  */
-export function CronometroJornada({ marcaciones, ahora }: PropiedadesCronometroJornada) {
+export function CronometroJornada({ marcaciones, ahora, variante = 'tarjeta' }: PropiedadesCronometroJornada) {
   const segundos = calcularEfectivoHastaAhoraSegundos(marcaciones, ahora)
   const { salidaAlmuerzo, regresoAlmuerzo, salidaFinal } = instantesDeJornada(marcaciones)
   const fase: Fase = segundos === null ? 'sin-entrada' : salidaFinal ? 'terminada' : salidaAlmuerzo && !regresoAlmuerzo ? 'almuerzo' : 'en-vivo'
   return (
-    <div className={`cronometro-jornada cronometro-jornada--${fase}`} role="timer" aria-label="Tiempo trabajado hoy">
+    <div className={`cronometro-jornada cronometro-jornada--${fase} cronometro-jornada--${variante}`} role="timer" aria-label="Tiempo trabajado hoy">
       <span className="cronometro-jornada__estado">
         <span className="cronometro-jornada__punto" aria-hidden="true" />
         {ROTULO[fase]}

@@ -35,6 +35,9 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     renderizar('/inicio')
     expect(await screen.findByRole('heading', { name: 'Iniciar sesión' })).toBeInTheDocument()
     expect(await screen.findAllByRole('button', { name: /^Ingresar como/ })).toHaveLength(8)
+    // En el teléfono el aviso es una franja siempre visible; el texto completo se abre con «Detalles».
+    expect(screen.getByText(/datos ficticios/i)).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'Detalles' }))
     expect(screen.getByText(/control de acceso por rol es solo visual/i)).toBeInTheDocument()
     expect(screen.getByText(/No hay contraseñas/i)).toBeInTheDocument()
   })
@@ -158,6 +161,7 @@ describe('App: ingreso simulado, menú y acceso por rol (D9, D27)', () => {
     renderizar('/ingreso')
     await waitFor(() => expect(window.localStorage.getItem('lftime.demo.version')).toBe('3'))
     window.localStorage.setItem('lftime.demo.configuracion', '{"toleranciaSalidaMinutos":99}')
+    await userEvent.click(screen.getByRole('button', { name: 'Detalles' }))
     await userEvent.click(screen.getByRole('button', { name: /Restablecer datos de demostración/i }))
     await waitFor(() => expect(recargar).toHaveBeenCalledTimes(1))
     expect(window.localStorage.getItem('lftime.demo.configuracion')).toBeNull()

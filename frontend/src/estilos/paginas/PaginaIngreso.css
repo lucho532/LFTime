@@ -16,8 +16,11 @@
   flex-direction: column;
   align-items: center;
   gap: var(--espacio-1);
-  padding: var(--espacio-3) 0;
-  color: var(--color-texto-suave);
+  padding: var(--espacio-4) var(--espacio-3);
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--color-marca-oscuro), var(--color-marca-medio) 55%, var(--color-marca-electrico));
+  box-shadow: 0 14px 30px rgba(10, 42, 94, 0.3);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .pagina-ingreso__marca p {
@@ -97,5 +100,55 @@
   .pagina-ingreso__usuario {
     flex-direction: column;
     align-items: stretch;
+  }
+}
+
+.pagina-ingreso {
+  background: linear-gradient(180deg, var(--color-marca-claro) 0, var(--color-fondo) 360px);
+}
+
+.pagina-ingreso__marca .logo-lftime__reloj {
+  animation: logo-flota 3.2s ease-in-out infinite;
+}
+
+.pagina-ingreso__contenido > * {
+  animation: ingreso-entrada 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.pagina-ingreso__contenido > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.pagina-ingreso__contenido > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.pagina-ingreso__contenido > :nth-child(n + 4) {
+  animation-delay: 0.24s;
+}
+
+@keyframes logo-flota {
+  50% {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+}
+
+@keyframes ingreso-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina-ingreso__marca .logo-lftime__reloj,
+  .pagina-ingreso__contenido > * {
+    animation: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .pagina-ingreso__contenido {
+    max-width: 520px;
   }
 }

@@ -32,3 +32,37 @@
   margin: 0;
   color: var(--color-texto-suave);
 }
+
+/* En una columna estrecha (teléfono) la cabecera de la ficha es una tarjeta de color. */
+@container (max-width: 560px) {
+  .encabezado-ficha {
+    flex-wrap: nowrap;
+    padding: var(--espacio-4) var(--espacio-3);
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--color-marca-oscuro), var(--color-marca-medio) 55%, var(--color-marca-electrico));
+    box-shadow: 0 10px 24px rgba(10, 42, 94, 0.28);
+    color: #ffffff;
+  }
+
+  .encabezado-ficha .avatar {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
+  }
+
+  .encabezado-ficha__textos {
+    min-width: 0;
+  }
+
+  .encabezado-ficha__textos h1 {
+    color: #ffffff;
+    font-size: 1.35rem;
+    overflow-wrap: anywhere;
+  }
+
+  .encabezado-ficha__textos p {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .encabezado-ficha__camara {
+    border-color: #ffffff;
+  }
+}

@@ -29,3 +29,8 @@
   opacity: 0;
   cursor: pointer;
 }
+
+/* Profundidad suave en el teléfono. */
+.selector-dia {
+  box-shadow: var(--sombra-tarjeta);
+}

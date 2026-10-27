@@ -50,10 +50,10 @@ export function PaginaIngreso() {
 
   return (
     <div className="pagina-ingreso">
-      <AvisoModoDemo />
+      <AvisoModoDemo compacto />
       <main className="pagina-ingreso__contenido">
         <div className="pagina-ingreso__marca">
-          <LogoLFTime variante="claro" lema={null} tamano={64} />
+          <LogoLFTime variante="oscuro" lema={null} tamano={64} />
           <p>Tu tiempo, en buenas manos</p>
         </div>
         <section className="pagina-ingreso__tarjeta" aria-labelledby="titulo-ingreso">

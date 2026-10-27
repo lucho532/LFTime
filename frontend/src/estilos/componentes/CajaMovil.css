@@ -65,3 +65,8 @@
 .caja-movil--neutro .caja-movil__detalle {
   color: var(--color-texto-suave);
 }
+
+/* Profundidad suave en el teléfono. */
+.caja-movil--neutro {
+  box-shadow: var(--sombra-tarjeta);
+}

@@ -1,62 +1,33 @@
 import '../../estilos/componentes/DetalleJornadaActiva.css'
 import type { TipoMarcacion } from '../../contratos/marcacion'
 import { ACCION_MARCACION } from '../../modelos/etiquetasMarcacion'
-import type { InstantesJornada } from '../../reglas/duraciones'
-import { formatearDuracion } from '../../utilidades/formatoDuracion'
-import { formatearHora12 } from '../../utilidades/horaColombia'
+import type { JornadaDelDia } from '../../modelos/jornada'
 import { Boton } from '../base/Boton'
-import { Icono } from '../iconos/Icono'
 import { CajaMovil } from '../movil/CajaMovil'
 import { EncabezadoPantallaMovil } from '../movil/EncabezadoPantallaMovil'
+import { JornadaDelDiaTrabajador } from '../personal/JornadaDelDiaTrabajador'
 
 interface PropiedadesDetalleJornadaActiva {
-  instantes: InstantesJornada
-  /** Tiempo efectivo acumulado hasta ahora; `null` si aún no hay entrada. Es una referencia, no el tiempo oficial. */
-  efectivoMinutos: number | null
-  /** Duración del turno de entrada a salida según el horario; `null` si no hay horario vigente. */
-  programadosMinutos: number | null
+  jornada: JornadaDelDia
+  /** Instante actual, actualizado cada segundo por quien usa el componente. */
+  ahora: Date
   siguiente: TipoMarcacion | null
   puedeRegistrar: boolean
   onRegistrar: () => void
   onAtras: () => void
 }
 
-const hora = (instante: Date | null) => (instante ? formatearHora12(instante) : '—')
-
 /**
- * Detalle de la jornada en curso: tiempo trabajado hasta ahora frente a lo programado y las tres marcas del
- * día (entrada, almuerzo y salida). El tiempo es una referencia: los oficiales salen de las marcas
- * registradas y se ven en el resumen del historial (D16). No calcula nada; recibe todo ya calculado.
+ * Detalle de la jornada de hoy, al que se llega desde el enlace de la pantalla principal: cada marcación con su
+ * hora programada, la registrada y su ubicación, y el resumen del día (tramos, almuerzo frente a lo autorizado y
+ * total). El cronómetro queda en la pantalla principal. Los tiempos son una referencia y provisionales (D16, P-03,
+ * P-05). No calcula nada: reutiliza la tarjeta de la ficha.
  */
-export function DetalleJornadaActiva({ instantes, efectivoMinutos, programadosMinutos, siguiente, puedeRegistrar, onRegistrar, onAtras }: PropiedadesDetalleJornadaActiva) {
-  const programados = programadosMinutos === null ? null : formatearDuracion(programadosMinutos)
+export function DetalleJornadaActiva({ jornada, ahora, siguiente, puedeRegistrar, onRegistrar, onAtras }: PropiedadesDetalleJornadaActiva) {
   return (
     <section className="detalle-jornada-activa">
-      <EncabezadoPantallaMovil titulo="Mi jornada de hoy" onAtras={onAtras} />
-      <CajaMovil tono="verde" icono="registro" titulo="Tiempo trabajado">
-        <strong className="detalle-jornada-activa__tiempo">{efectivoMinutos === null ? '—' : formatearDuracion(efectivoMinutos)}</strong>
-        <small>{programados ? `de ${programados} programadas, de entrada a salida (referencia, no oficial)` : 'sin horario vigente (referencia, no oficial)'}</small>
-      </CajaMovil>
-      <dl className="detalle-jornada-activa__marcas">
-        <div>
-          <dt>
-            <Icono nombre="entrada" /> Entrada
-          </dt>
-          <dd>{hora(instantes.entrada)}</dd>
-        </div>
-        <div>
-          <dt>
-            <Icono nombre="cubiertos" /> Almuerzo
-          </dt>
-          <dd>{instantes.salidaAlmuerzo ? `${hora(instantes.salidaAlmuerzo)} a ${hora(instantes.regresoAlmuerzo)}` : '—'}</dd>
-        </div>
-        <div>
-          <dt>
-            <Icono nombre="salida" /> Salida
-          </dt>
-          <dd>{hora(instantes.salidaFinal)}</dd>
-        </div>
-      </dl>
+      <EncabezadoPantallaMovil titulo="Detalle de la jornada de hoy" onAtras={onAtras} />
+      <JornadaDelDiaTrabajador jornada={jornada} ahora={ahora} conCronometro={false} />
       {puedeRegistrar && siguiente !== null && (
         <Boton variante="secundario" className="detalle-jornada-activa__boton" onClick={onRegistrar}>
           {ACCION_MARCACION[siguiente]}

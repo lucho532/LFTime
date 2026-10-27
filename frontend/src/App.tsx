@@ -15,6 +15,7 @@ import { PaginaIncidencias } from './paginas/PaginaIncidencias'
 import { PaginaInformes } from './paginas/PaginaInformes'
 import { PaginaInicio } from './paginas/PaginaInicio'
 import { PaginaIngreso } from './paginas/PaginaIngreso'
+import { PaginaRecuperarAcceso } from './paginas/PaginaRecuperarAcceso'
 import { PaginaJornadas } from './paginas/PaginaJornadas'
 import { PaginaPersonal } from './paginas/PaginaPersonal'
 import { PaginaRegistro } from './paginas/PaginaRegistro'
@@ -37,6 +38,8 @@ export default function App() {
       <div className="aplicacion">
         <Routes>
           <Route path="/ingreso" element={<PaginaIngreso />} />
+          <Route path="/recuperar-acceso" element={<PaginaRecuperarAcceso paso="solicitud" />} />
+          <Route path="/restablecer-contrasena" element={<PaginaRecuperarAcceso paso="nueva" />} />
           <Route element={<RutaProtegida />}>
             <Route element={<DisposicionPorRol />}>
               <Route index element={<RedireccionInicial />} />

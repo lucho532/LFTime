@@ -52,13 +52,22 @@ describe('aplicación móvil del trabajador: registro (HU-05, CA-1 a CA-5, CA-11
     repositorios.alertas.reemplazarTodo([])
   })
 
-  it('la pantalla principal muestra la persona, el hospital, la hora de Colombia y solo la entrada', async () => {
+  it('lo primero que se ve es el cronómetro en vivo con el botón de la acción; la persona y la campana van arriba a la derecha', async () => {
     await abrirRegistro()
     expect(await screen.findByRole('button', { name: 'Registrar entrada' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /Registrar (salida|regreso)/ })).not.toBeInTheDocument()
-    expect(screen.getByText('María López')).toBeInTheDocument()
-    expect(screen.getByText('07:00')).toBeInTheDocument()
-    expect(screen.getByText('(Hora de Colombia)')).toBeInTheDocument()
+    const cronometro = screen.getByRole('timer', { name: 'Tiempo trabajado hoy' })
+    expect(cronometro).toHaveTextContent('--:--:--')
+    // El cronómetro y el botón van antes que la tarjeta del hospital.
+    const botonRegistrar = screen.getByRole('button', { name: 'Registrar entrada' })
+    expect(cronometro.compareDocumentPosition(botonRegistrar) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(botonRegistrar.compareDocumentPosition(screen.getByText('Hospital San José')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    const barra = screen.getByRole('banner')
+    expect(within(barra).getByRole('link', { name: 'Abrir mi ficha: María López' })).toHaveAttribute('href', '/personal/trab-001')
+    expect(within(barra).getByRole('link', { name: /^Mis incidencias: / })).toHaveAttribute('href', '/incidencias')
+    expect(screen.getByRole('button', { name: 'Ver detalle de la jornada' })).toBeInTheDocument()
+    expect(screen.getByText(/07:00/)).toBeInTheDocument()
+    expect(screen.getByText(/hora de Colombia/)).toBeInTheDocument()
     expect(screen.getByText(/Recuerda:/)).toBeInTheDocument()
     expect(screen.getAllByText(/ningún servidor la valida|no están validadas por el servidor/).length).toBeGreaterThan(0)
   })
@@ -87,16 +96,20 @@ describe('aplicación móvil del trabajador: registro (HU-05, CA-1 a CA-5, CA-11
     expect(repositorios.marcaciones.listar()).toHaveLength(1)
   })
 
-  it('el detalle de la jornada muestra el tiempo trabajado como referencia y las marcas del día', async () => {
+  it('el enlace «Ver detalle de la jornada» abre las marcaciones con su hora programada y el resumen del día', async () => {
     responder(ubicacionEnHospital())
     await abrirRegistro()
     await registrar('Registrar entrada')
-    await userEvent.click(await screen.findByRole('button', { name: 'Ver detalle de mi jornada' }))
-    expect(screen.getByText('Tiempo trabajado')).toBeInTheDocument()
-    expect(screen.getByText(/referencia, no oficial/)).toBeInTheDocument()
-    expect(screen.getByText('Entrada').closest('div')).toHaveTextContent('07:00 a. m.')
+    await userEvent.click(await screen.findByRole('button', { name: 'Ver detalle de la jornada' }))
+    expect(screen.getByRole('heading', { name: 'Detalle de la jornada de hoy' })).toBeInTheDocument()
+    const tabla = screen.getByRole('table')
+    expect(within(tabla).getByRole('rowheader', { name: 'Entrada laboral' })).toBeInTheDocument()
+    expect(within(tabla).getAllByText('07:00 a. m.', { selector: 'td' })).toHaveLength(2)
+    expect(screen.getByText('Resumen del día')).toBeInTheDocument()
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'Volver' }))
     expect(await screen.findByRole('button', { name: 'Registrar salida a almuerzo' })).toBeInTheDocument()
+    expect(screen.getByRole('timer', { name: 'Tiempo trabajado hoy' })).toHaveTextContent(/\d\d:\d\d:\d\d/)
   })
 
   it('el resumen del historial muestra los tres tiempos por separado y «Incompleto» mientras falta una marca (D16, D21)', async () => {
@@ -137,12 +150,14 @@ describe('aplicación móvil del trabajador: registro (HU-05, CA-1 a CA-5, CA-11
     expect(screen.getByText(/Configuración del sitio/)).toBeInTheDocument()
     expect(screen.getByText('No se registró (fallo técnico).')).toBeInTheDocument()
     expect(ubicacionDelDispositivo).toHaveBeenCalledTimes(1)
+    const incidenciasAntes = repositorios.incidencias.listar().length
 
     responder(ubicacionEnHospital())
     await userEvent.click(screen.getByRole('button', { name: 'Activar ubicación' }))
     expect(await screen.findByText('Registro guardado en esta demostración.')).toBeInTheDocument()
     expect(ubicacionDelDispositivo).toHaveBeenCalledTimes(2)
-    expect(repositorios.incidencias.listar()).toHaveLength(0)
+    // Un fallo técnico no abre ninguna incidencia nueva.
+    expect(repositorios.incidencias.listar()).toHaveLength(incidenciasAntes)
   })
 
   it('«Cancelar» en la pantalla de ubicación vuelve al inicio sin registrar ni dejar el mensaje', async () => {

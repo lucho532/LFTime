@@ -66,3 +66,34 @@
   border-radius: 12px;
   font-size: 1.05rem;
 }
+
+.pantalla-gps__pin {
+  animation: pin-rebote 1.8s ease-in-out infinite;
+  box-shadow: 0 10px 22px rgba(27, 95, 232, 0.4);
+}
+
+.pantalla-gps__radio {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radio-late 2.4s ease-in-out infinite;
+}
+
+@keyframes pin-rebote {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes radio-late {
+  50% {
+    transform: scale(1.12);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pantalla-gps__pin,
+  .pantalla-gps__radio {
+    animation: none;
+  }
+}

@@ -85,3 +85,16 @@
   color: var(--color-texto-suave);
   font-size: 0.85rem;
 }
+
+/* En el ancho de un teléfono las celdas pueden partirse en vez de obligar a desplazar la tabla. */
+@media (max-width: 560px) {
+  .jornada-trabajador table {
+    min-width: 0;
+  }
+
+  .jornada-trabajador th,
+  .jornada-trabajador td {
+    padding-right: var(--espacio-2);
+    white-space: normal;
+  }
+}

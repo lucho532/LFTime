@@ -11,6 +11,8 @@ interface PropiedadesJornadaDelDiaTrabajador {
   jornada: JornadaDelDia
   /** Instante actual, actualizado cada segundo por quien usa el componente. */
   ahora: Date
+  /** Falso cuando el cronómetro ya se muestra en otro lugar de la pantalla (el inicio de la app móvil). */
+  conCronometro?: boolean
 }
 
 const FILAS: Array<{ tipo: TipoMarcacion; nombre: string }> = [
@@ -37,7 +39,7 @@ function textoDiferenciaAlmuerzo(tomado: number | null, autorizado: number | nul
  * tramo, almuerzo tomado frente al autorizado y total de la jornada, con «Incompleto» si falta una marca, D16). Lo programado sale del horario: la ventana del
  * almuerzo y su duración autorizada son provisionales (P-07). Solo muestra; no modifica lo registrado (R-10).
  */
-export function JornadaDelDiaTrabajador({ jornada, ahora }: PropiedadesJornadaDelDiaTrabajador) {
+export function JornadaDelDiaTrabajador({ jornada, ahora, conCronometro = true }: PropiedadesJornadaDelDiaTrabajador) {
   const { horario, fechaOperativa, marcaciones } = jornada
   const porTipo = (tipo: TipoMarcacion): MarcacionDto | undefined => marcaciones.find((m) => m.tipo === tipo)
   const hora12 = (hora: string) => formatearHora12(aInstanteUtc(fechaOperativa, hora))
@@ -55,7 +57,7 @@ export function JornadaDelDiaTrabajador({ jornada, ahora }: PropiedadesJornadaDe
 
   return (
     <div className="jornada-trabajador">
-      <CronometroJornada marcaciones={marcaciones} ahora={ahora} />
+      {conCronometro && <CronometroJornada marcaciones={marcaciones} ahora={ahora} />}
       <h3>Registro de jornada laboral</h3>
       <div className="jornada-trabajador__desplazable">
         <table>

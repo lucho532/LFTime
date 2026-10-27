@@ -1,6 +1,8 @@
 .disposicion-movil {
+  /* Ancho de la columna: toda la pantalla en un teléfono; más ancha en tableta, siempre centrada. */
+  --ancho-movil: 100%;
   min-height: 100vh;
-  background: var(--color-fondo);
+  background: linear-gradient(180deg, var(--color-marca-claro) 0, var(--color-fondo) 320px);
 }
 
 .disposicion-movil .aviso-modo-demo {
@@ -11,20 +13,66 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: min(100%, 440px);
-  min-height: calc(100vh - 3rem);
+  width: min(100%, var(--ancho-movil));
+  min-height: calc(100vh - 2rem);
   margin: 0 auto;
-  background: var(--color-fondo);
 }
 
 .disposicion-movil__contenido {
   flex: 1;
-  padding: var(--espacio-3) var(--espacio-3) 88px;
+  padding: var(--espacio-3) var(--espacio-3) calc(96px + env(safe-area-inset-bottom));
 }
 
-@media (min-width: 560px) {
-  .disposicion-movil__telefono {
-    border-inline: 1px solid var(--color-borde);
-    box-shadow: var(--sombra-tarjeta);
+/* Cada pantalla entra con sus bloques escalonados. */
+.disposicion-movil__contenido > * > * {
+  animation: movil-entrada 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.disposicion-movil__contenido > * > :nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.disposicion-movil__contenido > * > :nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.disposicion-movil__contenido > * > :nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.disposicion-movil__contenido > * > :nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.disposicion-movil__contenido > * > :nth-child(n + 6) {
+  animation-delay: 0.25s;
+}
+
+@keyframes movil-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disposicion-movil__contenido > * > * {
+    animation: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .disposicion-movil {
+    --ancho-movil: 540px;
+  }
+
+  .disposicion-movil__contenido {
+    padding-inline: var(--espacio-4);
+  }
+}
+
+@media (min-width: 900px) {
+  .disposicion-movil {
+    --ancho-movil: 640px;
   }
 }

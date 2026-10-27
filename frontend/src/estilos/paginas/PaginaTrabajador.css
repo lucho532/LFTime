@@ -7,9 +7,14 @@
 
 .pagina-trabajador__rejilla {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--espacio-4);
   align-items: start;
+}
+
+/* Sin esto, una tabla ancha estira la columna y la ficha se sale de la pantalla del teléfono: la tabla se desplaza dentro de su tarjeta. */
+.pagina-trabajador__rejilla > * {
+  min-width: 0;
 }
 
 /* Con ancho de escritorio, los datos y el horario van a la izquierda y la jornada de hoy ocupa el resto. */
