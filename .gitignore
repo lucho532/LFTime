@@ -6,3 +6,6 @@ dist/
 !.env.ejemplo
 .vscode/
 coverage/
+
+# Configuración del editor (JetBrains)
+.idea/
